@@ -1,6 +1,8 @@
 # 100xDevs-Cohort-Assignments
+
 ![Build Status](https://img.shields.io/badge/build-passing-brightgreen)
 ![License](https://img.shields.io/badge/license-MIT-blue)
+
 Welcome to the **100xDevs-Cohort-Assignments** repository!
 
 
