@@ -1,0 +1,152 @@
+body{
+    background-color: #0e0e0e;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+    font-weight: 500;
+    color: 9ba3b4;
+    margin: 0;
+    padding: 0;
+}
+.logo{
+    display: flex;
+    justify-content: normal;
+    cursor: pointer;
+}
+.logo-title a{
+    color: #e9eaeb;
+    font-size: 20px;
+    font-weight: 600;
+    padding: 0 15px 15px 12px;
+    text-decoration: none;
+}
+.logo-image{
+    padding-left: 36px;
+}
+
+.toplink{
+    color: #9ba3b4;
+    font-size: 16px;
+    text-decoration: none;
+    padding-left: 12px;
+    padding-right: 12px;
+}
+.toplink:hover{
+    color: #e9eaeb;
+}
+.navbar{
+    font-size: 16px;
+    padding-left: 36px;
+    min-height: 50px;
+    padding-right: 80px;
+    display: flex;
+    justify-content: space-between;
+    /* border-bottom: 1px solid rgba(255,255,255,0.12); */
+}
+.nav-left{
+    display: flex;
+    justify-content: center;
+    padding-top: 20px;
+}
+.nav-right{
+    padding-top: 0px;
+}
+.nav-right img{
+    padding-right: 6px;
+    padding-top: 19px;
+}
+.search{
+    background: url("https://code.visualstudio.com/assets/icons/search-dark.svg") no-repeat left;
+    background-size: 16px;
+    background-position: 12px;
+    background-color: rgba(0,0,0,0.07);
+    border: 1px solid rgba(255,255,255,0.15);
+    padding: 5px 12px 5px 36px;
+    border-radius: 4px;
+    color: 9ba3b4;
+    width: 200px;
+    height: 35px;
+    font-size: 14px;
+    margin: 0px;
+    margin-right: 8px;
+}
+.search:focus{
+    border-color: #0078d4;
+    box-shadow: none;
+}
+.download{
+    color: #fff;
+    padding: 8px 16px;
+    font-size: 16px;
+    line-height: 100%;
+    border-radius: 4px;
+    background-color: 0078d4;
+    cursor: pointer;
+    border: none;
+}
+.announcement{
+    color: 9ba3b4;
+    font-size: 14px;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+}
+.link{
+    color: 4daafc;
+}
+.link:visited{
+    color: 4daafc;
+}
+.highlight{
+    padding: 8px 12px;
+    font-size: 14px;
+    border-radius: 32px;
+    background-color: rgba(255,255,255,0.04);
+    margin-bottom: 6px;
+    width: max-content;
+    border: 1px solid rgba(255,255,255,0.07);
+}
+.herotxt{
+    font-size: 56px;
+    color: #e9eaeb;
+    font-weight: 600;
+    margin-top: 20px;
+}
+.download-btn-large{
+    color: #ffffff;
+    background-color: #0078d4;
+    padding: 16px 24px;
+    font-size: 17px;
+    border-radius: 4px;
+    border: none;
+    font-weight: 600;
+    cursor: pointer;
+}
+.download-btn-large:hover{
+    background-color: #005ba4;
+}
+.main{
+    display: flex;
+    justify-content: space-around;
+    padding: 32px 40px;
+}
+.left{
+    width: 325px;
+    padding: inherit;
+    padding-top: 25px;
+}
+.right img{
+    padding: 0 40px;
+}
+.right{
+    padding-top: 20px;
+}
+.download-links{
+    margin: 16px 0px;
+    display: block;
+    font-size: 14px;
+}
+.subtext-terms{
+    font-size: 11px;
+    font-weight: 400;
+    width: 200px;
+    line-height: 1.4;
+}
