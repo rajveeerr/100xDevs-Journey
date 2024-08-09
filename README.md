@@ -1,5 +1,4 @@
 # 100xDevs-Cohort-Assignments
-<img width="132" alt="Screenshot 2024-08-09 at 1 42 35 PM" src="https://github.com/user-attachments/assets/6a068451-9b96-4e6b-a8c3-03a2ffbe3417">
 ![Build Status](https://img.shields.io/badge/build-passing-brightgreen)
 ![License](https://img.shields.io/badge/license-MIT-blue)
 
