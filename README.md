@@ -1,8 +1,8 @@
 # 100xDevs-Cohort-Assignments
-
-Welcome to the **100xDevs-Cohort-Assignments** repository!
 ![Build Status](https://img.shields.io/badge/build-passing-brightgreen)
 ![License](https://img.shields.io/badge/license-MIT-blue)
+Welcome to the **100xDevs-Cohort-Assignments** repository!
+
 
 This repository contains all the projects and assignments that I will be working on during the cohort. Each project and assignment will be organized and documented here to track my progress and showcase my work.
 
