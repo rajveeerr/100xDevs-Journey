@@ -17,16 +17,6 @@ This repository contains all the projects and assignments that I will be working
 
 The primary goal of this repository is to document my learning journey and showcase the work I produce during the cohort. It is intended to keep a comprehensive record of my projects and assignments.
 
-## How to Use
-
-To explore the content:
-
-Navigate to the relevant folder (`projects/` or `assignments/`) to view individual projects or assignments.
-
-## Contact
-
-For any questions or feedback, please contact me at [your-email@example.com](mailto:your-email@example.com).
-
 ---
 
 Thank you for checking out my repository!
