@@ -19,7 +19,6 @@ You can check out the live version of this project here: [Live Preview](https://
 
 ### **Editor Page:**
 <img width="1280" alt="Screenshot 2024-08-10 at 8 06 09 PM" src="https://github.com/user-attachments/assets/79d3abec-e749-4376-9f6e-fe70f8bbbc10">
-<img width="1280" alt="Screenshot 2024-08-10 at 8 05 04 PM" src="https://github.com/user-attachments/assets/beca1b14-df5c-4abd-848e-93b2b6b39ec7">
 <img width="1280" alt="Screenshot 2024-08-10 at 8 06 58 PM" src="https://github.com/user-attachments/assets/e2278c99-aaed-4635-b418-2ffcd1121ad3">
 
 ## **Usage** 💻
