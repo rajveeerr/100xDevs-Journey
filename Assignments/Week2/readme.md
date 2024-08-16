@@ -28,7 +28,7 @@ You can clone this repository to explore and use the code for your own learning.
 
 ## Screenshots
 
-<img width="1280" alt="Screenshot 2024-08-16 at 4 30 18 PM" src="https://github.com/user-attachments/assets/52ace85b-01b9-4f84-b6f9-3e649914ab1d"<img width="1280" alt="Screenshot 2024-08-16 at 4 24 40 PM" src="https://github.com/user-attachments/assets/56c918b6-60ac-445b-9db8-0c6f88089d7b">
+<img width="1280" alt="Screenshot 2024-08-16 at 4 24 40 PM" src="https://github.com/user-attachments/assets/56c918b6-60ac-445b-9db8-0c6f88089d7b">
 
 <img width="1280" al<img width="1280" alt="Screenshot 2024-08-16 at 4 33 32 PM" src="https://github.com/user-attachments/assets/b532059c-0f78-4aa7-9fab-ded72e6d8a72">
 
