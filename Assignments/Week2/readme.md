@@ -1,6 +1,6 @@
 # Week 2 Assignments & Class Notes
 
-This repository contains all the assignments I've completed and the class notes I've taken during Week 2 of the 100xDevs Web Development Cohort 3.
+This directory contains all the assignments I've completed and the class notes I've taken during Week 2 of the 100xDevs Web Development Cohort 3.
 
 ## Directory Structure
 
