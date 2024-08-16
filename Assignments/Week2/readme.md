@@ -15,7 +15,7 @@ These tasks were provided during the live class sessions. I've worked on and imp
 - **`promisifiedWriteFile.js`** - A function that writes to a file using promises.
 - **`promisifiedCleanFile.js`** - A function that cleans up a file's content, implemented with promises.
 
-All these functions are included in the `classNotes.js` file. The files `classNotesWeek2.1.js` and `classNotesWeek2.2.js` contain all the class notes I've taken.
+All these functions are included in the `classAssignments.js` file. The files `classNotesWeek2.1.js` and `classNotesWeek2.2.js` contain all the class notes I've taken.
 
 ### `100xDevs-Journey/Assignments/Week2/assignments-main/`
 This directory contains all the assignments provided by Harkirat outside of the live classes. These assignments were pulled from the official repository [here](https://github.com/100xdevs-cohort-3/assignments/tree/main).
