@@ -1,6 +1,7 @@
 ## JavaScript Assignments
 
-### Just open any file to see my solutions.
+### <span style="color:blue">*Just open any file to see my solutions.*</span>.
+
 
 This folder contains assignments related to asynchronous JavaScript.
 
