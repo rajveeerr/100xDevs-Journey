@@ -1,6 +1,6 @@
 ## JavaScript Assignments
 
-#Just open any file to see my solutions.
+###Just open any file to see my solutions.
 
 This folder contains assignments related to asynchronous JavaScript.
 
