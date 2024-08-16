@@ -1,4 +1,4 @@
-## JavaScript Assignments
+## JavaScript Assignments(Solutions)
 
 ### <span style="color:blue">*Just open any file to see my solutions.*</span>.
 
