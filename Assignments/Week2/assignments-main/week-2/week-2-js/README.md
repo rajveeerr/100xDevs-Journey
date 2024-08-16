@@ -1,4 +1,6 @@
-## JavaScript Assignments
+## JavaScript Assignments(Solutions)
+
+### <span style="color:blue">*Just open any file to see my solutions.*</span>.
 
 You are provided empty JavaScript files (or having function signatures) in this directory. 
 You have to follow the instructions given in each file and write the code in the same file to complete the assignment.
