@@ -30,9 +30,9 @@ You can clone this repository to explore and use the code for your own learning.
 
 <img width="1000" alt="Screenshot 2024-08-16 at 4 24 40 PM" src="https://github.com/user-attachments/assets/56c918b6-60ac-445b-9db8-0c6f88089d7b">
 
-<img width="1000" al<img width="1280" alt="Screenshot 2024-08-16 at 4 33 32 PM" src="https://github.com/user-attachments/assets/b532059c-0f78-4aa7-9fab-ded72e6d8a72">
+<img width="1280" alt="Screenshot 2024-08-16 at 4 33 32 PM" src="https://github.com/user-attachments/assets/b532059c-0f78-4aa7-9fab-ded72e6d8a72">
 
-<img width="1000" alt="Screens<img width="1280" alt="Screenshot 2024-08-16 at 4 30 18 PM" src="https://github.com/user-attachments/assets/846148c1-06df-4b84-8af3-416351d83437">
+<img width="1280" alt="Screenshot 2024-08-16 at 4 30 18 PM" src="https://github.com/user-attachments/assets/846148c1-06df-4b84-8af3-416351d83437">
 
 
 
