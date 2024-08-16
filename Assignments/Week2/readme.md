@@ -20,8 +20,8 @@ All these functions are included in the `classNotes.js` file. The files `classNo
 ### `100xDevs-Journey/Assignments/Week2/assignments-main/`
 This directory contains all the assignments provided by Harkirat outside of the live classes. These assignments were pulled from the official repository [here](https://github.com/100xdevs-cohort-3/assignments/tree/main).
 
-- **`week-2-async-js/`**: Contains assignments related to asynchronous JavaScript.
-- **`week-2-js/`**: Contains other JavaScript-related assignments from Week 2.
+- **`week-2/week-2-async-js/`**: Contains assignments related to asynchronous JavaScript.
+- **`week-2/week-2-js/`**: Contains other JavaScript-related assignments from Week 2.
 
 ## How to Use
 You can clone this repository to explore and use the code for your own learning. All assignments have been solved correctly, and the solutions provided should be fully functional.
