@@ -57,7 +57,3 @@ Atmosonic was a project that allowed me to bring together everything I’ve lear
 ## 📄 License
 
 This project is open-source and available under the [MIT License](LICENSE).
-
----
-
-Feel free to update any details or add more information as needed!
