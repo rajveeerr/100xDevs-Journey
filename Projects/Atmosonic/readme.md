@@ -31,6 +31,7 @@ Check out the live version of Atmosonic: [Atmosonic](https://atmosonic.netlify.a
 <img width="1280" alt="Screenshot 2024-08-23 at 2 51 30 AM" src="https://github.com/user-attachments/assets/701bfe7e-5e28-4d88-9920-2d461abda16e">
 
 <br>
+<br>
 
 **Get Started**
 
