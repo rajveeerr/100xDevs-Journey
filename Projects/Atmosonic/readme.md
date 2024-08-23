@@ -4,7 +4,7 @@
 
 ## 🚀 Live Demo
 
-Check out the live version of Atmosonic: [Atmosonic](https://atmosonic.netlify.app/)
+Check out the live version of [Atmosonic](https://atmosonic.netlify.app/): https://atmosonic.netlify.app/
 
 ## 🌟 Features
 
