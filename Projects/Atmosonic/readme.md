@@ -25,11 +25,10 @@ Check out the live version of Atmosonic: [Atmosonic](https://atmosonic.netlify.a
 ## 📸 Screenshots 
  **Homepage**
 <img width="1280" alt="Screenshot 2024-08-23 at 2 51 07 AM" src="https://github.com/user-attachments/assets/239ecf51-8d42-4462-be27-67085c9daed0">
-<img width="1280" alt="Screenshot 2024-08-23 at 2 51 15 AM" src="https://github.com/user-attachments/assets/3b2b161c-4723-4cbd-8767-7d0ef6e655de">
 <img width="1280" alt="Screenshot 2024-08-23 at 2 51 30 AM" src="https://github.com/user-attachments/assets/701bfe7e-5e28-4d88-9920-2d461abda16e">
 **Get Started**
-<img width="1280" alt="Screenshot 2024-08-23 at 2 51 43 AM" src="https://github.com/user-attachments/assets/2233b5d2-0ce5-4ebd-8d09-daf6a7b49de2">
-<img width="1280" alt="Screenshot 2024-08-17 at 9 21 32 PM" src="https://github.com/user-attachments/assets/523a43bd-80f6-47ab-8d65-59108e9bba95">
+<img width="1280" alt="Screenshot 2024-08-23 at 2 52 02 AM" src="https://github.com/user-attachments/assets/c741baf7-f866-408e-8d40-044441b104e2">
+<img width="1280" alt="Screenshot 2024-08-23 at 2 52 12 AM" src="https://github.com/user-attachments/assets/613e7782-da3f-48d2-9801-f98f9ec5b8f2">
 
 
 ## 📚 What I Learned
