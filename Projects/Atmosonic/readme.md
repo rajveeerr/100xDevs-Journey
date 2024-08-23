@@ -41,7 +41,7 @@ Check out the live version of Atmosonic: https://atmosonic.netlify.app/
 
 ## 📚 What I Learned
 
-Atmosonic was a project that allowed me to bring together everything I’ve learned in Cohort3 so far:
+Atmosonic was a project that allowed me to bring together everything I’ve learned in Cohort3 of @100xDevs so far:
 
 - **Week 1**: HTML, CSS, and Vanilla JS basics.
 - **Week 2**: Asynchronous JavaScript, Promises(for API Handling), OOPs.
