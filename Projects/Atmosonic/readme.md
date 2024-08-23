@@ -24,7 +24,6 @@ Check out the live version of Atmosonic: [Atmosonic](https://atmosonic.netlify.a
 
 ## 📸 Screenshots 
  **Homepage**
-
 <br>
  
 <img width="1280" alt="Screenshot 2024-08-23 at 2 51 07 AM" src="https://github.com/user-attachments/assets/239ecf51-8d42-4462-be27-67085c9daed0">
@@ -34,7 +33,6 @@ Check out the live version of Atmosonic: [Atmosonic](https://atmosonic.netlify.a
 <br>
 
 **Get Started**
-
 <br>
 
 <img width="1280" alt="Screenshot 2024-08-23 at 2 52 02 AM" src="https://github.com/user-attachments/assets/c741baf7-f866-408e-8d40-044441b104e2">
