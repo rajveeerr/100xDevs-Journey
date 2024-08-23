@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="logo.jpeg">
+    <title>CodeCraft Editor🛠️ </title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+        body{
+            background-image: radial-gradient(ellipse 80% 80% at 50% -20%,rgba(38,91,248,.25),hsla(0,0%,100%,0));
+        }
+    </style>
+    <script src="https://kit.fontawesome.com/b6fe51c8e7.js" crossorigin="anonymous"></script>
+
+</head>
+<body id="test">
+    <navbar class="editor-nav">
+        <div class="logo"><a href="index.html">
+            Code<span>Craft</span></a>
+        </div>
+        <div class="buttons">
+            <a href="index.html" class="compiler-btn">Go Home</a>
+            <a href="https://x.com/RajveeerrSingh" class="social-btn" target="_blank">Twitter</a>
+        </div>
+    </navbar>
+
+    <main class="editor">
+        <h1><span class="gradient-txt"><span class="pen"> ✏️ </span>Start Coding</span></h1>
+        <p class="sub-txt" id="subTxt">Write your code below in the editor. As you type, your code will automatically appear in the live preview on the bottom.</p>
+        <div class="container">
+            <!-- <h3>💻 Code Editor</h3> -->
+            <div class="code-area">
+                <div class="html-code">
+                    <label>
+                        <div class="label-txt"><span class="emoji">📄 </span>Use <span class="gradient-txt">HTML </span> for structure</div>
+                        <div class="label-btn"><button onclick="copyContenth()" id="copyCode">Copy to Clipboard</button></div>
+                    </label>
+                    <textarea id="htmlCode" rows="4" cols="50" placeholder="Write HTML code here..."></textarea>
+                </div>
+                <div class="css-code">
+                    <label>
+                        <div class="label-txt"><span class="emoji">🎨 </span>Style your code with <span class="gradient-txt">CSS </span></div>
+                        <div class="label-btn"><button onclick="copyContentc()" id="copyCode">Copy to Clipboard</button></div>
+                    </label>
+                    <textarea id="cssCode" rows="4" cols="50" placeholder="Write CSS code here..."></textarea>
+                </div>
+                <div class="js-code">
+                    <label>
+                        <div class="label-txt"><span class="emoji">⚙️ </span>Add interactivity with <span class="gradient-txt">JS </span></div>
+                        <div class="label-btn"><button onclick="copyContentj()" id="copyCode">Copy to Clipboard</button></div>
+                    </label>
+                    <textarea id="jsCode" rows="4" cols="50" placeholder="Write JavaScript code here..."></textarea>
+                </div>
+            </div>
+            <!-- <h3>👀 Live Preview</h3> -->
+            <div class="code-preview">
+                <div class="display-code">
+                    <label for="w3review">
+                        <div class="label-txt">See your <span class="gradient-txt">code</span> in action</div>
+                    </label>
+                    <iframe id="output"></iframe>
+                </div>
+            </div>
+        </div>
+
+    </main>
+    <footer>
+        <div class="logo-and-details">
+            <div class="logo"><a href="index.html">
+                Code<span>Craft</span></a>
+            </div>
+            <div class="footer-txt">Made with lot of ❤️ by Rajveer Singh. </div>
+        </div>
+        <div class="social-icons">
+            <a href="https://github.com/rajveeerr" target="_blank"><i class="fa-brands fa-square-github"></i></a>
+            <a href="https://x.com/RajveeerrSingh" target="_blank"><i class="fa-brands fa-square-x-twitter"></i></a>
+            
+        </div>
+        
+    </footer>
+    <script type="text/javascript" src="script.js"></script> 
+</body>
+</html>
