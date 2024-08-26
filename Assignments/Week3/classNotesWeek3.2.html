@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <input type="text" placeholder="Enter your Task"><button onclick="addTodo()">Add Todo</button>
+    <div class="todos"></div>
+
+
+
+    <script>
+// To make forntend easier to code concept of state and components came into picture. State are the variable parts of
+// the website and components(like wireframe) are static one. Simply the state is rendered into DOM based on components,
+//  no need of writing dom agn and agn
+
+// These are called state derived frontend, that means just update the staate everything else will updated itself
+ 
+// Try YOURSELF: try adding edit, strike and implementing delete in a better way and think of logic which can
+//  be used to optimise the code just like react does
+
+    let todos=[];  //this is state variable
+    function addTodo(){
+    todos.push({
+        title: document.querySelector("input").value
+    });
+    if(document.querySelector("input").value){
+        render();
+    }
+    else{
+        alert("Enter The Task!!!!!!!!")
+    }
+    document.querySelector("input").value='';
+    }
+
+    function deleteTodo(index){
+    // parent.removeChild(document.getElementById(`todo${index}`));
+    todos.splice(index,1); //theres a better way to do this
+
+    render();
+    }
+
+    function editTodo(index){
+        span=document.getElementById(`todo${index}`);
+        if(span.getAttribute("contentEditable")){
+            span.setAttribute("contentEditable","false");
+        }
+        else{
+            span.setAttribute("contentEditable","true");
+        }
+        // render();
+    }
+
+    //this is component
+    function todoComponent(todo,int){
+        div=document.createElement("div");
+        span=document.createElement("span");
+        span.setAttribute("id",`todo${int}`);
+        span.innerHTML=todo.title;
+        edit=document.createElement("button");
+        edit.setAttribute("onclick",`editTodo(${int})`);
+        edit.innerHTML="Edit";
+        btn=document.createElement("button");
+        btn.setAttribute("onclick",`deleteTodo(${int})`);
+        btn.innerHTML="Delete";
+        div.appendChild(span);
+        div.appendChild(btn);
+        div.appendChild(edit);
+
+        return div;
+    }
+
+// Render is done by react, if reacts does this it will make sure it optimal, like this solution is brute force and 
+// unoptimised for change in one element (lets say 5) dom operations are performed, react will only upadte 
+// the changed one hence only 1 dom operation
+// This is called reconcillation in react(state has changed on that basis dom should change, process of finding diff 
+// bw old and new state)
+// React batch changes it updates multiple changes simultaneously at once
+
+//Assignment is to review react and check how does it works, by creating simple todo in it
+
+
+    function render(){
+        parent=document.querySelector(".todos");
+        // parent.parentNode.removeChild(parent);
+        // par=document.createElement("div");
+        // par.setAttribute("class","todos");
+        // document.querySelector("body").appendChild(par);
+        parent.innerHTML="";
+        for(let i=0;i<todos.length;i++){    
+
+            // div=document.createElement("div");
+            // div.setAttribute("id",`todo${i}`);
+            // span=document.createElement("span");
+            // span.innerHTML=todos[i].title;
+
+            // // span.innerHTML=todos[(todos.length!=0)?(todos.length-1):0].title;
+
+            // btn=document.createElement("button");
+            // btn.setAttribute("onclick",`deleteTodo(${i})`);
+
+            // // btn.setAttribute("onclick",`deleteTodo(${todos.length})`);
+
+            // btn.innerHTML="Delete";
+            // div.appendChild(span);
+            // div.appendChild(btn);
+            
+            parent.appendChild(todoComponent(todos[i],i));
+        }
+    }
+
+    </script>
+</body>
+</html>

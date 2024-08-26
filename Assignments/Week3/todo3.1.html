@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>ToDo</title>
+  <link href="style.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+  <h1>Todo list</h1>
+  <div class="todos">
+    <div id="todo-1">
+      <h4>1. Take class</h4>
+      <button onclick="deleteTodo(1)">delete</button>
+    </div>
+    <div id="todo-2">
+        <h4>2. Go out to eat</h4>
+        <button onclick="deleteTodo(2)">delete</button>
+    </div>
+    <!-- <button onclick="dalTodo()">delete</button> -->
+    <!-- <h3> Counter:</h3>
+     <p>1</p> -->
+  </div>
+  <div>
+    <input type="text"></input>
+    <button onclick="addTodo()">Add Todo</button>
+  </div>
+</body>
+
+<script>
+    // function dalTodo(){
+    //     console.log(document.getElementById("todo-2").innerHTML);  //to check if elements can be acessed after removing from dom
+    // }
+
+
+    function deleteTodo(index){
+        ele=document.getElementById(`todo-${index}`);
+        ele.parentNode.removeChild(ele);
+    }
+    counter=3;
+    function addTodo(){
+        parent=document.querySelector(".todos");
+        div=document.createElement("div");
+        div.setAttribute("id",`todo-${counter}`);
+        h4=document.createElement("h4"); //just created h4
+        h4.innerHTML=`${counter}. ${document.querySelector("input").value}`;
+        btn=document.createElement("button");
+        btn.innerHTML="button";
+        btn.setAttribute('onclick',`deleteTodo(${counter})`);
+        div.appendChild(h4); //added h4 to div
+        div.appendChild(btn);
+        parent.appendChild(div); //appending div to the parent
+        counter++;
+        document.querySelector("input").value=""
+        console.log("done"+counter);
+        
+    }
+</script>
+
+</html>
