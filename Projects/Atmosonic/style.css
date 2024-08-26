@@ -107,8 +107,28 @@ body{
     text-decoration: none;
 }
 
-.social-btn a:hover{
-    color: #0056d6;
+.social-btn{
+    padding: 10px 18px;
+    border-radius: 48px;
+    background-color: #1466c2;
+    color: white;
+    box-shadow: rgba(255, 248, 248, 0.11) 0px 0px 15px 0px inset;
+    cursor: pointer;
+    align-items: center;
+    text-decoration: none;
+}
+
+.social-btn a{
+    color: white;
+    text-decoration: none;
+    align-items: center;
+}
+
+.social-btn:hover{
+    /* background-color: #1466c2; */
+    box-shadow: rgba(255, 248, 248, 0.22) 0px 0px 15px 0px inset;
+    background-color: black;
+    text-decoration: none;
 }
 .hero-section{
     background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32' width='32' height='32' fill='none' stroke='rgb(255 255 255 / 0.06)'%3e%3cpath d='M0 .5H31.5V32'/%3e%3c/svg%3e");
