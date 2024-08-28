@@ -22,49 +22,110 @@
 //  be used to optimise the code just like react does
 
     let todos=[];  //this is state variable
+    let ctr=1;
     function addTodo(){
-    todos.push({
-        title: document.querySelector("input").value
-    });
-    if(document.querySelector("input").value){
-        render();
-    }
-    else{
-        alert("Enter The Task!!!!!!!!")
-    }
-    document.querySelector("input").value='';
+        todos.push({
+            title: document.querySelector("input").value,
+            id: `${ctr}`,
+            editId: `edit${ctr}`,
+            deleteId: `del${ctr}`,
+            isDone: false
+        });
+        ctr++;
+        // console.log(todos);
+        // console.log(ctr);
+        if(document.querySelector("input").value){
+            render();
+        }
+        else{
+            alert("Enter The Task!!!!!!!!")
+        }
+        document.querySelector("input").value='';
     }
 
     function deleteTodo(index){
-    // parent.removeChild(document.getElementById(`todo${index}`));
-    todos.splice(index,1); //theres a better way to do this
-
-    render();
+        // parent.removeChild(document.getElementById(`todo${index}`));
+        // todos.splice(index,1); //theres a better way to do this
+        todos= todos.filter((obj)=>{if(obj.id!=index){return obj}});
+        render();
     }
 
     function editTodo(index){
         span=document.getElementById(`todo${index}`);
-        if(span.getAttribute("contentEditable")){
-            span.setAttribute("contentEditable","false");
-        }
-        else{
-            span.setAttribute("contentEditable","true");
-        }
-        // render();
+        editbtn=document.getElementById(`edit${index}`)
+ 
+        span.setAttribute("contentEditable","true");
+        editbtn.style.display="none";
+        span.style.border="1px solid black";
+        let save=document.createElement("button");
+        save.innerHTML="Save";
+        let cancel=document.createElement("button");
+        cancel.innerHTML="Cancel"
+        span.parentNode.appendChild(save);
+        span.parentNode.appendChild(cancel);
+        cancel.addEventListener("click",()=>{render()});
+
+        save.addEventListener("click",()=>{
+            editedText=span.textContent;
+            for(let i=0;i<todos.length;i++){
+                if(todos[i].id==index){
+                    console.log("done")
+                    todos[i].title=editedText;
+                }
+            }
+            render();
+        })
     }
 
+    function isCompleted(ele,index){
+        // box=document.getElementById(`check${index}`);
+        if(ele.checked){
+            for(let i=0;i<todos.length;i++){
+                if(todos[i].id===index){
+                    todos[i].isDone=true;
+                    break;
+                }
+            }
+        }
+        else{
+            for(let i=0;i<todos.length;i++){
+                if(todos[i].id===index){
+                    todos[i].isDone=false;
+                    break;
+                }
+            }
+                
+        }
+        render();
+        console.log(todos)
+    }
+  
+
     //this is component
-    function todoComponent(todo,int){
-        div=document.createElement("div");
-        span=document.createElement("span");
-        span.setAttribute("id",`todo${int}`);
+    function todoComponent(todo){
+        let div=document.createElement("div");
+
+        let checkbox=document.createElement("input");
+        checkbox.id="check"+todo.id;
+        checkbox.type='checkbox';
+        checkbox.onchange= ()=>{isCompleted(checkbox,todo.id)};
+        checkbox.checked = todo.isDone;
+
+        let span=document.createElement("span");
+        span.id="todo"+todo.id;
         span.innerHTML=todo.title;
-        edit=document.createElement("button");
-        edit.setAttribute("onclick",`editTodo(${int})`);
+
+        let edit=document.createElement("button");
+        edit.id="edit"+todo.id;
+        edit.setAttribute("onclick",`editTodo(${todo.id})`);
         edit.innerHTML="Edit";
-        btn=document.createElement("button");
-        btn.setAttribute("onclick",`deleteTodo(${int})`);
+
+        let btn=document.createElement("button");
+        // btn.id=todo.deleteId;
+        btn.setAttribute("onclick",`deleteTodo(${todo.id})`);
         btn.innerHTML="Delete";
+
+        div.appendChild(checkbox);
         div.appendChild(span);
         div.appendChild(btn);
         div.appendChild(edit);
@@ -106,11 +167,19 @@
             // btn.innerHTML="Delete";
             // div.appendChild(span);
             // div.appendChild(btn);
-            
-            parent.appendChild(todoComponent(todos[i],i));
-        }
+            parent.appendChild(todoComponent(todos[i]));
+            span=document.getElementById(`todo${todos[i].id}`);
+            if(todos[i].isDone){
+                span.style.textDecoration="line-through";
+                // console.log(span)
+            }
+            else{
+                span.style.textDecoration="none";
+                // console.log(span)
+            }
     }
-
+    }
+    
     </script>
 </body>
 </html>
