@@ -87,7 +87,7 @@ program
 
 program.command('countwords')
   .description('Count the no. of words in a file.......')
-  .argument('<string>', 'Path of file to count words of')
+  .argument('<string>', 'Path of file to count words of') //Usage: scriptName commandname [options] <string>
   .option('--first', 'display just the first word')
   // .option('-s, --separator <char>', 'separator character', ',')
   .action((str, options) => {
@@ -119,3 +119,7 @@ program.command('countwords')
   });
 
 program.parse();
+// instead of using this fn in cli like this: node classNotes4.1.js countwords testfile.txt one can give alias countercli= node classNotes4.1.js and use countercli countwords testfile.txt
+
+
+console.log(process.argv); //this returns all the arguments used to call this, like node classNotes4.1.js it will return path of all this
