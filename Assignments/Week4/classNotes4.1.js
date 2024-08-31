@@ -1,31 +1,30 @@
-// Html, Css and Js were meant to browser libraries as they were supposed to be used on browsers only
+// Html, Css and Js were meant to be browser libraries as they were supposed to be used on browsers only
 
 // Node js is an open-source JS runtime that allows you to execute JavaScript code on the server side. It's built
 //  on Chrome's V8 JavaScript engine.
-// Node js was introdused to make us run js code on both frontend and backend
+// Node js was introduced to make us run js code on both frontend and backend
 // Runtime is a Enviornment where JS code can be executed
 
 // V8 engine?
 // The V8 engine is an open-source JavaScript engine developed by Google. It is used to execute JavaScript code 
-// in various environments, most notably in the Google Chrome web browser.
+// in various environments, most notably in the Google Chrome web browser. Firefox has its own js engine
 
 
 // Fs library is only availaible on node, not in browsers for security and privacy
 // Similay DOM is not a part of Node as it doesn't make sence there
 
-// Nodejs is a js runtime that uses v8 engine
+// TlDr; Nodejs is a js runtime that uses v8 engine
 
 // Bun is another js runtime written using zig which is taking over nodejs, and is replacing it, as node is 
-// very slow, bun is just an interpreter(next js projects arent compatible with node js)
+// very slow, bun is just an interpreter like node(next js projects arent compatible with node js)
 
 
-// Nodejs, bun and browserss are just trying to implement ecma script standards thats it
+// Nodejs, bun and browsers are just trying to implement ecma script standards thats it
 
 
 // run npm init -y
 //contents of package.json file
 /* {
-//external dependencies
   "name": "week4",   //name of website/library/app   
   "version": "1.0.0", //change this version as you update the code
   "main": "classNotes4.1.js",  //entry point
@@ -38,17 +37,17 @@
   "license": "ISC",
   "description": "", //all these are meta data
   "dependencies" : {
-    "chalk": "^5.3.0" versions: major.minor.patch(change major for breaking change, change minor for small changes-this changed version is supposed to be compatible with the prev version, change patch when fixing small bugs), ^5 (^)caret sign suggests to update the version whenever new comes out but dont go over major version 5(i.e. to 6 auyomatically) if version is written without ^ sign the version wi=ritten will be installed. The main problem of this arises in developement when multiple folks care cloning this repository, they get different version installed for themselvs due to this ^ symbol or when the code is deployed the server might have different version installed, to solve thos a package-lock.json file conmes in handy which makes sure that same version of the package is installed for everyone. Changing version in package and running npm run will automatically install that version
+    "chalk": "^5.3.0" versions: major.minor.patch(change major for breaking change, change minor for small changes-this changed version is supposed to be compatible with the prev version, change patch when fixing small bugs), ^5 (^)caret sign suggests to update the version whenever new comes out but dont go over major version 5(i.e. to 6 automatically) if version is written without ^ sign the version written will be installed. The main problem of this arises in developement when multiple folks are cloning this repository, they get different version installed for themselvs due to this ^ symbol or when the code is deployed the server might have different version installed, to solve this a package-lock.json file conmes in handy which makes sure that same version of the package is installed for everyone. Changing version in package and running npm run will automatically install that version
     "chalk": "latest" will install latest version
     The package-lock, json records the exact versions of all dependencies and their dependencies (sub-dependencies) that are installed at the time when npm install was run.
     //should we deploy package-lock files on github??? The answer is yes, we gotta make sure that everyone has same version installed locally
     //this section along with scripts is most inportant
     //this contains all the dependencies required by codebase, can be used to keep track of all the dependencies used,
-    when one package is installed it also contains some dependencies with itselvs has its own set of dependencies, that's why node modules are so heavy
-    when one run npm install all dependencies automatically gets install, theses no need of node modules folder
+    when one package is installed it also contains some dependencies, those dependencies have their own set of dependencies(sub-dependencies), that's why node modules are so heavy
+    when one run npm install all dependencies automatically gets install, theses no need of node modules folder to be pushed to github
   }
 
-  comes in handy when deploying an npm package to external registry
+  all this details comes in handy when deploying an npm package to external registry
 */
 
 
