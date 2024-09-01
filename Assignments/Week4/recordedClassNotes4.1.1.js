@@ -52,7 +52,7 @@ const app=express(); //opening the clinic
 // responds to the request made my my phone, benifit?? I can run expensive operation on mac and give it to phone
 
 // Taking Input as Query parameters:
-// after final route localhost/3000/smthn use a ?a=1&&b=2&&c=3 to give parameters
+// after final route localhost/3000/smthn use a ?a=1&&b=2&&c=3 to give parameters, localhost is the ip of my own machine
 function sum(n){
     return n/2*(2+(n-1)); //sum upto n
 }
@@ -61,12 +61,22 @@ function sum(n){
 // app=express();
 // app.get("/",(req,res)=>{ //route handeler
 //     //when someone requests for the site the control reaches here and we can respond that 
-//     // req=> request(includes all the headers in query), res=> response(what status code to send, what data to send etc etc, wiil be in res)
+//     // req object=> request(includes all the headers in query), res object=> response(what status code to send, what data to send etc etc, wiil be in res)
 //     let n=req.query.n;
-//     res.send("The sum of numbers upto "+n+" is "+sum(n).toString());
+//     res.send("The sum of numbers upto "+n+" is "+sum(n).toString()); //for sending text
+//     res.json({detail: 'somth here', status code: 200}); //for sending JSON Object
+//     res.send(<b>This is HTML</b>); //for sending HTML
+
+//     can only send to client once the first send will send data and the later ones will produce error
+
 //     //if theres any error express will automatically send status code 500
 // })
-// app.listen(5500);
+// app.get("/asd",(req,res)=>{ //route handeler for /asd endpoint 
+//     let n=req.query.n;
+//     res.send("The sum of numbers upto "+n+" is "+sum(n).toString());
+// })
+
+// app.listen(5500);//i am listening infinitely, whenerver req comes to / or /asd endpoint(routs) ill repond with some data
 
 
 // Request Methods:

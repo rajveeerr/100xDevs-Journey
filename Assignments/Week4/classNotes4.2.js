@@ -1,4 +1,4 @@
-// Express, Spring Boot(Java), flask(python), Gurella(Go) and Actix-Web(Rust) are the library used to create http servers
+// Express, Spring Boot(Java), flask(python), Gurella(Go) and Actix-Web(Rust) are the library(frameworks) used to create http servers
 
 //Whenever we type google.com in our browser we send request through router and fiber optics cable to the http server 
 // present at the ip address which the google.com(domain name) resolves to. That http server then responds with 
@@ -42,10 +42,10 @@
 
 //Methods to send request to servers, get, post, put(to create/update data), delete(CRUD), patch(just to update): these practices are good to follow but not necessary
 
-// default ports:
+// default ports:, whenever we send request to http server the browser by default hit port 80
 // http=> 80
 // https=> 443
-// ssh=> 22
+// ssh=> 22 : secure shell protocol let's us run shell commands on the remote machine
 
 // Response
 // The response represents what the server returns you in response to the request. can be html,css,js file or a 
@@ -86,3 +86,9 @@
 // Http vs hTTPS:
 // In http all the requests and response are sent in plain text FormData, on can easily sniff and read read them, whereas
 // in https the request and response data is encrypted before transmitting hence making them secure
+
+// Localhost: it is the ip of my own machine, can be read using ping localhost on terminal
+
+// Backend is basically writing the logic of the server, the server is running backend code whenever we are talking 
+// about this request and response model it is written using backends. The backend includes node js, express package
+// backend makes machine talks to each other
