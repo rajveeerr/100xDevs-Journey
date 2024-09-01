@@ -34,10 +34,11 @@ console.log(ans); //just using the logic locally on our machine, this isn't avai
 
 const express=require("express"); // express is just a library that encapsulates the capacity of creating a server, allows our code to be exposed over http
 const app=express(); //opening the clinic
-// app.get("/",(req,res)=>{ //this callback fn gets called everytime an user requests for the site, / - allows us to create route to listen requests it can be anything like /asdasd. req- request, res- response
+// app.get("/",(req,res)=>{ //this callback fn gets called everytime an user requests for the site, / - allows us to create route to listen requests it can be anything like /asdasd
 //     res.send("Hello Mofin World"); //make sure to send response in the form of a string, otherwise some error might be generated
 // }) //Exposing the doctors one functionality(kidney surgery, brain surgery) Doctor could have multiple rooms inside their hospital, this is one of them
-// app.listen(3000);  //port at which the server listens(this is the address of the clinic)
+// app.listen(3000);  //port at which the server listens(this is the address of the clinic), this makes the node js 
+// process running for a longer period of time, so that its alive to cater new requests
 
 // Http servers can be created using node js, python, java but they should have unique address otherwise on one address 
 // multiple functionality will collide, and only one of those server will become active
@@ -46,7 +47,7 @@ const app=express(); //opening the clinic
 // address(port) and i will respond with the message, if multiple people are sending messages they have to wait in a 
 // queue and wait for their previous tasks to complete
 
-// This http server isn't open for everyone yet!! its acceseble for everyone on same network, so i can use my phone 
+// This http server isn't open for everyone yet!! its accessable for everyone on same network, so i can use my phone 
 // to send the request to the http server using address(port 3000) through router and my laptop running the logic 
 // responds to the request made my my phone, benifit?? I can run expensive operation on mac and give it to phone
 
@@ -83,13 +84,13 @@ function sum(n){
 
 
 
-// Let's Create the Hospital Enq
+// Let's Create the Hospital Enquiry
 
 
 // const express=require("express");  //did this already
 // const app=express();
 
-let users=[{ //storing data in memory(i.e using variables), ideally we should be using database, this will we updated and maintaine as long as the server(or program) is running once it'll stop this will reset
+let users=[{ //storing data in memory(i.e using variables), ideally we should be using database, this will we updated and maintained as long as the node server(or program) is running once it'll stop this will reset
     name: "Diya",
     kidneys: [{healthy:true},{healthy:true}],
 
@@ -97,7 +98,7 @@ let users=[{ //storing data in memory(i.e using variables), ideally we should be
 
 app.use(express.json());//concept of middleware will get to know abt it soon
 
-//populer way to take input in this request method: query
+//populer way to take input in this request method is: query
 app.get("/",(req,res)=>{//so this is basically similar to what those api servers were responsing, they were sending json data
     let username=users[0].name;
     const userKidneys=users[0].kidneys;
@@ -120,12 +121,12 @@ app.post("/",(req,res)=>{
     res.json({
         msg: "Done" //the request method isnt required to respond with any data, it is just supposed to put data to server
         //after this whenever someone sends a get request they will get the updated response
-    })
+    })//including this is a must, whether you send any data or not
 
     // now the main question is how to send post requests, answer: using postman for now
 })
 
-//backend servers aren't just accessible only by browsers, they can be hit by postman, another node process, mobile phone, other backend processs
+//backend servers aren't just accessible only by browsers, they can be hit by postman, another node process, mobile phone, other backend processs etc etc
 // now multiple clients can send data to the server and can get update the database or inmemory variable and can see those changes
 app.put("/",(req,res)=>{//put route handeler
     let noOfUnhealthyKidneys=users[0].kidneys.filter(kidney => kidney.healthy===false).length;
@@ -143,8 +144,8 @@ app.put("/",(req,res)=>{//put route handeler
             msg: "You have no Unhealthy Kidneys"
         })
     }
-
 })
+
 app.delete("/",(req,res)=>{
     //if theres no unhealthy kidney we should return ststus code 411-for wrong input(basically the best practice is ki we should be checking all edge cases and respond accordongly)
     let noOfUnhealthyKidneys=users[0].kidneys.filter(kidney => kidney.healthy===false).length;
