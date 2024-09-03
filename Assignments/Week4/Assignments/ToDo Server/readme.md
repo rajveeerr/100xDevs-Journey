@@ -1,7 +1,3 @@
-Here's a README file for your ToDo list application:
-
----
-
 # ToDo List Application
 
 This project is a simple ToDo list application built with Node.js and Express. The application allows users to perform CRUD (Create, Read, Update, Delete) operations on their tasks, with data stored in a JSON file for persistence.
@@ -76,7 +72,3 @@ npm run test-todoServer
 ```
 
 If you encounter an error stating that port 3000 is in use, you can change the port in the `app.listen` method to another available port, like `4000`.
-
----
-
-This README file provides a clear overview of your ToDo list application, its features, API endpoints, and instructions for running and testing the server.
