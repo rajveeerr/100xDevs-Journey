@@ -59,7 +59,7 @@ This project is a simple ToDo list application built with Node.js and Express. T
    ```
 3. Start the server:
    ```bash
-   node app.js
+   node todoServer.js
    ```
 4. The server will run on `http://localhost:4000`.
 
