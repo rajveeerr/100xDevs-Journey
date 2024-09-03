@@ -97,8 +97,3 @@ _Add screenshots here, showing the CLI in action._
 - Implementing a robust CLI application using Node.js.
 - Handling JSON file operations and error management.
 - Enhancing CLI output using Chalk for a better user experience.
-
-
-## License
-
-This project is licensed under the MIT License.
