@@ -1,4 +1,4 @@
-# ToDo List Application
+# ToDo List HTTP Server
 
 This project is a simple ToDo list application built with Node.js and Express. The application allows users to perform CRUD (Create, Read, Update, Delete) operations on their tasks, with data stored in a JSON file for persistence.
 
