@@ -10,17 +10,6 @@ This project is a simple ToDo list application built with Node.js and Express. T
 - **Delete a ToDo**: Remove a task by its ID.
 - **Persistent Storage**: Tasks are stored in a JSON file, ensuring that data remains intact even after the server restarts.
 
-## What I've Learned
-
-While building this project, I've gained experience in the following:
-
-- **Promises in Node.js**: I used promises to handle asynchronous file operations, such as reading from and writing to the JSON file.
-- **File Handling**: I learned how to persist data in a JSON file, ensuring that data remains available even after a server restart.
-- **UUID**: I used the `uuid` library to generate unique IDs for each ToDo item.
-- **Object.assign()**: I utilized `Object.assign()` to merge objects, particularly when updating existing ToDo items.
-- **JSON Manipulation**: I worked with `JSON.parse()` and `JSON.stringify()` to handle the conversion between JSON and JavaScript objects.
-- **Error Handling**: I handled different types of errors, such as handling non-existent routes with a wildcard route that returns a `404 Not Found` response.
-- **Troubleshooting**: I resolved several issues, such as port conflicts and handling asynchronous operations that prevented Jest from exiting during testing.
 
 ## API Endpoints
 
@@ -61,6 +50,19 @@ While building this project, I've gained experience in the following:
 
 6. **Wildcard Route**
    - For any other route not defined in the server, a `404 Not Found` response is returned.
+
+## What I've Learned
+
+While building this project, I've gained experience in the following:
+
+- **Promises in Node.js**: I used promises to handle asynchronous file operations, such as reading from and writing to the JSON file.
+- **File Handling**: I learned how to persist data in a JSON file, ensuring that data remains available even after a server restart.
+- **UUID**: I used the `uuid` library to generate unique IDs for each ToDo item.
+- **Object.assign()**: I utilized `Object.assign()` to merge objects, particularly when updating existing ToDo items.
+- **JSON Manipulation**: I worked with `JSON.parse()` and `JSON.stringify()` to handle the conversion between JSON and JavaScript objects.
+- **Error Handling**: I handled different types of errors, such as handling non-existent routes with a wildcard route that returns a `404 Not Found` response.
+- **Troubleshooting**: I resolved several issues, such as port conflicts and handling asynchronous operations that prevented Jest from exiting during testing.
+
 
 ## How to Run
 
