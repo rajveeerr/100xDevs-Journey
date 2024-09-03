@@ -63,12 +63,4 @@ This project is a simple ToDo list application built with Node.js and Express. T
    ```
 4. The server will run on `http://localhost:4000`.
 
-## Testing
-
-To test the application, run the following command:
-
-```bash
-npm run test-todoServer
-```
-
 If you encounter an error stating that port 3000 is in use, you can change the port in the `app.listen` method to another available port, like `4000`.
