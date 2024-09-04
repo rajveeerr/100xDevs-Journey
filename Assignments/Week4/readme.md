@@ -47,7 +47,7 @@ A command-line interface-based ToDo application built using Node.js, enabling us
   - Task management with chalk for terminal styling.
   - Use of Commander.js for command parsing.
 
-- **[Detailed README for CLI-Based ToDo Application](./CLI-Based-Todo-Application/README.md)**
+- **[Detailed README for CLI-Based ToDo Application](https://github.com/rajveeerr/100xDevs-Journey/blob/main/Assignments/Week4/Assignments/CLI%20Todo/readme.md)**
 
 ## How to Run
 
