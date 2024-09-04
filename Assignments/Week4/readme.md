@@ -17,7 +17,7 @@ A simple ToDo list application built with Node.js and Express, allowing users to
   - Handling file operations for data persistence.
   - Error handling and troubleshooting server issues.
 
-- **[Detailed README for ToDo HTTP Server](./ToDo-HTTP-Server/README.md)**
+- **[Detailed README for ToDo HTTP Server](https://github.com/rajveeerr/100xDevs-Journey/blob/main/Assignments/Week4/Assignments/ToDo%20Server/readme.md)**
 
 ### 2. **File Server Application**
 A file server built with Node.js and Express that allows users to list files in a directory and retrieve the content of specific files.
@@ -32,7 +32,7 @@ A file server built with Node.js and Express that allows users to list files in 
   - Handling asynchronous vs. synchronous methods.
   - Path management and error handling.
 
-- **[Detailed README for File Server Application](./File-Server-Application/README.md)**
+- **[Detailed README for File Server Application](https://github.com/rajveeerr/100xDevs-Journey/blob/main/Assignments/Week4/Assignments/File%20Server/readme.md)**
 
 ### 3. **CLI-Based ToDo Application**
 A command-line interface-based ToDo application built using Node.js, enabling users to manage tasks directly from the terminal.
