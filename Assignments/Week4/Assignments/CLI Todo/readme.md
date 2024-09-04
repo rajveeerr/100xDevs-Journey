@@ -1,99 +1,109 @@
-# CLI-Based-ToDo
+# CLI-Based ToDo Application
 
-**Version**: 0.1.0
-
-## Overview
-
-`CLI-Based-ToDo` is a command-line interface (CLI) tool designed for developers to manage their ToDo tasks without leaving the terminal. With this tool, you can add, list, complete, delete, and update tasks seamlessly, making task management quick and efficient.
+This is a simple and user-friendly CLI-based ToDo application for developers, allowing you to manage your tasks directly from the terminal without ever leaving it. Built using Node.js, this tool helps you add, list, update, and delete tasks with ease.
 
 ## Features
-
-- **Add Tasks**: Quickly add tasks with optional due dates.
-- **List Tasks**: View tasks filtered by status—completed, pending, or all tasks.
-- **Complete Tasks**: Mark tasks as completed by their ID.
-- **Incomplete Tasks**: Revert completed tasks to pending by their ID.
-- **Delete Tasks**: Remove tasks by their ID if added by mistake.
-- **Update Tasks**: Update the title, due date, or status of existing tasks.
-- **Task Details**: View detailed information about specific tasks.
+- **Add a Task:** Add a new task with an optional due date.
+- **List Tasks:** List all tasks, filter by completed, pending, or all tasks.
+- **Mark Complete:** Mark a specific task as completed using its ID.
+- **Mark Incomplete:** Revert a task marked as complete to pending status.
+- **Delete Task:** Delete a task using its ID.
+- **View Details:** View detailed information about a specific task.
+- **Update Task:** Update the title, due date, or status of an existing task.
+- **Count Tasks:** Display the count of all, completed, and pending tasks.
 
 ## Installation
 
-1. Clone the repository:
-    ```bash
-    git clone "https://github.com/rajveeerr/100xDevs-Journey.git"
-    ```
+1. **Clone the Repository:**
+   ```bash
+   git clone https://github.com/rajveeerr/100xDevs-Journey.git
+   ```
 
-2. Navigate to the project directory:
-    ```bash
-    cd 100xDevs-Journey/Assignments/Week4/Assignments/CLI Todo
-    ```
+2. **Navigate to the CLI ToDo Directory:**
+   ```bash
+   cd 100xDevs-Journey/Assignments/Week4/Assignments/CLI-Todo
+   ```
 
-3. Install dependencies:
-    ```bash
-    npm install
-    ```
+3. **Install Dependencies:**
+   Make sure you have Node.js installed on your system. Install the necessary dependencies by running:
+   ```bash
+   npm install
+   ```
 
 ## Usage
 
-### Commands
+You can use the following commands to interact with the ToDo application:
 
-1. **Add a new task**:
-    ```bash
-    node index.js add "Finish homework" --due 2024-09-15
-    ```
+### Add a New Task
+```bash
+todo add "Finish homework" --due 2024-09-15
+```
 
-2. **List tasks**:
-    ```bash
-    node index.js list --completed
-    ```
+### List Tasks
+- List all tasks:
+  ```bash
+  todo list --all
+  ```
+- List only completed tasks:
+  ```bash
+  todo list --completed
+  ```
+- List only pending tasks:
+  ```bash
+  todo list --pending
+  ```
 
-3. **Mark a task as completed**:
-    ```bash
-    node index.js complete 2
-    ```
+### Mark a Task as Completed
+```bash
+todo complete <task_id>
+```
 
-4. **Revert a task to pending**:
-    ```bash
-    node index.js incomplete 2
-    ```
+### Mark a Task as Incomplete
+```bash
+todo incomplete <task_id>
+```
 
-5. **Delete a task**:
-    ```bash
-    node index.js delete 3
-    ```
+### Delete a Task
+```bash
+todo delete <task_id>
+```
 
-6. **Update a task**:
-    ```bash
-    node index.js update 1 --title "Updated Task" --due 2024-09-20
-    ```
+### View Task Details
+```bash
+todo details <task_id>
+```
 
-7. **View task details**:
-    ```bash
-    node index.js details 1
-    ```
+### Update a Task
+- Update task title:
+  ```bash
+  todo update <task_id> --title "New Title"
+  ```
+- Update task due date:
+  ```bash
+  todo update <task_id> --due "2024-09-20"
+  ```
+- Update task status:
+  ```bash
+  todo update <task_id> --status completed|pending
+  ```
 
-### Options
+### Count Tasks
+```bash
+todo count
+```
 
-- `--due <due_date>`: Adds or updates a due date for the task.
-- `--completed`: Lists only completed tasks.
-- `--pending`: Lists only pending tasks.
-- `--all`: Lists all tasks.
-- `--title <new_description>`: Updates the task's title.
-- `--status <completed|pending>`: Updates the task's completion status.
+### Setting Up an Alias
+
+To reduce the amount of code you type, you can set up an alias for the command. Add the following line to your `.bashrc`, `.zshrc`, or equivalent shell configuration file:
+
+```bash
+alias todo="node CLIBasedTodo.js"
+```
 
 
-## Screenshots
+## Contribution
 
-_Add screenshots here, showing the CLI in action._
+Feel free to fork this repository, submit issues, or create pull requests to improve the application.
 
-## Technologies Used
 
-- **Node.js**: Runtime environment for executing JavaScript code server-side.
-- **Commander.js**: Node.js module for building command-line interfaces.
-- **Chalk**: Node.js library for styling terminal strings.
-
-## Learnings
-
-- Implementing a robust CLI application using Node.js.
-- Handling JSON file operations and error management.
-- Enhancing CLI output using Chalk for a better user experience.
+Happy coding!
