@@ -1,16 +1,32 @@
 {
-  "name": "cli-todo",
+  "name": "cli-based-todo",
   "version": "1.0.0",
+  "description": "A simple CLI-based ToDo application for developers to manage tasks directly from the terminal.",
   "main": "CLIBasedTodo.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node CLIBasedTodo.js"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "description": "",
+  "keywords": [
+    "todo",
+    "cli",
+    "terminal",
+    "tasks",
+    "node",
+    "express"
+  ],
   "dependencies": {
     "chalk": "^4.1.2",
     "commander": "^12.1.0"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rajveeerr/100xDevs-Journey/tree/main/Assignments/Week4/Assignments/CLI%20Todo"
+  },
+  "author": "Rajveer Singh",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/rajveeerr/100xDevs-Journey/tree/main/Assignments/Week4/Assignments/CLI%20Todo/issues"
+  },
+  "homepage": "https://github.com/rajveeerr/100xDevs-Journey/blob/main/Assignments/Week4/Assignments/CLI%20Todo/readme.md"
 }
+
