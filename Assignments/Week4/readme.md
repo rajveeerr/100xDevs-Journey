@@ -55,6 +55,7 @@ A command-line interface-based ToDo application built using Node.js, enabling us
 2. Navigate to the respective assignment directory.
 3. Follow the instructions in the individual README files.
 
+---
 
 # Week 4 Class Notes
 
