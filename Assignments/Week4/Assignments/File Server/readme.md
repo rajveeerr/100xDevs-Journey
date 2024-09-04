@@ -1,3 +1,4 @@
+
 # File Server Application
 
 This project is a simple file server built with Node.js and Express. The application allows users to list files in a directory and retrieve the content of specific files. The file operations are handled using Node.js's built-in `fs` module.
@@ -7,6 +8,15 @@ This project is a simple file server built with Node.js and Express. The applica
 - **List Files**: Retrieve a list of all files in the `./files/` directory.
 - **Read File Content**: Retrieve the content of a specific file by its name.
 - **Error Handling**: Handles cases where files are not found or other routes are accessed.
+
+## Assignment Details
+
+This project was created as part of the Week 4.1 assignment given by Harkirat Bhaiya. In Week 4, he asked us to create a file server, which was the same assignment given to Cohort 2. To complete this assignment, I cloned the repository from Cohort 2 and adapted it to solve the assignment. My solution successfully passed all the tests created by Harkirat Bhaiya.
+
+## Screenshot
+
+<img width="1280" alt="Screenshot 2024-09-03 at 1 46 53 AM" src="https://github.com/user-attachments/assets/841c3458-84c9-4ba6-93e1-b3d2c8a5aa38">
+
 
 ## API Endpoints
 
@@ -59,6 +69,4 @@ npm run test-fileServer
 
 - **Port Conflicts**: If you encounter an error stating that port 1000 is in use, change the port in the `app.listen` method to another available port.
 
-## Assignment
 
-This project was given as an assignment by Harkirat Bhaiya at the end of the recorded lecture for week 4.1.
