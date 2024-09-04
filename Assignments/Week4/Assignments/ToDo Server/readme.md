@@ -9,7 +9,16 @@ This project is a simple ToDo list application built with Node.js and Express. T
 - **Update a ToDo**: Modify an existing task by its ID.
 - **Delete a ToDo**: Remove a task by its ID.
 - **Persistent Storage**: Tasks are stored in a JSON file, ensuring that data remains intact even after the server restarts.
+- **Multiple Users**: Added logic to support multiple users, laying the groundwork for a full-stack ToDo application.
 
+  
+## Assignment Details
+
+This project was created as part of the Week 4.1 assignment given by Harkirat Bhaiya. In Week 4, he asked us to create a file server, which was the same assignment given to Cohort 2. To complete this assignment, I cloned the repository from Cohort 2 and adapted it to solve the assignment. My solution successfully passed all the tests created by Harkirat Bhaiya. Additionally, I added features like support for multiple users because I plan to expand this as the backend for a full-stack ToDo application I’m working on.
+
+## Screenshot
+
+<img width="1280" alt="Screenshot 2024-09-02 at 7 56 58 PM" src="https://github.com/user-attachments/assets/01accc56-4cd4-4ae1-b11d-8a6675806a9a">
 
 ## API Endpoints
 
@@ -63,7 +72,6 @@ While building this project, I've gained experience in the following:
 - **Error Handling**: I handled different types of errors, such as handling non-existent routes with a wildcard route that returns a `404 Not Found` response.
 - **Troubleshooting**: I resolved several issues, such as port conflicts and handling asynchronous operations that prevented Jest from exiting during testing.
 
-
 ## How to Run
 
 1. Clone the repository.
@@ -77,6 +85,8 @@ While building this project, I've gained experience in the following:
    ```
 4. The server will run on `http://localhost:4000`.
 
+
 ### Troubleshooting
 
 - **Port Conflicts**: If you encounter an error stating that port 3000 is in use, change the port in the `app.listen` method to another available port, like `4000`.
+
