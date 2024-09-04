@@ -1,5 +1,3 @@
-### README for Assignments
-
 # Week 4 Assignments
 
 This repository contains all the assignments completed during Week 4 of the 100xDevs Web Development Cohort 3. The assignments focus on building applications with Node.js and Express, involving file operations, ToDo management, and command-line interfaces.
