@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.7.6/axios.min.js"></script>
+    
+</head>
+<body>
+    <input id="num" type="number" required>
+    <button onclick="fetchingExpress()">Show Result</button>
+
+    
+    <script>
+        async function fetchingExpress() {
+            let num=document.getElementById("num").value;
+            
+            let data=await fetch("http://localhost:3000/floor",{ //this fetch req will be blocked by default as cors middlewares isnt used in backend, this doen't happens for postman b/c it is not a browser it isn't used to send background requests
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({'a': num})
+            });
+
+            let result=await data.json();
+
+            console.log(JSON.stringify(result));
+            alert(`Your answer is ${JSON.stringify(result)}`);
+
+            // npx serve can used to serve these any(here html) files over http, same as live server extension, this hostes the file 
+            // over private network so files can be transferred over network very fast, this is called hosting over intranet
+            
+        }
+
+    </script>
+</body>
+</html>
