@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="./images/pokeball-pokemon-svgrepo-com.svg">
+    <title>PokeDecks- Your Pokemon Finder</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" async></script>
+    <script src="https://kit.fontawesome.com/b6fe51c8e7.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">
+            <img src="./images/poke_capture_0006_001_mf_n_00000000_f_r.png" width="40"/>
+            <a href='index.html' class="logo-txt">Poké<span class="txt-gradient">Decks</span></a>
+        </div>
+        <div class="nav-btn">
+            <a href="https://x.com/RajveeerrSingh" target="_blank" class="twitter-btn">Twitter</a>
+            <a href="https://github.com/rajveeerr" target="_blank" class="github-btn"><i class="fa-regular fa-star"></i>Star on Github</a>
+        </div>
+    </nav>
+    <main class="hero-section">
+        <!-- <div class="emoji-container">
+            <img class="emoji e1" src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Travel%20and%20places/Cloud%20with%20Rain.png" alt="Cloud with Rain" />
+            <img class="emoji e2" src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Travel%20and%20places/Cloud%20with%20Lightning%20and%20Rain.png" alt="Cloud with Lightning and Rain" />
+            <img class="emoji e3" src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Travel%20and%20places/Cloud%20with%20Snow.png" alt="Cloud with Snow" />
+            <img class="emoji e7" src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Travel%20and%20places/Sun%20Behind%20Small%20Cloud.png" alt="Sun Behind Small Cloud"/>
+            <img class="emoji e6" src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Travel%20and%20places/Sun%20Behind%20Rain%20Cloud.png" alt="Sun Behind Rain Cloud" />
+        </div> -->
+        <div class="image">
+            <img src="./images/cagM-Kanto_Pokémon.png" class="banner-img">
+            <!-- <img src="./images/pokeball-pokemon-svgrepo-com.svg" class="circle"> -->
+            <img src="https://playota.app/_next/static/media/circleThing.144242df.svg" class="circle">
+            <!-- <img src="https://playota.app/_next/static/media/smoke.a3d62d6f.png" class="cloud"> -->
+        </div>
+        <div class="txt-content">
+            <!-- <img src="./images/poke_capture_0025_007_mo_n_00000000_f_n.png" width="125rem"> -->
+            <h1 class="title">Your <span class="svg-img">Pokémon</span> Explorer</h1>
+            <!-- <h4 class="tagline">Gotta Display ‘Em All!</h4> -->
+            <p class="details">Unleash the power of Pokémon with Pokedeck. <span class="highlight">Select number of Pokémon cards</span> you want to view and <span class="highlight">choose the perfect Pokémon type</span>. Whether you're a casual fan or a dedicated collector, discover the full details of each Pokémon and expand your Poké-knowledge!</p>
+        </div>
+        <div class="input">
+        <form id="pokeForm" onsubmit="start(event)">
+        <input list="pokemon-types" class="pokemon-type" id="pokemonType" name="pokemon-type" placeholder="Enter Pokémon Type">
+        <datalist id="pokemon-types">
+            <option value="Normal">
+            <option value="Fire">
+            <option value="Water">
+            <option value="Grass">
+            <option value="Electric">
+            <option value="Ice">
+            <option value="Fighting">
+            <option value="Poison">
+            <option value="Ground">
+            <option value="Flying">
+            <option value="Psychic">
+            <option value="Bug">
+            <option value="Rock">
+            <option value="Ghost">
+            <option value="Dragon">
+            <option value="Dark">
+            <option value="Steel">
+            <option value="Fairy">
+        </datalist>
+        <input type="number" id="pokeCount" class="pokemon-type" min="1" max="100" placeholder="Number of Cards" required>
+        <button id="submit"><i class="fa-solid fa-magnifying-glass"></i>Fetch Cards</button>
+    </form>
+</div>
+<div id="loader">
+    <img src="./images/pokeball-pokemon-svgrepo-com.svg" width="30" class="loader">
+    <span class="loader-txt">Loading..</span>
+</div>
+<div class="container" id="scroll">
+    <div style="font-size: .9rem;">Scroll Down For the Details.</div>
+    <div class="field">
+        <div class="mouse"></div>
+    </div>
+</div>
+
+
+
+    </main>
+    <section class="display-section" id="parent">
+        <div class="result-card" id="parentResult">
+            <h3 class="sub-heading"><span id="totalPoke"></span><span class="pokeType"></span></h3>
+            <p class="display"><p><span id="pokeType" class="highlight"></span><span class="totalPoke" class="highlight"></span></p>
+        </p>
+        </div>
+        <div class="poke-cards" id="parentCards">
+            <div id="card1" class="cards"style="display:none" >
+                <div class="card-img"><img src="https://unpkg.com/pokeapi-sprites@2.0.2/sprites/pokemon/other/dream-world/1.svg"></div>
+                <div class="card-content">
+                    <span class="title">Bulbasaur</span>
+                    <span class="type-class"><span class="card-type">Grass</span></span>
+                    <div class="card-details">
+                        <span class="stats">
+                            <span class="hp">HP <span id="hp">1071</span></span>
+                            <span class="hp">Attack <span id="cp">700</span></span>
+                        </span>
+                        <span class="weakness-strengths">
+                            <span class="hp"><span id="resistant1"><i class="fa-solid fa-shield"></i> Water</span></span>
+                            <span class="hp"><span id="resistant2"><i class="fa-solid fa-shield"></i> Electric</span></span>
+                            <span class="hp"><span id="weakness1"><i class="fa-solid fa-link-slash"></i> Fire</span></span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <footer>
+        <div class="footer-logo nav-logo"><div class="logo">
+            <img src="./images/poke_capture_0006_001_mf_n_00000000_f_r.png" width="40"/>
+            <a href='index.html' class="logo-txt">Poké<span class="txt-gradient">Decks</span></a>
+        </div></div>
+        <div class="footer-description">Built with <img src="./images/pokeball-pokemon-svgrepo-com.svg" width="12px"> by <span class=creator>Rajveer Singh</span>, the mind behind <a href="https://codecraft-code-editor.netlify.app/" target="_blank" class="CodeCraft"> CodeCraft</a>.</div>
+    </footer>
+</body>
+</html>
+
+        
