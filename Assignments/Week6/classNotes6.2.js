@@ -160,3 +160,7 @@ app.listen(3000);
 
 // For deployment i can host node js projects on vercel either on same instance or different like fe on cds/netlify/vercel and 
 // be on aws/azure but for large scale deploying fe oon cdn and be on vm(virtual machince) is the way to go
+
+
+// Why does websites ask for cookies, cookies are used to track you, and there are some rights of user thats forces website
+// owners to accept you to store cookies so they can track you
