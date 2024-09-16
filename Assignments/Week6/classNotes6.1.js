@@ -187,7 +187,7 @@ app.listen(3000);
 // JWT is same as encryption, it also requires key to encode and decode the token, to spit some jibberish, this key can be used 
 // to decode the token, like in encryption/decryption
 
-// JWT can be decoded easily without secret key on jwt.io, but kirat says its secure
+// JWT can be decoded easily without secret key on jwt.io, but only can be verified uing secret key
 
 // JWT is not specific to only node js, any other server running java, golang can use this jwt, the catch is they muast have same 
 // JWT SECRET. One possible usecase: User can hit node js server to signin and generate jwt, then send the requests containing 
