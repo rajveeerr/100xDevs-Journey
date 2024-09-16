@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Authorization Site</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.7.7/axios.min.js"></script>
+</head>
+<body style="display: flex;flex-direction: column;gap: 2rem; align-items: center;box-sizing: border-box;">
+    <div class="signup" style="padding: 1rem; border: 1px solid; border-radius: 10px; align-items: center; display: flex; justify-content: center; flex-direction: column; gap: .5rem;width: 50%;">
+        <h1>Create your Account</h1>
+        <input type="text" placeholder="Create Username" id="signupUsername">
+        <input type="text" placeholder="Create Password" id="signupPass">
+        <button onclick="signup()">Sign Up</button>
+    </div>
+    <div class="login" style="padding: 1rem; border: 1px solid; border-radius: 10px; align-items: center; display: flex; justify-content: center; flex-direction: column; gap: .5rem; width: 50%;">
+        <h1>Login to your Account</h1>
+        <input type="text" placeholder="Enter Username" id="loginUsername">
+        <input type="text" placeholder="Enter Password" id="loginPass">
+        <button onclick="login()">Login</button>
+    </div>
+    <button onclick="meEndpoint()">Send req to /me endpoint on my behalf</button>
+    <div id="userInfo" style="padding: 1rem; border: 1px solid; border-radius: 10px; align-items: center;width: 90%;">
+    </div>
+
+    <script>
+        displayUser();
+        async function signup(){
+            username=document.getElementById("signupUsername").value;
+            pass=document.getElementById("signupPass").value;
+            try{
+                let response=await axios.post("http://localhost:3000/signup",{
+                    username: username,
+                    password: pass
+                })
+                let signupStatus=response.data;
+                alert(signupStatus.message)
+            }
+            catch(e){
+                alert(e.response.data.message)
+            }
+        }
+        async function login() {
+            username=document.getElementById("loginUsername").value;
+            pass=document.getElementById("loginPass").value;
+            try{
+                let response=await axios.post("http://localhost:3000/signin",{
+                    username,
+                    password: pass
+                })
+                let loginResponseData=response.data;
+                alert(loginResponseData.message);
+                let token=loginResponseData.token;
+                console.log(token);
+                localStorage.setItem("token",token);//setting token to local storage, every website has iit local storage, not since token is stored in localstorage it will remain here until removed by logging out, so login persists
+                // document.getElementById("userInfo").style.display='block';
+                // parent=document.getElementById("userInfo");
+                // parent.innerHTML="";
+                displayUser();
+            }
+            catch(e){
+                alert(e.response.data.message);
+            }
+        }
+        
+        async function displayUser() {
+            if(localStorage.getItem("token")){
+                document.getElementsByClassName("signup")[0].style.display='none';
+                document.getElementsByClassName("login")[0].style.display='none';
+                token=localStorage.getItem("token");
+                try{
+                    let response=await axios.get("http://localhost:3000/me",{
+                        headers:{
+                            authorization: token
+                        }
+                    })
+                    let userData=response.data;
+                    let username=userData.username;
+                    let password=userData.password;
+                    
+                    parent=document.getElementById("userInfo");
+                    parent.innerHTML='';
+                    
+                    h1=document.createElement("h1");
+                    h1.innerText=`Hello ${username}!!!!`;
+                    
+                    logoutBtn=document.createElement("button")
+                    logoutBtn.innerText="Log Out"
+                    logoutBtn.setAttribute("onclick","logout()");
+        
+                    details=document.createElement("p")
+                    details.innerText=`Your Password is ${password}`;
+        
+                    parent.appendChild(h1);
+                    parent.appendChild(logoutBtn);
+                    parent.appendChild(details);
+                }
+                catch(e){
+                    alert(e.response.data.message);
+                    localStorage.setItem("token","");
+                    document.getElementsByClassName("signup")[0].style.display='flex';
+                    document.getElementsByClassName("login")[0].style.display='flex';
+                }
+            }
+            
+        }
+
+        function logout(params) {
+            localStorage.setItem("token","");
+            parent=document.getElementById("userInfo");
+            parent.innerHTML="";
+            p=document.createElement("p");
+            p.innerText=`You've Logged out!!!!!!`
+            parent.appendChild(p)
+            document.getElementsByClassName("signup")[0].style.display='flex';
+            document.getElementsByClassName("login")[0].style.display='flex';
+            displayUser();
+            // document.getElementById("userInfo").style.display='none';
+        }
+        async function meEndpoint() {
+            token=localStorage.getItem("token");
+            try{
+                let response=await axios.get("http://localhost:3000/me",{
+                    headers:{
+                        authorization: token
+                    }
+                })
+                console.log("fetching /me endpoint");
+                
+                let userData=response.data;
+                let username=userData.username;
+                let password=userData.password;
+                p=document.createElement("p");
+                p.innerText=`Hi! ${username}, this replicates you visiting /me endpoint after logging in to your acc with password: ${password}`
+                document.getElementById("userInfo").appendChild(p)
+            }
+            catch(e){
+                alert(e.response.data.message);
+                
+                p=document.createElement("p");
+                p.innerText=`Try Logging in FIRST!!!!!! ${e.response.data.message}`
+                document.getElementById("userInfo").appendChild(p)
+                
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,7 +1,7 @@
 // Lets understand how login/signup works at facebook- first we send a request containing signup credentials to the facebook server
 // (can be express/php/spring boot server)then those credentials are stored in database if valid, for login req those credentials are verified by 
 // server, my matching them with the data stored in the database. Once the credentials are verified server sends a token that 
-// is stored somewhere(in cookies) in the browser thet allows to have persistant sessions(user is logged in until he logs out). Now in every
+// is stored somewhere(in cookies) in the browser that allows to have persistant sessions(user is logged in until he logs out). Now in every
 // subsequent requests those stored tokens are send to server, we can send req to the server with token through postman
 // and the server will respond as the user has logged in. This token is generated everytime we signin
 
@@ -87,7 +87,7 @@ app.post("/signin",(req,res)=>{
             // found.token=token; //no need to do this now since jwt is stateless token, it itselvs store its state
 
             // let indexNo=users.findIndex(user=>user.username===req.body.username);
-            // users[indexNo]=found; //no need to store the jwt tokem in the server
+            // users[indexNo]=found; //no need to store the jwt token in the server
             res.json({
                 message: "User SignedIn succesfully!!!!",
                 token: token
@@ -134,7 +134,6 @@ app.post("/signin",(req,res)=>{
 
 app.get("/me",(req,res)=>{
     let reqToken=req.headers.authorization;
-    // console.log("Request header: "+reqToken+" "+JSON.stringify(req.headers));
     
     let decodedInformation=jwt.verify(reqToken,JWT_SECRET); //this will return whatever we have encoded, if the req has this it means user is already logged in so no need to do login logic again
     // why do we need JWT_SECTET to decode token, as we've already seen that jwt.io site decodes the jwt without the secret key,
@@ -172,7 +171,8 @@ app.listen(3000);
 // Jwts can be stored in cookies or authorization headers
 
 // Does this makes databases useless, no! databases are used to store data of the site images, videos, etc etc, jwt just makes
-// the authorization on the server itself, no need to hit database for that
+// the authorization on the server itself, no need to hit database for that, database are used to store anything that can be 
+// changed dynamically
 
 // Let's understand the authorization workflow with jwt,
 
@@ -181,7 +181,7 @@ app.listen(3000);
 // credentials are correct the server generates the jwt token and sends back the token to the browser(client), which gets stored
 // in cookies. Now whenever user hits any endpoint like '/me' the jwt token is sent as req headers, this jwt token is then decoded
 // on the server to get the username, theres no need to hit database, as if the user has jwt it means he has already signuped on the 
-// website so no need to send req to database for authantication, however server can send requests to database fot the contents
+// website so no need to send req to database for authantication, however server can send requests to database for the contents
 // stored and required. This is how jwt reduces the hitting of database for authentication
 
 // JWT is same as encryption, it also requires key to encode and decode the token, to spit some jibberish, this key can be used 
@@ -195,7 +195,7 @@ app.listen(3000);
 
 // COOKIES: Cookies(only used in browser) are special types of headers, which stores token along with data, when server sends 
 // specific type of response-header jaise, {set-cookie: "dcscs"}, browser saves the header as cookie and it then for every
-// subsequent request browser makes sure to send the cookie as the request-header with key cookie. I f the cookie gets deleted
+// subsequent request browser makes sure to send the cookie as the request-header with key cookie. If the cookie gets deleted
 // we get logged out. If we relogin new token will be generated
 
 // Our approach is to explicitely store token in the local storage and get the token from local storage and send the fetch request
@@ -223,13 +223,13 @@ app.get("/courses",(req,res)=>{
 })
 
 // To logout any user we can simply remove the token fron the fe, and that user will have to login again, this is ugly way
-// Clean way will be to store the tokens in datbase and to logout the token from the database as well
+// Clean way will be to store the tokens in datbase and to logout, remove the token from the database as well
 
-// Is storing tokens in local storage safe??? It is mildly safe if our site allows users to inject js, the can read through localstorage
+// Is storing tokens in local storage safe??? It is mildly safe if our site allows users to inject js, the hacker can read through localstorage
 // to get the token(to prevent this make the site secure), to one can say http only cookies cannot be read this way
 // conventially http-only-cookies>>>>localstorage jwts
 
-/* But heres a better way to say this:
+/* But heres a better way to understand this:
 yes storing your token in localStorage is vulnerable to XSS
 
 but I can also wreak havoc by making requests on your behalf(and reset the pass) if you store your token in an httpOnly cookie
