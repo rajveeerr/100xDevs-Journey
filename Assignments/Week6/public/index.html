@@ -51,11 +51,7 @@
                 let loginResponseData=response.data;
                 alert(loginResponseData.message);
                 let token=loginResponseData.token;
-                console.log(token);
-                localStorage.setItem("token",token);//setting token to local storage, every website has iit local storage, not since token is stored in localstorage it will remain here until removed by logging out, so login persists
-                // document.getElementById("userInfo").style.display='block';
-                // parent=document.getElementById("userInfo");
-                // parent.innerHTML="";
+                localStorage.setItem("token",token);//setting token to local storage, every website has its local storage, now since token is stored in localstorage it will remain here until removed by logging out, so login persists
                 displayUser();
             }
             catch(e){
@@ -105,7 +101,7 @@
             
         }
 
-        function logout(params) {
+        function logout() {
             localStorage.setItem("token","");
             parent=document.getElementById("userInfo");
             parent.innerHTML="";
@@ -114,9 +110,8 @@
             parent.appendChild(p)
             document.getElementsByClassName("signup")[0].style.display='flex';
             document.getElementsByClassName("login")[0].style.display='flex';
-            displayUser();
-            // document.getElementById("userInfo").style.display='none';
         }
+
         async function meEndpoint() {
             token=localStorage.getItem("token");
             try{
@@ -136,7 +131,6 @@
             }
             catch(e){
                 alert(e.response.data.message);
-                
                 p=document.createElement("p");
                 p.innerText=`Try Logging in FIRST!!!!!! ${e.response.data.message}`
                 document.getElementById("userInfo").appendChild(p)
