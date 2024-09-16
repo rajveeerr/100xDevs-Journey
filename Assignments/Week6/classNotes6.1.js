@@ -156,6 +156,7 @@ app.listen(3000);
 // So basically i can share my cookies with anyone and he will be able to send req to the website endpoint on my behalf, this can
 // be used to share  videos, but nah sending this req on postman doesnt display any video
 // Basically sharing cookies are very dangerous
+// Basically whover has my cookies or jwt they can have acess to my respourses
 
 // Now lets talk about JWT(json web token):--
 // why use jwt: with the stateful(stored in a state somewhere) token approach, we store everything along with token in database, 
