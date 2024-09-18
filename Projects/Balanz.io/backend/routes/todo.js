@@ -7,11 +7,10 @@ const { v4: uuidv4 } = require('uuid');
 
 todoJson=path.join(__dirname,"../database/todos.json");
 
-router.use(adminMiddleware);
 
-router.post('/tasks', (req, res) => {
-//received payload will look like this, {name,decsription,due,category,completed,status,priority}, id will be generatd on the server and username is taken from the auth middleware
-//allUsersData=[{username: "user1",todos: [{id,name,description,due,category,completed,status,priority},{id,name,decsription,due,category,completed,status,priority}]},{username: "user2",todos: []}];
+router.post('/tasks', adminMiddleware, (req, res) => {
+//received payload will look like this, {id,name,decsription,due,category,completed,status,priority}, id will be generatd on the server and username is taken from the auth middleware
+//allUsersData=[{username: "this is basically user id",name: "smthn", profileImg: "", todos: [{id,name,description,due,category,completed,status,priority},{id,name,decsription,due,category,completed,status,priority}]},{username: "user2",todos: []}];
     
     let receivedPayload=req.body;
 
@@ -21,16 +20,18 @@ router.post('/tasks', (req, res) => {
         });
     }
 
-    let newTask={};
     let taskId=uuidv4();
-    newTask.id=taskId;
-    newTask.name=receivedPayload.name;
-    newTask.description=receivedPayload.description;
-    newTask.due=receivedPayload.due;
-    newTask.category=receivedPayload.category;
-    newTask.completed=receivedPayload.completed;
-    newTask.status=receivedPayload.status;
-    newTask.priority=receivedPayload.priority;
+    let newTask= {
+        // id: taskId,
+        id: receivedPayload.id,
+        name: receivedPayload.name,
+        description: receivedPayload.description,
+        due: receivedPayload.due,
+        category: receivedPayload.category,
+        completed: receivedPayload.completed || false,
+        status: receivedPayload.status || 'pending',
+        priority: receivedPayload.priority || 'medium'
+    };
     
     let userData=req.userData;
     userData.todos.push(newTask);//adding new task to the user todos
@@ -53,12 +54,13 @@ router.post('/tasks', (req, res) => {
 
     res.status(201).json({
         message: "New Todo added.",
-        id: taskId
+        data: userData.todos,
+        id: receivedPayload.id
     });
 
 });
 
-router.put('/tasks', (req, res) => {
+router.put('/tasks', adminMiddleware, (req, res) => {
 // user can update everything so, payload will look like this {id, name,description,due,category,completed,status,priority}
 
     let username=req.username;
@@ -104,6 +106,7 @@ router.put('/tasks', (req, res) => {
     
         res.status(200).json({
             message: `Updated the ${JSON.stringify(receivedPayload)} of existing Todo.`,
+            data: userData.todos,
             id: taskIdToUpdate
         });
     }
@@ -115,7 +118,7 @@ router.put('/tasks', (req, res) => {
     }
 });
 
-router.delete('/tasks', (req, res) => {
+router.delete('/tasks', adminMiddleware ,(req, res) => {
     // Implement delete todo logic
     let userData=req.userData;
     userData.todos=[];
@@ -141,7 +144,7 @@ router.delete('/tasks', (req, res) => {
 
 });
 
-router.delete('/tasks/:id',(req, res) => {
+router.delete('/tasks/:id', adminMiddleware , (req, res) => {
     // Implement delete todo by id logic
     let username=req.username;
     let userData=req.userData;
@@ -165,10 +168,10 @@ router.delete('/tasks/:id',(req, res) => {
                 error: err 
             });
         }
-    
-        res.status(204).json({
+        res.status(200).json({
             message: `Deleted the Todo.`,
-            id: taskIdToDelete
+            id: taskIdToDelete,
+            data: userData.todos
         });
     }
     else{
@@ -181,23 +184,16 @@ router.delete('/tasks/:id',(req, res) => {
 });
 
 
-router.get('/tasks', (req, res) => {
+router.get('/tasks', adminMiddleware , (req, res) => {
     // Implement fetching all todo logic
     userData=req.userData;
-    if(userData.todos){
-        res.json({
-            "allTasks": userData.todos
-        });
-    }
-    else{
-        res.status(404).json({
-            message: `No Tasks Assigned yet for the user with username ${req.username}`
-        })
-    }
+    res.json({
+        "allTasks": userData.todos
+    });
 
 });
 
-router.get('/tasks/:id', (req, res) => {
+router.get('/tasks/:id', adminMiddleware , (req, res) => {
     // Implement fetching todo by id logic
 
     let userData=req.userData;
@@ -218,5 +214,16 @@ router.get('/tasks/:id', (req, res) => {
     }
 
 });
+
+router.get("/me", adminMiddleware ,(req,res)=>{//for displaying username and profile image
+    username=req.username;
+    userData=req.userData;
+    res.json({
+        username: username,
+        name: userData.name,
+        profilePicData: userData.profileImg,
+        data: userData.todos,
+    })
+})
 
 module.exports = router;
