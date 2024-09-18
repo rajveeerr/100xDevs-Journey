@@ -2,6 +2,10 @@
 
 This is a simple and user-friendly CLI-based ToDo application for developers, allowing you to manage your tasks directly from the terminal without ever leaving it. Built using Node.js, this tool helps you add, list, update, and delete tasks with ease.
 
+## Demo Video(Posted on X)
+
+https://x.com/rajveeerrsingh/status/1831341445015585029?s=46
+
 ## Features
 - **Add a Task:** Add a new task with an optional due date.
 - **List Tasks:** List all tasks, filter by completed, pending, or all tasks.
