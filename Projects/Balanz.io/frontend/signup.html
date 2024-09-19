@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Balanz.io</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.7.7/axios.min.js"></script>
+</head>
+<body style="display: flex;flex-direction: column;gap: 2rem; align-items: center;box-sizing: border-box;">
+    <div class="signup" style="padding: 1rem; border: 1px solid; border-radius: 10px; align-items: center; display: flex; justify-content: center; flex-direction: column; gap: .5rem;width: 50%;">
+        <h1>Create your Account</h1>
+        <form onsubmit="signup(event)">
+        <input type="text" placeholder="Create Username" id="signupUsername" minlength="3" maxlength="20" required>
+        <input type="text" placeholder="Enter your name" id="signupName" maxlength="50" required>
+        <input type="password" placeholder="Create Password" id="signupPass" required>
+        <input type="checkbox" onclick="passwordToggle()">Show Password
+        <button>Sign Up</button>
+    </form>
+    </div>
+    <p>Already Registered as user??? Go to <a href="/login" onclick="redirectSignup()">Login Here!!!</a></p>
+
+    <script>
+        //to add real time username and name checker can be doen simply by onkeyup 
+//         input {
+            //   border: 2px solid currentcolor;
+            // }
+            // input:invalid {
+            //   border: 2px dashed red;
+            // }
+            // input:invalid:focus {
+            //   background-image: linear-gradient(pink, lightgreen);
+            // }
+            // checkValidity() can be used to check if entered pass ins valid
+        async function signup(event){
+            event.preventDefault();
+            username=document.getElementById("signupUsername").value;
+            if(!isValidUsername(username)){
+                alert("Userrname can contain only alphanumeric characters and underscore")
+                return
+            }
+            name=document.getElementById("signupName").value;
+            if(!isValidName(username)){
+                alert("Name can contain only alphabetic characters and space")
+                return
+            }
+            pass=document.getElementById("signupPass").value;
+            try{
+                let response=await axios.post("http://localhost:3000/signup",{
+                    username: username,
+                    name: name,
+                    password: pass
+                })
+                let signupStatus=response.data;
+                localStorage.setItem("token",signupStatus.token);
+                alert(signupStatus.message+signupStatus.profileImg+" Redirecting you to todos page");
+                window.location.href="/todos"
+
+            }
+            catch(e){
+                alert(e.response.data.message)
+            }
+        }
+        function passwordToggle(){
+            passwordInput=document.getElementById("signupPass");
+            passwordInput.type==="password"?passwordInput.type="text":passwordInput.type="password";
+        }
+        function isValidName(name){
+            const regex = /^[a-zA-Z ]+$/;
+            return regex.test(name);
+        }
+        function isValidUsername(username){
+            const regex = /^[a-zA-Z0-9_]+$/;
+            return regex.test(username);
+        }
+    </script>
+</body>
+</html>

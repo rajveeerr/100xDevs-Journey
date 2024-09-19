@@ -1,8 +1,9 @@
 let jwt=require("jsonwebtoken");
-const JWT_SECRET= "dsjlcdskj32eoe3n1eio13l#";
+const dotenv = require("dotenv");
+dotenv.config();
+const JWT_SECRET= process.env.JWT_SECRET;
 const fs=require("fs");
 const path=require("path");
-const { v4: uuidv4 } = require('uuid');
 
 todoJson=path.join(__dirname,"../database/todos.json");
 let allUsersData=[];
@@ -17,7 +18,7 @@ function userMiddleware(req, res, next) {
                 allUsersData=JSON.parse(fs.readFileSync(todoJson,"utf-8"));
             }
             catch(e){
-                fs.writeFileSync(todoJson,"");
+                fs.writeFileSync(todoJson,"[]");
             }
             let userFound=allUsersData.find(user=>user.username===username)
             if(userFound){
@@ -39,10 +40,10 @@ function userMiddleware(req, res, next) {
         }
     }
     else{
-        // res.status(302).send({
-        //     message: 'You Cant Acess this resourse without logging in!!!!!!'
-        // });
-        res.redirect('/login');
+        res.status(302).send({
+            message: 'You Cant Acess this resourse without logging in!!!!!!'
+        });
+        // res.redirect('/login');
     }
 }
 

@@ -3,11 +3,169 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Taskify Frontend</title>
+    <title>Balanz.io</title>
     <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.7.7/axios.min.js"></script>
 </head>
 <body>
-    <!-- start writing code -->
-    <script src="./script.js"></script>    
+
+    <input type="text" placeholder="Enter your Task"><button onclick="addTodo()">Add Todo</button>
+    <div class="todos"></div>
+
+    <script>
+
+        async function loggedin(){
+            let token=localStorage.getItem("token");
+            try{
+                let response=await axios.get("http://localhost:3000/me",{
+                    headers: {
+                        authorization: token
+                    }
+                });
+                userData=response.data;
+                alert(`${userData.name} logged in!!!`)
+                // if(userData.name){
+                    return true;
+                // }
+            }
+            catch(err){
+                alert("Not logged in! Redirecting to login page");
+                return false;
+            }
+        }
+        
+    loggedin().then((data)=>{
+        if(!data){
+            window.location.href = '/login';
+        }
+    })     
+    let todos=[];  //this is state variable
+    let ctr=1;
+    function addTodo(){
+        todos.push({
+            title: document.querySelector("input").value,
+            id: `${ctr}`,
+            editId: `edit${ctr}`,
+            deleteId: `del${ctr}`,
+            isDone: false
+        });
+        ctr++;
+        if(document.querySelector("input").value){
+            render();
+        }
+        else{
+            alert("Enter The Task!!!!!!!!")
+        }
+        document.querySelector("input").value='';
+    }
+
+    function deleteTodo(index){
+        // todos.splice(index,1); //theres a better way to do this
+        todos= todos.filter((obj)=>{if(obj.id!=index){return obj}});
+        render();
+    }
+
+    function editTodo(index){
+        span=document.getElementById(`todo${index}`);
+        editbtn=document.getElementById(`edit${index}`)
+ 
+        span.setAttribute("contentEditable","true");
+        editbtn.style.display="none";
+        span.style.border="1px solid black";
+        let save=document.createElement("button");
+        save.innerHTML="Save";
+        let cancel=document.createElement("button");
+        cancel.innerHTML="Cancel"
+        span.parentNode.appendChild(save);
+        span.parentNode.appendChild(cancel);
+        cancel.addEventListener("click",()=>{render()});
+
+        save.addEventListener("click",()=>{
+            editedText=span.textContent;
+            for(let i=0;i<todos.length;i++){
+                if(todos[i].id==index){
+                    console.log("done")
+                    todos[i].title=editedText;
+                }
+            }
+            render();
+        })
+    }
+
+    function isCompleted(ele,index){
+        // box=document.getElementById(`check${index}`);
+        if(ele.checked){
+            for(let i=0;i<todos.length;i++){
+                if(todos[i].id===index){
+                    todos[i].isDone=true;
+                    break;
+                }
+            }
+        }
+        else{
+            for(let i=0;i<todos.length;i++){
+                if(todos[i].id===index){
+                    todos[i].isDone=false;
+                    break;
+                }
+            }
+                
+        }
+        render();
+        console.log(todos)
+    }
+  
+
+    //this is component
+    function todoComponent(todo){
+        
+        let div=document.createElement("div");
+
+        let checkbox=document.createElement("input");
+        checkbox.id="check"+todo.id;
+        checkbox.type='checkbox';
+        checkbox.onchange= ()=>{isCompleted(checkbox,todo.id)};
+        checkbox.checked = todo.isDone;
+
+        let span=document.createElement("span");
+        span.id="todo"+todo.id;
+        span.innerHTML=todo.title;
+
+        let edit=document.createElement("button");
+        edit.id="edit"+todo.id;
+        edit.setAttribute("onclick",`editTodo(${todo.id})`);
+        edit.innerHTML="Edit";
+
+        let btn=document.createElement("button");
+        // btn.id=todo.deleteId;
+        btn.setAttribute("onclick",`deleteTodo(${todo.id})`);
+        btn.innerHTML="Delete";
+
+        div.appendChild(checkbox);
+        div.appendChild(span);
+        div.appendChild(btn);
+        div.appendChild(edit);
+
+        return div;
+    }
+
+    function render(){
+        parent=document.querySelector(".todos");
+        parent.innerHTML="";
+        for(let i=0;i<todos.length;i++){    
+
+            parent.appendChild(todoComponent(todos[i]));
+            span=document.getElementById(`todo${todos[i].id}`);
+            if(todos[i].isDone){
+                span.style.textDecoration="line-through";
+                // console.log(span)
+            }
+            else{
+                span.style.textDecoration="none";
+                // console.log(span)
+            }
+    }
+    }
+   </script>
 </body>
 </html>

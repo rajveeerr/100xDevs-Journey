@@ -2,17 +2,16 @@ const express = require("express");
 const dotenv = require("dotenv");
 const cors=require("cors");
 dotenv.config();
-// const fs=require("fs");
-// const path=require("path");
-// const { v4: uuidv4 } = require('uuid');
 const routes=require("./routes/todo");
-const userRoutes=require("./routes/user")
+const userRoutes=require("./routes/user");
+const path = require("path");
 
 const app = express();
 const port = process.env.PORT;
 
 app.use(express.json());
 app.use(cors());
+app.use(express.static(path.join(__dirname,'../public')));
 
 app.use(userRoutes);
 app.use(routes);//this middleware allows acess to  the modular routes i've created

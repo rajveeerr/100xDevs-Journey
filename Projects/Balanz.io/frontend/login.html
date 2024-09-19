@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Balanz.io</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.7.7/axios.min.js"></script>
+</head>
+<body style="display: flex;flex-direction: column;gap: 2rem; align-items: center;box-sizing: border-box;">
+    <div class="login" style="padding: 1rem; border: 1px solid; border-radius: 10px; align-items: center; display: flex; justify-content: center; flex-direction: column; gap: .5rem; width: 50%;">
+        <h1>Login to your Account</h1>
+        <form onsubmit="login(event)">
+            <input type="text" placeholder="Enter Username" id="loginUsername" minlength="3" maxlength="20" required>
+            <input type="password" placeholder="Enter Password" id="loginPass" required>
+            <input type="checkbox" onclick="passwordToggle()">Show Password
+            <button onclick="login()">Login</button>
+        </form>
+    </div>
+    <p>Aren't a user??? <a href="/signup" onclick="redirectSignup()">Signup Here!!</a></p>
+    <p>Logged in or signed up already??? <a href="/todos">Start creating todos Here!!</a></p>
+
+    <script>
+        async function login(event) {
+            event.preventDefault();
+            username=document.getElementById("loginUsername").value;
+            if(!isValidUsername(username)){
+                alert("Userrname can contail only alphanumeric characters and underscore")
+            }
+            pass=document.getElementById("loginPass").value;
+            try{
+                let response=await axios.post("http://localhost:3000/login",{
+                    username,
+                    password: pass
+                })
+                let loginResponseData=response.data;
+                alert(loginResponseData.message);
+                let token=loginResponseData.token;
+                localStorage.setItem("token",token);//setting token to local storage, every website has its local storage, now since token is stored in localstorage it will remain here until removed by logging out, so login persists
+                window.location.href = '/todos';
+            }
+            catch(e){
+                alert(e.response.data.message);
+            }
+        }
+        function passwordToggle(){
+            passwordInput=document.getElementById("loginPass");
+            passwordInput.type==="password"?passwordInput.type="text":passwordInput.type="password";
+        }
+        function isValidUsername(username){
+            const regex = /^[a-zA-Z0-9_]+$/;
+            return regex.test(username);
+        }
+
+
+        
+ 
+    </script>
+<script>
+    
+</script>
+</body>
+</html>
