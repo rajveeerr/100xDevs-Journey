@@ -4,13 +4,85 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Balanz.io</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="/style.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.7.7/axios.min.js"></script>
+    <script src="https://kit.fontawesome.com/b6fe51c8e7.js" crossorigin="anonymous"></script>
 </head>
 <body>
 
-    <input type="text" placeholder="Enter your Task"><button onclick="addTodo()">Add Todo</button>
-    <div class="todos"></div>
+    <!-- <input type="text" placeholder="Enter your Task"><button onclick="addTodo()">Add Todo</button>
+    <div class="todos"></div> -->
+
+    <div class="navbar">
+        <div class="logo"><a href="landing.html"><span class="b">B</span>Balanz<span class="stylize">.</span><span style="">io</span></a></div>
+        <div class="socials">
+            <a href="https://x.com/RajveeerrSingh" class="twitter-btn"><i class="fa-brands fa-x-twitter"></i> Twitter</a>
+            <a href="https://github.com/rajveeerr" class="github-btn"><i class="fa-brands fa-github"></i> Github</a>
+        </div>
+    </div>
+    <div class="container">
+        <aside class="sidebar">
+
+            <div class="sidebar-header">
+                <div class="user-info" onclick="logoutMenu()">
+                    <img class="profileImg" src="/3.jpg"><div class="acc-details">
+                        <p class="name">Rajveer Singh</p>
+                        <p class="username">@major</p>
+                    </div>
+                </div>
+                <i class="fa-solid fa-arrow-right-arrow-left" onclick="collapse()"></i>
+            </div>
+          
+            <div class="menu">
+                <div class="add-task-btn menu-item"><i class="fa-solid fa-circle-plus"></i>Add Task</div>
+                <div class="all-task menu-item"><i class="fa-regular fa-calendar-check"></i> All Tasks</div>
+                <div class="completed-task menu-item"><i class="fa-solid fa-square-check"></i> Completed</div>
+                <div class="pending-task menu-item"><i class="fa-solid fa-hourglass-half"></i> In Progress</div>
+            </div>
+
+            <div class="logout">
+                <a href="/" class="logout-btn" onclick="logout()"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
+            </div>
+
+        </aside>
+    
+        <!-- Main Content -->
+        <main class="main-content">
+          <!-- Task Input -->
+          <section class="task-input">
+            <input type="text" placeholder="Add a new task" class="new-task-input">
+            <button class="add-task-btn">Add</button>
+          </section>
+    
+          <!-- Task List -->
+          <section class="task-list">
+            <div class="task-item">
+              <input type="checkbox">
+              <div class="task-details">
+                <span class="task-title">Complete the UI design</span>
+                <span class="task-date">Due Tomorrow</span>
+              </div>
+            </div>
+    
+            <div class="task-item">
+              <input type="checkbox">
+              <div class="task-details">
+                <span class="task-title">Review project milestones</span>
+                <span class="task-date">Due in 3 Days</span>
+              </div>
+            </div>
+    
+            <div class="task-item">
+              <input type="checkbox">
+              <div class="task-details">
+                <span class="task-title">Submit final report</span>
+                <span class="task-date">Due Next Week</span>
+              </div>
+            </div>
+          </section>
+        </main>
+      </div>
+
 
     <script>
 
