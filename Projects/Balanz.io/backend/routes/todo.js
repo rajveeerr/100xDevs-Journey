@@ -220,7 +220,7 @@ router.get("/me", adminMiddleware ,(req,res)=>{//for displaying username and pro
     res.json({
         username: username,
         name: userData.name,
-        profilePicData: userData.profileImg,
+        profileImg: userData.profileImg,
         data: userData.todos,
     })
 })
