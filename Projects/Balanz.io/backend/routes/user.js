@@ -129,6 +129,10 @@ router.get('/todos',  (req, res) => {
     // Implement logic for getting todos for a user
     res.sendFile(path.join(__dirname,"../../frontend/index.html"));
 });
+router.get('/',  (req, res) => {
+    // Implement logic for getting todos for a user
+    res.sendFile(path.join(__dirname,"../../frontend/homepage.html"));
+});
 
 router.post('/logout', userMiddleware, (req, res) => {
     // Implement logout logic

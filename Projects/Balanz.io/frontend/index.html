@@ -11,14 +11,17 @@
 </head>
 <body>
 
-    <!-- <input type="text" placeholder="Enter your Task"><button onclick="addTodo()">Add Todo</button>
-    <div class="todos"></div> -->
+    <div class="loading">
+        <div class="logo"><a href="/"><span class="b">B</span>Balanz<span class="stylize">.</span><span style="">io</span></a></div>
+        <div class="loader"></div>
+    </div>
+
 
     <div class="navbar">
-        <div class="logo"><a href="landing.html"><span class="b">B</span>Balanz<span class="stylize">.</span><span style="">io</span></a></div>
+        <div class="logo"><a href="/"><span class="b">B</span>Balanz<span class="stylize">.</span><span style="">io</span></a></div>
         <div class="socials">
-            <a href="https://x.com/RajveeerrSingh" class="twitter-btn"><i class="fa-brands fa-x-twitter"></i> Twitter</a>
-            <a href="https://github.com/rajveeerr" class="github-btn"><i class="fa-brands fa-github"></i> Github</a>
+            <a href="https://x.com/RajveeerrSingh" target="_blank" class="twitter-btn"><i class="fa-brands fa-x-twitter"></i> Twitter</a>
+            <a href="https://github.com/rajveeerr" target="_blank" class="github-btn"><i class="fa-brands fa-github"></i> Github</a>
         </div>
     </div>
     <div id="hamberger" class="hamberger">
@@ -40,6 +43,7 @@
           <!-- <h2>Task Details</h2> -->
           
           <form id="task-form" onsubmit="addTask(event)">
+              <h4 class="task-title" id="modalTitle" style="margin: .4rem 0;"></h4>
             <input type="text" id="task-title" name="title" placeholder="Create new task" required />
       
             <textarea id="task-desc" name="description" placeholder="Add your Notes" required></textarea>
@@ -55,10 +59,10 @@
                 <option value="high">High</option>
                 </select>
         
-                <select id="status" name="status" required>
-                <option value="" disabled selected>Select status of Task</option>
-                <option value="inprogress">In Progress</option>
-                <option value="completed">Completed</option>
+                <select id="status" required>
+                    <option value="" disabled selected>Select status of Task</option>
+                    <option value="inprogress">In Progress</option>
+                    <option value="completed">Completed</option>
                 </select>
 
             
@@ -72,11 +76,13 @@
       
             
 
+            <div class="add-modal-btns">
+                <button class="cancel-btn-add-modal" onclick="closeAddEditModal()">Cancel</button>
+                <button class="submit-btn" onclick="saveAddEditModal()">Save Task</button>
+            </div>
+
+            <!-- <div id="error-message" style="color: red;"></div> -->
         </form>
-        <div class="add-modal-btns">
-            <button class="cancel-btn-add-modal" onclick="closeAddEditModal()">Cancel</button>
-            <button class="submit-btn">Save Task</button>
-        </div>
         </div>
       </div>
       
@@ -202,7 +208,7 @@
         </div>
         
 
-        <template id="task-template">
+       <!-- <template id="task-template">
             <div class="task-card" id="sdc">
                 <div class="task-card-header">
                     <p class="task-status complete"></p>
@@ -219,19 +225,16 @@
                 <div class="task-metadata">
                     <p class="task-due"><i class="fa-regular fa-calendar"></i><span></span></p>
                     <p class="task-priority"><i class="fa-solid fa-angles-up"></i>Priority<span></span></p>
-                    <!-- <p class="task-priority"><i class="fa-solid fa-angle-up"></i>Priority<span></span></p>
-                    <p class="task-priority"><i class="fa-solid fa-angle-down"></i>Priority<span></span></p> -->
                     <p class="task-category"><span></span></p>
                 </div>
                 <button id="markComplete" class="mark-complete"><i class="fa-solid fa-check-double"></i> Mark as Complete</button>
-                
             </div>
-        </template>
+        </template> -->
         
 
 
 
         </main>
-      </div>
+    </div>
 </body>
 </html>
