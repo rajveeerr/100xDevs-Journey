@@ -1,5 +1,16 @@
 let url="http://localhost:3000";
 let tasks = [];
+// tasks=[
+//     {
+    // id: jjjhv987mnbbmiyi,
+//       name: 'Complete UI Design',
+//       description: 'Design the UI for the new project',
+//       due: '2024-09-30',
+//       category: 'design',
+//       priority: 'high',
+//       status: 'completed' or 'in progress' 
+        // completed: false
+//     }];
 
 function capitalize(string) {
     return string[0].toUpperCase() + string.slice(1).toLowerCase();
@@ -25,7 +36,35 @@ function logout(){
     window.location.href="/login";
 }
 
-let openedTaskId=""
+function syncLoader(){
+    let sync = document.getElementById('sync');
+    sync.classList.toggle('show');
+}
+
+function showPopup(message,type='success') {
+    let popupModal = document.getElementById('popup-modal');
+    let popupMessage = document.getElementById('popup-message');
+    
+    if (type==='error'){
+        popupMessage.innerHTML = `<i class="fa-solid fa-circle-xmark" style="color: #dc3545"></i>   ${message}`;
+    } 
+    else {
+        popupMessage.innerHTML = `<i class="fa-solid fa-circle-check" style="color: #05a571"></i>   ${message}`;
+    }
+
+    popupModal.classList.add('show');
+    setTimeout(() => {
+        popupModal.classList.add('fade-out');
+    }, 2000);
+
+    setTimeout(() => {
+        popupModal.classList.remove('show', 'fade-out');
+    }, 3000); 
+}
+
+
+
+let openedTaskId="";
 function openAddEditModal(action,id){
     taskModal=document.getElementById("task-modal");
     if(action==="add"){
@@ -35,7 +74,7 @@ function openAddEditModal(action,id){
         document.getElementById("task-desc").value="";
         document.getElementById("due-date").value="";
         document.getElementById("priority").value="";
-        tdocument.getElementById("status").value="";
+        document.getElementById("status").value="";
         document.getElementById("category-input").value="";
     }
     else if(action==="edit"){
@@ -54,9 +93,10 @@ function openAddEditModal(action,id){
 
         taskTitle.value=taskToEdit.name;
         taskDesc.value=taskToEdit.description;
-        category.value=taskToEdit.category;
+        category.value=capitalize(taskToEdit.category);
         priority.value=taskToEdit.priority;
-        taskStatus.value = taskToEdit.status === "pending" ? "inprogress" : "completed";
+        // taskStatus.value = taskToEdit.status === "pending" ? "inprogress" : taskToEdit.status;
+        taskStatus.value = taskToEdit.status;
         if(taskToEdit.due){
             const dueDateObj = new Date(taskToEdit.due);
             const formattedDate = dueDateObj.toISOString().split('T')[0];
@@ -68,8 +108,9 @@ function openAddEditModal(action,id){
     }
 }
 
-function saveAddEditModal(){
-    console.log("creating new todo");
+async function saveAddEditModal(){
+
+    let token=localStorage.getItem("token");
 
     const form = document.getElementById('task-form');
     if (!form.checkValidity()) {
@@ -80,7 +121,7 @@ function saveAddEditModal(){
     taskDesc=document.getElementById("task-desc").value;
     dueDate=document.getElementById("due-date").value;
     priority=document.getElementById("priority").value;
-    taskStatus=document.getElementById("status").value;
+    taskStatus=document.getElementById("status").value;//todo,completed, pending
     category=document.getElementById("category-input").value;
 
     
@@ -93,14 +134,41 @@ function saveAddEditModal(){
         due: dueDate,
         category: category.toLowerCase(),
         completed: taskStatus==="completed"?true:false,
-        status: taskStatus==="inprogress"?"pending":"complete",
+        // status: taskStatus==="inprogress"?"pending":"complete",
+        status: taskStatus.toLowerCase(),
         priority: priority.toLowerCase()
     }
 
     if(document.getElementById("modalTitle").innerText==="Add Your Task"){
         task.id=id
         tasks.push(task);
-        console.log(tasks);
+        // console.log(tasks);
+
+        try{
+            syncLoader();
+            let addedConfirmation=await axios.post(`${url}/tasks`,task,{
+                headers: {
+                    authorization: token
+                }
+            });
+            addedConfirmationData=addedConfirmation.data;
+            // console.log(JSON.stringify(tasks),JSON.stringify(editConfirmationData.data));
+            // if(JSON.stringify(tasks)===JSON.stringify(editConfirmationData.data)){
+            if(addedConfirmationData){
+                syncLoader();
+                showPopup("Task Created Succesfully!",'success');
+            }
+            else{
+                syncLoader();
+                showPopup("Changes Aren't Saved!",'error');
+                console.log("data isnt synced");
+            }
+        }
+        catch(err){
+            syncLoader();
+            showPopup("There was an error in creating Task. Try Again!",'error');
+        }
+        
     }
     
     else{
@@ -109,9 +177,34 @@ function saveAddEditModal(){
         tasks[taskIndex] = task;
         console.log(tasks);
         
+        try{
+            syncLoader();
+            let editConfirmation=await axios.put(`${url}/tasks`,task,{
+                headers: {
+                    authorization: token
+                }
+            });
+            editConfirmationData=editConfirmation.data;
+            // console.log(JSON.stringify(tasks),JSON.stringify(editConfirmationData.data));
+            // if(JSON.stringify(tasks)===JSON.stringify(editConfirmationData.data)){
+                if(editConfirmationData){
+                    syncLoader();
+                    showPopup("Edited Task Succesfully!",'success');
+                }
+                else{
+                    syncLoader();
+                    showPopup("Changes Aren't Saved!",'error');
+                }
+            }
+            catch(err){
+                syncLoader();
+                showPopup("There was an error in creating Task. Try Again!",'error');
+
+        }
+
     }
-    // now send a put req to server to save the data and verify is the content is saved by response received
-    //now add a popup saying task edited, added and syncing bar somewhere
+    // todo - send a put req to server to save the data and verify is the content is saved by response received
+    //now add a popup saying task edited, added and syncing bar somewhere -done
     
     displayAllTasks(tasks);
     displayCompletedTasks(tasks);
@@ -125,16 +218,89 @@ function closeAddEditModal(){
 }
 
 window.onclick = function(event) {
-    taskModal=document.getElementById('task-modal');
+//     taskModal=document.getElementById('task-modal');
     logoutModal=document.getElementById('logoutModal');
-    if (event.target === taskModal || event.target === logoutModal){
-        closeAddEditModal();
+    if (event.target === logoutModal){
+//         closeAddEditModal();
         closeModal();
     }
 };
 
-function addTask(event){
-  event.preventDefault();
+async function deleteTask(id){
+    token=localStorage.getItem("token");
+
+    tasks=tasks.filter(task=> task.id!=id);//deleted
+    displayAllTasks(tasks);
+    displayCompletedTasks(tasks);
+    displayPendingTasks(tasks);
+
+    try{
+        syncLoader();
+        let deleteConfirmation=await axios.delete(`${url}/tasks/${id}`,{
+            headers: {
+                authorization: token
+            }
+        });
+        deleteConfirmationData=deleteConfirmation.data;
+        console.log(deleteConfirmationData);
+        
+        if(deleteConfirmationData){
+            syncLoader();
+            console.log("Data Synced Succesfully");
+            showPopup("Task Deleted Succesfully!",'success');
+        }
+        else{
+            syncLoader();
+            console.log("data isnt synced");
+            showPopup("Changes Aren't Saved!",'error');
+        }
+        }
+        catch(err){
+            syncLoader();
+            console.log("data isnt synced. There was an error"+err);
+            showPopup("There was an error in Deleting Task. Try Again!",'error');
+    }
+}
+
+async function markAsComplete(id,toStatus="completed"){
+    token=localStorage.getItem("token");
+
+    let updateTask=tasks.find(task=> task.id===id);
+    updateTask.status=toStatus;
+    let indexToUpdate=tasks.findIndex(task=> task.id===id);
+    tasks[indexToUpdate]=updateTask;
+
+    displayAllTasks(tasks);
+    displayCompletedTasks(tasks);
+    displayPendingTasks(tasks);
+
+    try{
+        syncLoader();
+        let editConfirmation=await axios.put(`${url}/tasks`,updateTask,{
+            headers: {
+                authorization: token
+            }
+        });
+        let editConfirmationData=editConfirmation.data;
+        // console.log(JSON.stringify(tasks),JSON.stringify(editConfirmationData.data));
+        // if(JSON.stringify(tasks)===JSON.stringify(editConfirmationData.data)){
+            if(editConfirmationData){
+                syncLoader();
+                // console.log("Data Synced Succesfully");
+                showPopup(`Task Marked as ${toStatus==="completed"?"Complete":capitalize(toStatus)}`,'success');
+            }
+            else{
+                syncLoader();
+                console.log("data isnt synced");
+                showPopup("Changes Aren't Saved! Refresh and Retry",'error');
+            }
+        }
+        catch(err){
+            syncLoader();
+            console.log("data isnt synced. There was an error"+err);
+            showPopup("There was an error in marking Task as Complete. Try Again!",'error');
+
+    }
 }
 
 
@@ -163,25 +329,6 @@ function displayDate() {
     today=`Today, ${date.toDateString()}`
     document.getElementById('displayDate').innerText = today;
 }
-
-
-document.addEventListener('DOMContentLoaded', () => {
-    // displayTasks();
-});
-
-
-
-// tasks=[
-//     {
-    // id: jjjhv987mnbbmiyi,
-//       name: 'Complete UI Design',
-//       description: 'Design the UI for the new project',
-//       due: '2024-09-30',
-//       category: 'design',
-//       priority: 'high',
-//       status: 'completed' or 'in progress' 
-        // completed: false
-//     }];
 
 
 async function loggedin(){
@@ -218,7 +365,6 @@ async function loggedin(){
         displayPendingTasks(tasks);
         
         document.getElementsByClassName("loading")[0].style.display="none";
-    
     return true;
 }
 catch(err){
@@ -237,7 +383,10 @@ function createTaskCard(task){
     
     const taskCard = document.createElement('div');
     taskCard.classList.add('task-card');
+    taskCard.setAttribute("draggable","true");
     taskCard.id = task.id;
+
+    taskCard.addEventListener('dragstart', handleDragStart);
     
     const taskCardHeader = document.createElement('div');
     taskCardHeader.classList.add('task-card-header');
@@ -316,7 +465,7 @@ function createTaskCard(task){
     taskCard.appendChild(taskTitle);
     taskCard.appendChild(taskDesc);
     taskCard.appendChild(taskMetadata);
-    task.status!="complete"?taskCard.appendChild(markCompleteBtn):null;
+    task.status!="completed"?taskCard.appendChild(markCompleteBtn):null;
     
     return taskCard;
 }
@@ -332,110 +481,105 @@ function displayAllTasks(tasks){
     if(tasks.length===0){
         allTasks.innerHTML="<span class='no-task-placeholder'> No Tasks to Display!!! Create a task using Add Todo  <i class='fa-solid fa-circle-plus'></i>  Button!!</span>"
     }
+    else{
+        span=document.createElement("span");
+        span.classList.add("no-task-placeholder");
+        span.innerText="Tip: You can Drag and Drop cards to change their Status!!";
+        allTasks.appendChild(span);
+    }
 }
 function displayPendingTasks(tasks){
     allTasks=document.getElementById("inprogress-column");
     allTasks.innerHTML="";
+    let pendingTasks=[];
     tasks.forEach(task=>{
         if(task.status==="pending"){
+            pendingTasks.push(task)
             let card=createTaskCard(task);
             allTasks.appendChild(card);
         }
     })
-    if(tasks.length===0){
-        allTasks.innerHTML="<span class='no-task-placeholder'> No Tasks in Progress!!! Add a task by Dragging and Dropping here or by Editing its Status to Pending."
+    if(pendingTasks.length===0){
+        allTasks.innerHTML="<span class='no-task-placeholder'> No Tasks in Progress!!! Add a task by Dragging and Dropping here or by Editing its Status to 'In Progress'."
+    }
+    else{
+        span=document.createElement("span");
+        span.classList.add("no-task-placeholder");
+        span.innerText="Tip: Drag Cards and Drop them here to mark them as 'In Progress'!!";
+        allTasks.appendChild(span);
     }
 }
 function displayCompletedTasks(tasks){
     allTasks=document.getElementById("done-column");
     allTasks.innerHTML="";
+    let completedTasks=[];
     tasks.forEach(task=>{
-        if(task.status==="complete"){
-            let card=createTaskCard(task);
+        if(task.status==="completed"){
+            completedTasks.push(task)
+            card=createTaskCard(task);
             allTasks.appendChild(card);
         }
     })
-    if(tasks.length===0){
-        allTasks.innerHTML="<span class='no-task-placeholder'> No Tasks Completed!!! Add a task by Dragging and Dropping here or by marking its Status to Complete."
-    }
-}
-
-
-
-
-function addTodo(){
-    todos.push({
-        title: document.querySelector("input").value,
-        id: `${ctr}`,
-        editId: `edit${ctr}`,
-        deleteId: `del${ctr}`,
-        isDone: false
-    });
-    ctr++;
-    if(document.querySelector("input").value){
-        render();
+    if(completedTasks.length===0){
+        allTasks.innerHTML="<span class='no-task-placeholder'> No Tasks Completed!!! Add a task by Dragging and Dropping here or by marking its Status to Complete.</span>"
     }
     else{
-        alert("Enter The Task!!!!!!!!")
+        span=document.createElement("span");
+        span.classList.add("no-task-placeholder");
+        span.innerText="Tip: Drag Cards and Drop them here to mark them as `Complete`!!";
+        allTasks.appendChild(span);
     }
-    document.querySelector("input").value='';
 }
 
-function deleteTodo(index){
-    // todos.splice(index,1); //theres a better way to do this
-    todos= todos.filter((obj)=>{if(obj.id!=index){return obj}});
-    render();
-}
 
-function editTodo(index){
-    span=document.getElementById(`todo${index}`);
-    editbtn=document.getElementById(`edit${index}`)
+function dragger(){
+
+    let doneDroppableArea=document.getElementById("done-column");
+    let inprogressDroppableArea=document.getElementById("inprogress-column");
+    let todoDroppableArea=document.getElementById("todo-column");
     
-    span.setAttribute("contentEditable","true");
-    editbtn.style.display="none";
-    span.style.border="1px solid black";
-    let save=document.createElement("button");
-    save.innerHTML="Save";
-    let cancel=document.createElement("button");
-    cancel.innerHTML="Cancel"
-    span.parentNode.appendChild(save);
-    span.parentNode.appendChild(cancel);
-    cancel.addEventListener("click",()=>{render()});
-    
-    save.addEventListener("click",()=>{
-        editedText=span.textContent;
-        for(let i=0;i<todos.length;i++){
-            if(todos[i].id==index){
-                console.log("done")
-                todos[i].title=editedText;
-            }
-        }
-        render();
-    })
-}
-
-function isCompleted(ele,index){
-    // box=document.getElementById(`check${index}`);
-    if(ele.checked){
-        for(let i=0;i<todos.length;i++){
-            if(todos[i].id===index){
-                todos[i].isDone=true;
-                break;
-            }
-        }
-    }
-    else{
-        for(let i=0;i<todos.length;i++){
-            if(todos[i].id===index){
-                todos[i].isDone=false;
-                break;
-            }
-        }
+    doneDroppableArea.addEventListener('drop', (event) => {
+        event.preventDefault();
+        const data = event.dataTransfer.getData('text/plain');
+        markAsComplete(data)
         
-    }
-    render();
-    console.log(todos)
+        // event.target.appendChild(draggableElement);
+    })
+
+    inprogressDroppableArea.addEventListener('drop', (event) => {
+        event.preventDefault();
+        const data = event.dataTransfer.getData('text/plain');
+        const draggableElement = document.getElementById(data);
+        markAsComplete(data,"pending")
+
+        // event.target.appendChild(draggableElement);
+    })
+    todoDroppableArea.addEventListener('drop', (event) => {
+        event.preventDefault();
+        const data = event.dataTransfer.getData('text/plain');
+        const draggableElement = document.getElementById(data);
+        markAsComplete(data,"todo")
+        
+        // event.target.appendChild(draggableElement);
+    })
+    
+    doneDroppableArea.addEventListener('dragover', (event) => {
+        event.preventDefault();
+      });
+    inprogressDroppableArea.addEventListener('dragover', (event) => {
+        event.preventDefault();
+      });
+    todoDroppableArea.addEventListener('dragover', (event) => {
+        event.preventDefault();
+      });
 }
+
+function handleDragStart(event) {
+    event.dataTransfer.setData('text/plain', event.target.id);
+    console.log(event.target.id);
+    dragger()
+}
+
 
 // function sortTasks(criteria,tasks) {
 //     tasks.sort((a, b) => {
@@ -446,3 +590,28 @@ function isCompleted(ele,index){
 //         }
 // });
 // }
+
+function sortTasks(criteria) {
+    if (criteria === 'priority') {
+        tasks.sort((a, b) => a.priority - b.priority);
+        console.log("sorting by priority");
+        displayAllTasks(tasks);
+        displayCompletedTasks(tasks);
+        displayPendingTasks(tasks);
+        
+    } else if (criteria === 'dueDate') {
+        // tasks.sort((a, b) => new Date(a.dueDate) - new Date(b.dueDate));
+        console.log("sorting by date");
+
+        tasks.sort((a, b) => {
+            const dateA = new Date(a.date);
+            const dateB = new Date(b.date);
+            return dateA - dateB; 
+          });
+
+        displayAllTasks(tasks);
+        displayCompletedTasks(tasks);
+        displayPendingTasks(tasks);
+    }
+    
+}

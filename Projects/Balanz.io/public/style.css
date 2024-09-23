@@ -216,7 +216,7 @@ body {
   gap: .5rem;
 }
 .menu-item{
-  padding: .5rem 1rem;
+  padding: .6rem 1.2rem;
   display: flex;
   align-items: center;
   gap: .4rem;
@@ -233,6 +233,7 @@ body {
 .menu-item:hover {
   /* color: #ff4f00; */
   background-color: #eaeaea5f;
+  background-color: #ffe3d6;
 }
 
 .logout{
@@ -251,7 +252,7 @@ body {
   gap: .5rem;
   text-decoration: none;
   color: #ff4f00;
-  color: #555555;
+  color: #000000;
 }
 .logout:hover{
   background-color: #ff510021;
@@ -424,41 +425,82 @@ body {
   display: flex;
   align-items: baseline;
   justify-content: space-between;
-  margin-bottom: 3rem;
+  margin-bottom: 2rem;
   gap: 1rem
 }
 
-.filter-section{
+
+.filter-section {
   margin-bottom: 20px;
-  padding: .3rem .7rem;
   display: flex;
   align-items: center;
   gap: 1rem;
-  background-color: #eaeaea5f;
-  border-radius: .5rem;
+  /* background-color: #fff; */
+  /* border-radius: .5rem; */
 }
-.filter-section i{
+
+.filter-section i {
   padding: .5rem .7rem;
   background-color: #fff;
   color: #000;
   border-radius: .5rem;
   cursor: pointer;
 }
-.filter-btn a{
-  padding: 10px 20px;
-  /* margin-right: 10px; */
-  background-color: #eaeaea5f;
-  color: white;
-  border: none;
-  border-radius: .5rem;
-  /* cursor: pointer; */
-  text-decoration: none;
-  font-size: .9rem;
+
+.dropdown {
+  position: relative;
+  display: inline-block;
 }
 
-.filter-btn:hover {
-  background-color: #D24304;
+.dropbtn {
+  padding: 10px 20px;
+  background-color: #eaeaea5f;
+  color: #000;
+  border: none;
+  border-radius: .5rem;
+  text-decoration: none;
+  font-size: .9rem;
+  font-weight: 500;
+  cursor: pointer;
 }
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #fff;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  border-radius: .5rem;
+  z-index: 1;
+}
+
+.dropdown-content a {
+  color: #000;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  /* border-radius: .5rem; */
+  background-color: #eaeaea5f;
+  font-size: .8rem;
+  cursor: pointer;
+}
+
+.dropdown-content a:hover {
+  background-color: #9999993a;
+  /* color: white; */
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+.dropdown:hover .dropbtn {
+  background-color: #9999993a;
+  /* color: white; */
+}
+
+
+
 
 
 .kanban-board {
@@ -531,7 +573,7 @@ body {
 .no-task-placeholder{
   font-size: 0.8rem;
   padding: 1rem;
-  color: #555555;
+  color: #555555b8;
   /* display: flex; */
   align-items: center;
   /* gap: 1rem; */
@@ -624,7 +666,7 @@ body {
   width: fit-content;
   margin: .2rem 0;
 }
-.complete{
+.completed{
   font-weight: 500;
   color: #49a382;
   color: #00a671;
@@ -635,13 +677,17 @@ body {
   font-weight: 500;
   color: #36a8fa;
   background-color: #edf4f9;
-
 }
+/* .todo{
+  font-weight: 500;
+  color: #36a8fa;
+  background-color: #edf4f9;
+} */
 
 .task-title {
   font-size: 1.1rem;
   font-weight: bold;
-  margin: .9rem 0 0 0;
+  margin: .5rem 0 0 0;
 }
 
 .task-desc {
@@ -848,6 +894,67 @@ textarea {
   border-radius: 4px;
   cursor: pointer;
 }
+
+.popup-modal {
+  position: fixed;
+  top: 2.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #ffffff;
+  color: #000000;
+  padding: 1rem 20px;
+  border-radius: .7rem;
+  font-size: 16px;
+  z-index: 1000;
+  box-shadow: 0 15px 50px 0 rgba(0,0,0,.35);
+  font-size: .9rem;
+  display: flex;
+  display: none; 
+  gap: .5rem;
+  align-items: center;
+}
+
+.popup-modal.show {
+  display: flex; 
+  gap: .5rem;
+  opacity: 1;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.popup-modal.fade-out {
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+}
+.sync-txt {
+  color: #555555;
+  padding: 1rem 0;
+  border-radius: .8rem;
+  /* box-shadow: 0 15px 50px 0 rgba(0,0,0,.35); */
+  font-size: .8rem;
+  /* display: none;  */
+  opacity: 0;
+  gap: .5rem;
+  /* align-items: center; */
+}
+
+.sync-modal.show {
+  display: flex; 
+  opacity: 1;
+  transition: opacity 0.3s ease-in-out;
+}
+
+#sync{
+  display: flex;
+  gap: .5rem;
+  align-items: center;
+}
+#sync .loader{
+  width: 12px;
+  border: 2px solid #555555;
+}
+
+
+
 @media screen and (max-width: 750px) {
   .sidebar{
     width: 0;

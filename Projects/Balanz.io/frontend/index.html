@@ -37,6 +37,11 @@
           </div>
         </div>
     </div>
+
+    <div id="popup-modal" class="popup-modal">
+        <p id="popup-message"></p>
+    </div>
+    
     
     <div id="task-modal" class="modal">
         <div class="modal-content">
@@ -46,7 +51,7 @@
               <h4 class="task-title" id="modalTitle" style="margin: .4rem 0;"></h4>
             <input type="text" id="task-title" name="title" placeholder="Create new task" required />
       
-            <textarea id="task-desc" name="description" placeholder="Add your Notes" required></textarea>
+            <textarea id="task-desc" name="description" placeholder="Add your Notes(optional)"></textarea>
 
             <div class="add-metadata">
             
@@ -61,7 +66,8 @@
         
                 <select id="status" required>
                     <option value="" disabled selected>Select status of Task</option>
-                    <option value="inprogress">In Progress</option>
+                    <option value="todo">To Do</option>
+                    <option value="pending">In Progress</option>
                     <option value="completed">Completed</option>
                 </select>
 
@@ -81,7 +87,6 @@
                 <button class="submit-btn" onclick="saveAddEditModal()">Save Task</button>
             </div>
 
-            <!-- <div id="error-message" style="color: red;"></div> -->
         </form>
         </div>
       </div>
@@ -104,8 +109,8 @@
             <div class="menu">
                 <div class="add-task-btn menu-item" onclick="openAddEditModal('add')">Add Task<i class="fa-solid fa-circle-plus"></i></div>
                 <div class="all-task menu-item active"><i class="fa-regular fa-calendar-check"></i> All Tasks</div>
-                <div class="completed-task menu-item"><i class="fa-solid fa-square-check"></i> Completed</div>
-                <div class="pending-task menu-item"><i class="fa-solid fa-hourglass-half"></i> In Progress</div>
+                <div class="completed-task menu-item"><i class="fa-solid fa-square-check" style="color: #05a571;"></i> Completed</div>
+                <div class="pending-task menu-item"><i class="fa-solid fa-hourglass-half" style="color: #36a8fa;"></i> In Progress</div>
             </div>
 
             <div class="logout" onclick="openModal()">
@@ -153,14 +158,23 @@
                 <div class="main-header">
                     <div class="greeting" id="greeting"></div>
                     <div class="date" id="displayDate"></div>
+                    <div id="sync-txt" class="sync-txt">
+                        <div id="sync"><div class="loader"></div> Saving Changes</div>
+                    </div>
                 </div>
             
                 
                 <div class="filter-section">
-                    <a>Filter</a>
-                    <i class="fa-solid fa-arrow-up-wide-short" onclick="sortTasks('priority')"></i>
-                    <!-- <button class="filter-btn" onclick="sortTasks('dueDate')">Sort by Due Date</button> -->
+                    <div class="dropdown">
+                        <button class="dropbtn filter-btn">Filter Options <i class="fa-solid fa-arrow-up-wide-short"></i></button>
+                        <div class="dropdown-content">
+                            <a onclick="sortTasks('priority')">Sort by Priority</a>
+                            <a onclick="sortTasks('dueDate')">Sort by Due Date</a>
+                        </div>
+                    </div>
                 </div>
+
+                
             </div>
         
             

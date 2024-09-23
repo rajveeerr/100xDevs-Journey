@@ -20,7 +20,7 @@ app.get("/healthy", (req, res)=> res.send("I am Healthy"));
 
 //  start writing your routes here
 app.get("*",(req,res)=>{
-    res.status(404).send(`<h1>Ummm!!!! Looks Like the resourse you are looking for doesn't exists!!!</h1>`)
+    res.status(404).sendFile(path.join(__dirname,"../frontend/notFound.html"))
 })
 
 app.listen(port, ()=> console.log(`server is running at http://localhost:${port}`));
