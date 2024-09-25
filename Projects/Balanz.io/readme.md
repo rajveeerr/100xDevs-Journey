@@ -5,6 +5,16 @@ Balanz.io is more than just a task manager—it's a smart task management system
 ## 🌐 Live Demo: https://balanz-io-01.onrender.com/
 The backend is hosted on Render for free, so the app might load slower than expected at times.
 
+## 📷 Screenshots
+
+<img width="1280" alt="Screenshot 2024-09-26 at 12 03 17 AM" src="https://github.com/user-attachments/assets/23f35714-338a-4f00-a046-1faea24006cb">
+
+<img width="1280" alt="Screenshot 2024-09-26 at 12 03 25 AM" src="https://github.com/user-attachments/assets/0ab6a733-588f-415b-b2de-61dae10a8fce">
+
+<img width="1280" alt="Screenshot 2024-09-26 at 12 03 05 AM" src="https://github.com/user-attachments/assets/94bac38e-8e1c-4e83-a16d-aa3cb8e231cd">
+
+
+
 ## ✨ Features
 - **Task Management**: Create, edit, and delete tasks.
 - **Smart UI/UX**: Minimalistic and clean design.
