@@ -3,54 +3,183 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/x-icon" href="/faviconLogo.png">
     <title>Balanz.io</title>
+    <link rel="icon" type="image/x-icon" href="/faviconLogo.png">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.7.7/axios.min.js"></script>
+    <script src="https://kit.fontawesome.com/b6fe51c8e7.js" crossorigin="anonymous"></script>
+    <!-- <script src="/todosScript.js"></script> -->
+     <link rel="stylesheet" href="/loginstyle.css">
 </head>
-<body style="display: flex;flex-direction: column;gap: 2rem; align-items: center;box-sizing: border-box;">
-    <div class="login" style="padding: 1rem; border: 1px solid; border-radius: 10px; align-items: center; display: flex; justify-content: center; flex-direction: column; gap: .5rem; width: 50%;">
-        <h1>Login to your Account</h1>
-        <form onsubmit="login(event)">
-            <input type="text" placeholder="Enter Username" id="loginUsername" minlength="3" maxlength="20" required>
-            <input type="password" placeholder="Enter Password" id="loginPass" required>
-            <input type="checkbox" onclick="passwordToggle()">Show Password
-            <button onclick="login()">Login</button>
-        </form>
+<body>
+    <div id="popup-modal" class="popup-modal">
+        <p id="popup-message"></p>
     </div>
-    <p>Aren't a user??? <a href="/signup" onclick="redirectSignup()">Signup Here!!</a></p>
-    <p>Logged in or signed up already??? <a href="/todos">Start creating todos Here!!</a></p>
+    <div class="navbar">
+        <div class="logo"><a href="/"><span class="b">B</span>Balanz<span class="stylize">.</span><span style="">io</span></a></div>
+        <div class="socials">
+            <a href="/signup" target="_blank" class="github-btn"><i class="fa-solid fa-user-plus"></i> SignUp</a>
+            <a href="/todos" target="_blank" class="twitter-btn"><i class="fa-solid fa-notes-medical"></i> Get Started</a>
+        </div>
+    </div>
+    <div class="login-container">
+        <div class="login-section">
+            <div class="login-section-title">
+                <h1>Log In</h1>
+            </div>
+            <div class="form">
+                <span type="text" class="error"><i class="fa-solid fa-circle-exclamation"></i><span id="err"></span></span>
+                <form onsubmit="login(event)">
+                <label class="username">Username</label>
+                <input type="text" placeholder="Enter Username" id="loginUsername" minlength="3" maxlength="20" required>
+                
+                
+                    <label class="username">Password</label>
+                    <div class="password-field">
+                        <input type="password" placeholder="Enter Password" id="loginPass" required>
+                        <span  onclick="passwordToggle()" class="show-password-btn"><i id="icon" class="fa-regular fa-eye"></i></span>
+                    </div>
+                
+                
+                <!-- <input type="checkbox" onclick="passwordToggle()">Show Password -->
+                <button onclick="login()">Login</button>
+            </form>
+            <button onclick="loginasGuest()" class="guest-btn">Login as Guest</button>
+            <p class="signup-redirect">Aren't a user? <a href="/signup" onclick="redirectSignup()">Signup!</a></p>
+            <p class="logged-redirect">Logged in or signed up already? <a href="/todos"> Get Started!</a></p>
+        </div>
+        </div>
+        <div class="img-container">
+            <img src="/uipreview.jpeg">
+        </div>
+    </div>
+
+
+    <footer>
+        <div class="footer-logo nav-logo">
+            <div class="logo">
+                <a href="/"><span class="b">B</span>Balanz<span class="stylize">.</span><span>io</span></a>
+            </div>
+        </div>
+        <div class="footer-description">
+            Built with <img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/People/Man%20Technologist.png" alt="Man Technologist" width="25" height="25" /> by <span class="creator">Rajveer Singh</span>, the mind behind <a href="https://atmosonic.netlify.app" target="_blank" class="CodeCraft">AtmoSonic</a>.
+        </div>
+        <div class="social-icons">
+            <a href="https://github.com/rajveeerr" target="_blank"><i class="fa-brands fa-square-github"></i></a>
+            <a href="https://x.com/RajveeerrSingh" target="_blank"><i class="fa-brands fa-square-x-twitter"></i></a>
+        </div>
+    </footer>
+
 
     <script>
+        let url="http://localhost:3000"
+        function randomUsername(){
+            let username=''
+            charOptions=['0', '1', '2', '3', '4', '5', '6', '7', '8', '9','a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p',  'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
+            for(let i=0;i<8;i++){
+                username+=charOptions[Math.floor(Math.random() * charOptions.length)];
+            }
+            return username;
+        }
         async function login(event) {
             event.preventDefault();
             username=document.getElementById("loginUsername").value;
             if(!isValidUsername(username)){
-                alert("Userrname can contail only alphanumeric characters and underscore")
+                // alert("Userrname can contail only alphanumeric characters and underscore")
+                label=document.getElementsByClassName("error")[0];
+                label.style.display="flex";
+                labeltxt=document.getElementById("err");
+                labeltxt.innerText="Userrname can contain only Alphanumeric Characters and Underscore";
+                return;
             }
             pass=document.getElementById("loginPass").value;
             try{
-                let response=await axios.post("http://localhost:3000/login",{
+                let response=await axios.post(`${url}/login`,{
                     username,
                     password: pass
                 })
                 let loginResponseData=response.data;
-                alert(loginResponseData.message);
+                // alert(loginResponseData.message);
+                showPopup("Logged In Succesfully!!","success")
                 let token=loginResponseData.token;
-                localStorage.setItem("token",token);//setting token to local storage, every website has its local storage, now since token is stored in localstorage it will remain here until removed by logging out, so login persists
+                localStorage.setItem("token",token);
                 window.location.href = '/todos';
             }
             catch(e){
-                alert(e.response.data.message);
+                // alert(e.response.data.message)
+                label=document.getElementsByClassName("error")[0];
+                label.style.display="flex";
+                labeltxt=document.getElementById("err");
+                labeltxt.innerText=""
+                labeltxt.innerText=e.response.data.message; 
+            }
+        }
+        async function loginasGuest(){
+            let username=randomUsername();
+            let name="Guest";
+            let pass="123";
+            try{
+                let response=await axios.post(`${url}/signup`,{
+                    username: username,
+                    name: name,
+                    password: pass
+                })
+                let signupStatus=response.data;
+                showPopup("Logged In Succesfully!!","success")
+                localStorage.setItem("token",signupStatus.token);
+                // alert(signupStatus.message+signupStatus.profileImg+" Redirecting you to todos page");
+                window.location.href="/todos"
+            }
+            catch(e){
+                // alert(e.response.data.message)
+                label=document.getElementsByClassName("error")[0];
+                label.style.display="flex";
+                labeltxt=document.getElementById("err");
+                labeltxt.innerText=""
+                labeltxt.innerText=e.response.data.message; 
+
             }
         }
         function passwordToggle(){
             passwordInput=document.getElementById("loginPass");
-            passwordInput.type==="password"?passwordInput.type="text":passwordInput.type="password";
+            icon=document.getElementById("icon");
+            
+            if (passwordInput.type==="password"){
+                passwordInput.type="text";
+                icon.classList.add("fa-eye-slash");
+                icon.classList.remove("fa-eye");
+            }
+            else{
+                passwordInput.type="password";
+                icon.classList.add("fa-eye");
+                icon.classList.remove("fa-eye-slash");
+            }
         }
         function isValidUsername(username){
             const regex = /^[a-zA-Z0-9_]+$/;
             return regex.test(username);
         }
+
+
+function showPopup(message,type='success') {
+    let popupModal = document.getElementById('popup-modal');
+    let popupMessage = document.getElementById('popup-message');
+    
+    if (type==='error'){
+        popupMessage.innerHTML = `<i class="fa-solid fa-circle-xmark" style="color: #dc3545"></i>   ${message}`;
+    } 
+    else {
+        popupMessage.innerHTML = `<i class="fa-solid fa-circle-check" style="color: #05a571"></i>   ${message}`;
+    }
+
+    popupModal.classList.add('show');
+    setTimeout(() => {
+        popupModal.classList.add('fade-out');
+    }, 2000);
+
+    setTimeout(() => {
+        popupModal.classList.remove('show', 'fade-out');
+    }, 3000); 
+}
 
 
         

@@ -10,7 +10,7 @@ const app = express();
 const port = process.env.PORT;
 
 app.use(express.json());
-app.use(cors());
+// app.use(cors());
 app.use(express.static(path.join(__dirname,'../public')));
 
 app.use(userRoutes);
@@ -24,3 +24,7 @@ app.get("*",(req,res)=>{
 })
 
 app.listen(port, ()=> console.log(`server is running at http://localhost:${port}`));
+
+setInterval(()=>{
+    console.log(".");
+},5000)

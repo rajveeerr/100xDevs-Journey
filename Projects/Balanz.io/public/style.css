@@ -59,6 +59,8 @@ body {
   font-style: normal;
   font-size: 1.3rem;
   cursor: pointer;
+  display: flex;
+  align-items: center;
 }
 .logo a{
   text-decoration: none;
@@ -68,6 +70,7 @@ body {
 .b{
   padding: .1rem 10px;
   margin: .2rem;
+  font-size: 1.3rem;
   border-radius: .2rem;
   background-color: #ff4f00;
   color: #fffdf9;
@@ -221,6 +224,7 @@ body {
   padding: .6rem 1.2rem;
   display: flex;
   align-items: center;
+  justify-content: space-between;
   gap: .4rem;
   /* background-color: #eaeaea55; */
   border-radius: .7rem;
@@ -232,6 +236,10 @@ body {
   color: #ff4f00;
   background-color: #ff510021;
 }
+/* .disabled{
+  mask-image: rgba(0, 0, 0, 0.562);
+/* mask-image: image(url(mask.png), skyblue); */
+
 
 .menu-item:hover {
   /* color: #ff4f00; */
@@ -434,6 +442,7 @@ body {
 
 
 .filter-section {
+  opacity: 0;
   margin-bottom: 20px;
   display: flex;
   align-items: center;

@@ -109,9 +109,9 @@
           
             <div class="menu">
                 <div class="add-task-btn menu-item" onclick="openAddEditModal('add')">Add Task<i class="fa-solid fa-circle-plus"></i></div>
-                <div class="all-task menu-item active"><i class="fa-regular fa-calendar-check"></i> All Tasks</div>
-                <div class="completed-task menu-item"><i class="fa-solid fa-square-check" style="color: #05a571;"></i> Completed</div>
-                <div class="pending-task menu-item"><i class="fa-solid fa-hourglass-half" style="color: #36a8fa;"></i> In Progress</div>
+                <div class="all-task menu-item active"><div><i class="fa-regular fa-calendar-check"></i> All Tasks</div></div>
+                <div class="completed-task menu-item disabled" ><div><i class="fa-solid fa-square-check" style="color: #05a571;"></i> Completed</div> <span style="font-size: .6rem; align-items: flex-end;color: #555;">Not Added</span></div>
+                <div class="pending-task menu-item disabled"><div><i class="fa-solid fa-hourglass-half" style="color: #36a8fa;"></i> In Progress</div><span style="font-size: .6rem; align-items: flex-end;color: #555">Not Added</span></div>
             </div>
 
             <div class="logout" onclick="openModal()">
@@ -246,6 +246,7 @@
             </div>
         </template> -->
         
+
 
 
 
