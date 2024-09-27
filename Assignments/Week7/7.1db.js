@@ -13,21 +13,49 @@ let ObjectId=mongoose.ObjectId;
 
 let userSchema=new Schema({//the structure of datta that will reach the database
     name: String,
-    email: {type: String, unique: true},//will make sure every email is unique
-    password: String,
+    // email: {type: String, unique: true},//will make sure every email is unique
+    email: {
+        type: String,
+        trim: true,
+        lowercase: true,
+        unique: true,
+        validate: {
+            validator: function(v) {
+                return /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(v);
+            },
+            message: "Please enter a valid email"
+        },
+        required: [true, "Email required"]
+    },//email validation
+    password: {type: String, required: true, minLength: 8}//password validation
 });//object of class Schema
 
 let todoSchema=new Schema({
     title: String,
     isDone: Boolean,
-    due: String,
-    userId: ObjectId
-})
+    due: Date,
+    userId: ObjectId //the ids generated are of type objectid, so this line suggests that the type of userId is ObjectiD
+},{timestamps: true})//this will simply create the timestamp when the document is added/updated
 
 // model is basically creating something which uses schema to allow users to call functions on it
 // we can call multiple function over a model
 
+//  The .model() function makes a copy of schema
+
+// Instance of model is called document
+
 let userModel=mongoose.model('users',userSchema);//the first arguments tells which collection to put the data
 let todoModel=mongoose.model('todos',todoSchema);//so this means i want to put data in todos collection with the todoSchema(datastructure)
+
+// functions to used for model
+
+// model.findOne({email: "smth"})
+// model.find({email: "sjosd", password: "sdckjdcs"})
+// model.create({email: "dsc","name": "password"})
+// model.delete({_taskid: "dscdcs"})
+// model.updateOne({_taskid: "dscdcs"},{idDone: true})
+
+// await model.find({ _taskid: 'dscdss' }).where('createdDate').gt(oneYearAgo).exec();
+// model.findOneAndUpdate(conditions, update)
 
 module.exports={userModel,todoModel}
