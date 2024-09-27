@@ -83,16 +83,24 @@ app.post("/signup",async (req,res)=>{
     let email=req.body.email;
     let password=req.body.password;
     
-    await userModel.create({//this is an asynchronous function for obvious reasons, it has to put this data to a remote server, and it cant stop execution
-        name: name,
-        email: email,
-        password: password
-    })
-    // we can totally get away without using await, then we will just assume ki the data has been inserted succesfully, the the good
-    // practice is to use await and check if the data has been inserted succesfully
+    try{
+        await userModel.create({//this is an asynchronous function for obvious reasons, it has to put this data to a remote server, and it cant stop execution
+            name: name,
+            email: email,
+            password: password
+        })//.catch(e){} whill do the same job as below
+        // we can totally get away without using await, then we will just assume ki the data has been inserted succesfully, the the good
+        // practice is to use await and check if the data has been inserted succesfully
+    
+        //have to chaek if the email is unique,no need already written a schema for that have to figure out what will happen if the same email
+        // has been entered twice, do error handling thats it
+    }
+    catch(e){
+        res.status(403).json({
+            message: "Duplicate Emails Cannot be used!!!"
+        })
 
-    //have to chaek if the email is unique,no need already written a schema for that have to figure out what will happen if the same email
-    // has been entered twice, do error handling thats it
+    }
 
     res.json({
         message: "User Added Succesfully!!!"
@@ -159,3 +167,18 @@ app.get("/todos",async(req,res)=>{
 })
 
 app.listen(3000)
+
+// Relations in db is imp, it will not allow me to add todo with the user id that doesn't exist
+
+// Bearer in the token suggests the type of token, bearer is the most common one another type is APIKey followed by the token
+
+// Authentication/Atuthrization: Authentication means logging in logging out, Authorization means if i am authorized to acess
+// this resourse like /admin. Like i have logged in to google but not authorised to visit google/admin, to authorization means
+// the level of acess i have in the be
+// How can i do that, like only some can acess a particular end point regardless of whether they are logged in or not, just create
+// a admin table/collection containing the users who are authorised to acess that endpoint
+
+// Refresh token is basically revokin a token and reissing it time to time for security, as if anyone gets hold of someone elses
+// token, the token will become invalid after some time
+
+// Read about oauth

@@ -1,10 +1,11 @@
 let mongoose=require("mongoose");
 // find out why we are using schema here, mongo is schemaless isn't it??
 
-// Well the mongoose db doesn't have schema(dont nedd to define rigid data structure), its the mongoose library based on 
+// Well the mongoose db doesn't have schema(dont need to define rigid data structure), its the mongoose library based on 
 // ODM(object document model), which adds schema for data consistency
 
-// Mongoose gives you the option of enforcing a schema when it's beneficial for your application logic.
+// Mongoose gives you the option of enforcing a schema because it's beneficial for the application logic, creating schema here doesnt means
+// ki we cant put random data in the db. To create schema less data model uing node we can use mongodb library.
 
 let Schema=mongoose.Schema;  //mongoose library exports a class called schema
 
