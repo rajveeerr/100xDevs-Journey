@@ -72,7 +72,7 @@ let {userModel,todoModel}=require("./7.1db");
 const mongoose = require("mongoose");
 const { authenticate } = require("./7.1auth");
 
-mongoose.connect("mongodb+srv://randomadmin:9mVRp2O5Y9AI6Erz@cluster0.if7ev.mongodb.net/Balanz")
+mongoose.connect("")
 
 app.use(express.json())
 
