@@ -1,5 +1,5 @@
 // I can use any stack for backend, express - nodejs, springboot- java etc etc the only thing that will remain static is database
-// there are multiple types of databases, sql no-sql. When for large scake projects we use multiple backend servers to handle the large
+// there are multiple types of databases, sql no-sql. When for large scale projects we use multiple backend servers to handle the large
 // trafic, these backend servers are transient, means if one server goes down others will handle the load, the data is
 // not persisted, means we can start and stop them, no data will be lost as we use databases to persist data, these backends
 // are stateless, means no data is stored in the database, which will be a bad idea. The best practice will be to stop auto scaling
@@ -95,7 +95,7 @@ const bcrypt=require("bcrypt");
 // The hashed password itself contains the version of becrypt, the number of salting rounds and the salt(16 chars) and the hashed
 // password in itself, no need to store the salt alag se
 
-// Bcrypt.compare() will read the hashed pass stored in db and us the data about the version of bcrypt, salting rounds and salt
+// Bcrypt.compare() will read the hashed pass stored in db and use the data about the version of bcrypt, salting rounds and salt
 // stored in hashed pass to create the hash and compare
 
 app.use(express.json())
@@ -145,7 +145,7 @@ app.post("/signup",async (req,res)=>{
         // we can totally get away without using await, then we will just assume ki the data has been inserted succesfully, the the good
         // practice is to use await and check if the data has been inserted succesfully
     
-        //have to chaek if the email is unique,no need already written a schema for that have to figure out what will happen if the same email
+        //have to check if the email is unique,no need-already written a schema for that have to figure out what will happen if the same email
         // has been entered twice, do error handling thats it
     }
     catch(e){
@@ -161,7 +161,7 @@ app.post("/signup",async (req,res)=>{
     })
     return
 
-    // everything is sorted here already, no need to read the file to check if the username is unique like it was earlier, it will
+    // everything is sorted here already, no need to read the file to check if the email is unique like it was earlier, it will
     //  simply throw error if duplicate email is used, and inserted the data to the collection
 })
 
@@ -264,7 +264,7 @@ app.get("/todos",async(req,res)=>{
         userId
     })
     res.json({
-        message: todos,
+        message: todos
     })
     return;
 })
@@ -314,9 +314,8 @@ module.exports={
     }
 }
 
-// figure out how do big companies search if user doesnt exist?? does they simply iterate through data??
+// figure out how do big companies with very large dataset search if user doesnt exist?? does they simply iterate through data??
 
 // assignment is to add password validation
-
 
 // Read about oauth

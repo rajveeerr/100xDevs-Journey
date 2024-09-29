@@ -5,13 +5,15 @@ let mongoose=require("mongoose");
 // ODM(object document model), which adds schema for data consistency
 
 // Mongoose gives you the option of enforcing a schema because it's beneficial for the application logic, creating schema here doesnt means
-// ki we cant put random data in the db. To create schema less data model uing node we can use mongodb library.
+// ki we cant put random data in the db. To create schema-less data model uing node we can use mongodb library.
+
+// Tldr schema is introduced by this mongoose library to reduce the errors that can occur in the program
 
 let Schema=mongoose.Schema;  //mongoose library exports a class called schema
 
 let ObjectId=mongoose.ObjectId;
 
-let userSchema=new Schema({//the structure of datta that will reach the database
+let userSchema=new Schema({//the structure of data that will reach the database | userSchema is an instance of schema
     name: String,
     // email: {type: String, unique: true},//will make sure every email is unique
     email: {
