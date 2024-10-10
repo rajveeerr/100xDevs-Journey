@@ -1,23 +1,22 @@
 {
-  "dependencies": {
-    "axios": "^1.7.7",
-    "bcrypt": "^5.1.1",
-    "express": "^4.21.0",
-    "jsonwebtoken": "^9.0.2",
-    "mongoose": "^8.6.4",
-    "readline-sync": "^1.4.10",
-    "zod": "^3.23.8"
-  },
-  "packageManager": "yarn@4.5.0",
-  "name": "coding",
+  "name": "week8",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node classNotes7.1.js"
+    "start": "node index.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": ""
+  "description": "",
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.21.1",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.7.0",
+    "zod": "^3.23.8"
+  }
 }
