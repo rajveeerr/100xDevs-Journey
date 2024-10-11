@@ -1,21 +1,22 @@
 const {Router}=require("express");
 const courseRouter=Router();
 
+const {userAuthentication}=require("../middlewares/usermiddleware");
+const {courseModel}=require("../database/databaseIndex")
+
 courseRouter.get("/",(req,res)=>{
     res.json({
         message: "All Courses"
     })
 })
 
-courseRouter.get("/purchases",(req,res)=>{
-    res.json({
-        message: "Purchased Courses"
-    })
-})
 
-courseRouter.get("/preview",(req,res)=>{
+courseRouter.get("/preview",async (req,res)=>{
+
+    let allCourses=await courseModel.find({})
     res.json({
-        message: "Previewing Course"
+        message: "Displaying all courses",
+        data: allCourses
     })
 })
 
