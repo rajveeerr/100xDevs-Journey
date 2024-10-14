@@ -4,7 +4,7 @@ const app=express();
 const env=require("dotenv");//basically to not expose the secrets we put them in the .env file and pu .env in .gitignore file
 // to make sure the those dont get pushed to github and will be present locally, no matter what, also .env.example is created 
 // to let the users know what the file looks like, one can say ki i dont need to use env filei can simply remove the string
-// from the local machine to not push it on the github(literally be before creating balanzio), but this will be wrong as we can
+// from the local machine to not push it on the github(literally me before creating balanzio), but this will be wrong as we can
 // forget this easily
 env.config()
 
@@ -28,7 +28,7 @@ app.use("/admin",adminRouter)
 
 //to learn how to store images uploaded by user
 
-// if to host my full-stack sites there are two options, forstone is to host all the files on be(similar to what i did for balanzio)
+// if to host my full-stack sites there are two options, first one is to host all the files on be(similar to what i did for balanzio)
 // or host them seperately, what will be the best approach?? The second one bcz it will be cheaper to host static sites on cds, that
 // hosting all the files on server(any virtual machine), it will increase the bandwidth of the vm, vm will spend lot of time computing
 // than serving
@@ -48,7 +48,7 @@ main();
 
 // shortcut: cmd+shift+l selects all duplicates at once
 
-//debouncer is basically limmiting too many backend calls
+//debouncer is basically limiting too many backend calls
 
 //oauth is a protocol
 
@@ -59,6 +59,9 @@ main();
 // npm run start is for prod and run dev is for developement enviornment
 
 //learned about nodemon and production and dev env's 
+
 // learned more datatypes in mongodb schemas
 
-// /i can search for the mongodb string on github in global search bar
+//learned refresences and implementing them
+
+// i can search for the mongodb string on github in global search bar
