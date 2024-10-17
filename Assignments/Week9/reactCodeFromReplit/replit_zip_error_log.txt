@@ -1,0 +1,17 @@
+{"error":".zip archives do not support non-regular files","level":"error","msg":"unable to write file .cache/replit/modules/nodejs-20","time":"2024-10-17T13:38:05Z"}
+{"error":".zip archives do not support non-regular files","level":"error","msg":"unable to write file .cache/replit/modules/replit","time":"2024-10-17T13:38:05Z"}
+{"error":".zip archives do not support non-regular files","level":"error","msg":"unable to write file .cache/typescript/4.8/node_modules/.bin/parser","time":"2024-10-17T13:38:05Z"}
+{"error":".zip archives do not support non-regular files","level":"error","msg":"unable to write file .cache/typescript/5.0/node_modules/.bin/parser","time":"2024-10-17T13:38:07Z"}
+{"error":".zip archives do not support non-regular files","level":"error","msg":"unable to write file node_modules/.bin/browserslist","time":"2024-10-17T13:38:11Z"}
+{"error":".zip archives do not support non-regular files","level":"error","msg":"unable to write file node_modules/.bin/esbuild","time":"2024-10-17T13:38:11Z"}
+{"error":".zip archives do not support non-regular files","level":"error","msg":"unable to write file node_modules/.bin/jsesc","time":"2024-10-17T13:38:11Z"}
+{"error":".zip archives do not support non-regular files","level":"error","msg":"unable to write file node_modules/.bin/json5","time":"2024-10-17T13:38:11Z"}
+{"error":".zip archives do not support non-regular files","level":"error","msg":"unable to write file node_modules/.bin/loose-envify","time":"2024-10-17T13:38:11Z"}
+{"error":".zip archives do not support non-regular files","level":"error","msg":"unable to write file node_modules/.bin/nanoid","time":"2024-10-17T13:38:11Z"}
+{"error":".zip archives do not support non-regular files","level":"error","msg":"unable to write file node_modules/.bin/parser","time":"2024-10-17T13:38:11Z"}
+{"error":".zip archives do not support non-regular files","level":"error","msg":"unable to write file node_modules/.bin/rollup","time":"2024-10-17T13:38:11Z"}
+{"error":".zip archives do not support non-regular files","level":"error","msg":"unable to write file node_modules/.bin/semver","time":"2024-10-17T13:38:11Z"}
+{"error":".zip archives do not support non-regular files","level":"error","msg":"unable to write file node_modules/.bin/tsc","time":"2024-10-17T13:38:11Z"}
+{"error":".zip archives do not support non-regular files","level":"error","msg":"unable to write file node_modules/.bin/tsserver","time":"2024-10-17T13:38:11Z"}
+{"error":".zip archives do not support non-regular files","level":"error","msg":"unable to write file node_modules/.bin/update-browserslist-db","time":"2024-10-17T13:38:11Z"}
+{"error":".zip archives do not support non-regular files","level":"error","msg":"unable to write file node_modules/.bin/vite","time":"2024-10-17T13:38:11Z"}

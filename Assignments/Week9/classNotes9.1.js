@@ -12,14 +12,14 @@
 State: It is an object representing the current state of the application, it represent the dynamic things in the app, 
 it is the part of the site that is changing
 
--Updating/changing state will simply update the app, eg: changignt the satae of title, will also update the title of card on app,
--upon change in state, react will automatically update this chang in the app
+-Updating/changing state will simply update the app, eg: changing the state of title, will also update the title of card on app,
+-upon change in state, react will automatically update this change in the app
 
 Components: Components are the static parts of the page, tells how the dom should be rendered given the state, it is reusable
  dynamic and changes with the state, toh basically component is how does the application look, the positioning of element, its
  styling
 
-Commponent is the outer thing that gives structure and state is the inner thing that changes
+Crux: ommponent is the outer thing that gives structure and state is the inner thing that changes
 
 Note: it isn't necessary ki every state will reside in a component
 
@@ -42,22 +42,23 @@ directly within the js, this make it easier to create uis in react, jsx is synta
 
 a component exports xml, not html
 
-whatever starts with use in react is a hook
+whatever starts with 'use' in react is a hook
 
 NOTE: never do dom manipulations manually in react
+
+
+const arr=[var1,var2], this var is constant so tits length cant be changed, no new element can be added to it but the variables 
+can be changes, so to make an array actually constant we can use Object.freeze()
+
+const [elem1, elem2] = Object. freeze(['valuel', 'value2']);
+
+/arr and objects are collection
  */
 
 
-
-
-
-
-
-
-
-
-
-
+// How does react does re-rendering the optimal way?? idk, but to optimise my todo app from week 3, i will simply, check what
+// has chamged in the state variable, and will generate te component of of the changed variable and will put it to its correct
+// place in the dom wilhout clearing all the other elements
 
 
 
