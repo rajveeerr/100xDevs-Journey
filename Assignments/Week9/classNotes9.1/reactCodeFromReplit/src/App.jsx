@@ -30,7 +30,8 @@ export default function App() {
     }
     newTodos.push(task)
     //we cant directly push task at the end of the todos array because it is a reference type, so we need to create a new 
-    // array and push the task at the end of that array, React states should not be mutated directly
+    // array and push the task at the end of that array, 
+    // -> i.e. React states should not be mutated directly
     setTodo(newTodos)
 
 

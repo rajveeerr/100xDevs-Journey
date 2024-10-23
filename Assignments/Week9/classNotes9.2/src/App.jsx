@@ -11,9 +11,9 @@ function App() {
 
   // someone asked how will react know ki a component has been unmounted, taking about <Timer> and the useEffect inside it? 
   // Well since we are updating the state var every 5 sec, the react adds/removes <Timer> and upon doing any of those the react 
-  // knows ki mounting is hapenning, by , by calc what is present in the dom and whats needs to be present in the dom and calc 
-  // its difference, basically react keeps track of the state var, if an element is removed from it means the component using it 
-  // has been unmounted
+  // knows ki mounting is hapenning, by, by calc what is present in the dom and whats needs to be present in the dom and calc 
+  // its difference,(uses virtual dom for this)
+  // ignore: react keeps track of the state var, if an element is removed from it means the component using it has been unmounted
 
   useEffect(()=>{
     const visi=setInterval(()=>{
@@ -26,7 +26,7 @@ function App() {
   },[])
   
   // now the problem is ki, even after unmounting the setTimeout fn inside the Timer keeps running and it never clears, also
-  // new settimeout starts upon mounting it again so it starts begaving wierdly again
+  // new settimeout starts upon mounting it again so it starts behaving wierdly again
 
   return (
     <div>
@@ -40,7 +40,7 @@ function App() {
   //also i have to wrap all the  elements inside a outer div, bcz of the limitation of jsx to return only one element
 } 
 
-function Counter(props){//this is a component
+function Counter(){
   
   //it is best to define onclick function inside the component, aise to we can define these outside of the component but that'll
   // not be a good practice
@@ -71,7 +71,7 @@ function Counter(props){//this is a component
       <button onClick={decCount}>Count --</button>
       <button onClick={resetCount}>Reset Count</button>
     </div>
-  )//the basic counter is upp and working without doing manual dom manipulations, it was done by react, how? by using useState()
+  )//the basic counter is up and working without doing manual dom manipulations, it was done by react, how? by using useState()
   // upon creating state var, reacts starts looking for the changes in the components using state var and when there is any 
   // change react re-renders the change in the components using it
 }
@@ -96,7 +96,7 @@ function Timer(props){
   //  once, when the component is mounted, demounted or re-rendered. Mounting is when the component is created/rendered the first 
   //  time. Un-mounting is when the component is removed from the dom
   
-  // One can say that if everything written inside component is called everytime there is change in state the the state
+  // One can say that if everything written inside component is called everytime there is change in state then the state
   // will be initialised to 0 everytime, well it doesn't, state var only gets initialised once and is only updated afterwards,
   // only mounting will set its val to 0, also this is bcz hooks get mounted to the lifecycle of the event
 
@@ -128,10 +128,10 @@ function Timer(props){
       //example of what can be done on unmounting, cleanup of all the fetch requests, cleaning up web-sockets connection
     })
     
-    //another way of seeing this is ki useEffect takes a fn as parameter and returns some other fn
+    //useEffect takes a fn as parameter and returns some other fn
 
   },[])//the [] is the array of dependencies, empty dependencies means this will run only once the the comp is mounted. 
-  // abhi tk to i was listening to events like mounting, unmounting, re-renderiing in useEffect but what if i want to apply
+  // abhi tk to i was listening to events like mounting, unmounting, re-rendering in useEffect but what if i want to apply
   // these logics when state variable changes?? For that we use dependency array
 
   // If the dependency arr contains any state var passed using props, then the contents inside of the useEffect will run
@@ -145,14 +145,14 @@ function Timer(props){
     /*dash*/  console.log("clearing prev output");//this gets called before the above lines and cleares previous values except for
       // the first iteration
       // when time is one it will be logged when time is updated to 2 cleanup will be called for count 1 and then count 2 will 
-      // will be set, at last for unmount the cleanup will be called for last val
+      // will be logged, at last for unmount the cleanup will be called for last val,the val will be logged upon mounting too
 
-      // to upon using dependencies when there is change in state for first time dit will get logged, now when state changess 
-      // again first cleanup will be called aand dash will be logged and after that dit will be logged, this will keep hapenning
+      // toh upon using dependencies when there is change in state for first time dit will get logged, now when state changess 
+      // again first cleanup will be called and dash will be logged and after that dit will be logged, this will keep hapenning
       // until the component unmounts, upon unmounting cleanup will be called and dash will be logged
       
 
-      // reallife usecase will be changing tbs, upon clicking on network tab,(tab state changes) i will cleanup network connections
+      // real-life usecase will be changing tabs, upon clicking on network tab,(currectTab state changes) i will cleanup network connections
       // of home tab and then i will start net connections for network tab
     })
   },[props.time,props.visibility])//now i have two dependencies, the value is depending on two different state vars, can pass

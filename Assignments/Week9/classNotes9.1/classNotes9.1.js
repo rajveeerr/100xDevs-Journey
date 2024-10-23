@@ -19,9 +19,7 @@ Components: Components are the static parts of the page, tells how the dom shoul
  dynamic and changes with the state, toh basically component is how does the application look, the positioning of element, its
  styling
 
-Crux: ommponent is the outer thing that gives structure and state is the inner thing that changes
-
-Note: it isn't necessary ki every state will reside in a component
+Crux: component is the outer thing that gives structure and state is the inner thing that changes
 
 React is a diff calculator, it basically compares the old state and the new state and renders the difference if any
 
@@ -36,13 +34,12 @@ React brief:
 // should be changed
 - after this render will do the dom manipulations and render and re-render whenever there is change in state
 
+-> a component exports xml, not html
 
 JSX stands for javascript xml, xml is something similar to json, format of sharing data. XML allows us to write html like code
 directly within the js, this make it easier to create uis in react, jsx is syntax extension for js
 
--> a component exports xml, not html
-
-whatever starts with 'use' in react is a hook
+-> whatever starts with 'use' in react is a hook
 
 NOTE: never do dom manipulations manually in react
 
@@ -57,8 +54,10 @@ const [elem1, elem2] = Object. freeze(['valuel', 'value2']);
 
 
 // How does react does re-rendering the optimal way?? idk, but to optimise my todo app from week 3, i will simply, check what
-// has chamged in the state variable, and will generate te component of of the changed variable and will put it to its correct
-// place in the dom wilhout clearing all the other elements
+// has chamged in the state variable, and will generate a component of of the changed variable and will put it to its correct
+// place in the dom wilhout clearing all the other elements. I will keep ththe comp which has changed i'll simply remove it from
+// dom and will start rendering the state var from there, the best way will be to somehow insert the element in its correct place
+// and leave the unchanged components as it is and 
 
 
 
