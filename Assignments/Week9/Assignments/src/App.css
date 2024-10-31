@@ -53,9 +53,8 @@
 h1,p{
   margin: 0;
 }
-h1{
+h1,input{
   font-size: 2.8rem;
-
 }
 .timer-container{
   display: flex;
@@ -76,7 +75,7 @@ h1{
   width: 14.5rem;
   /* background: conic-gradient(#4caf50 75%, #d3d3d3 0%); */
 }
-.time{
+.time, form{
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -87,6 +86,18 @@ h1{
 }
 .time h1{
   cursor: pointer;
+}
+input[type=number]{
+  background-color: transparent;
+  font-weight: bold;
+  color: var(--secondary-color);
+  width: min-content;
+  border: none;
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
 .time-seperator{
   font-size: 2.8rem;

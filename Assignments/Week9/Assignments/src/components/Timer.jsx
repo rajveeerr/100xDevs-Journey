@@ -8,38 +8,29 @@ export function Timer(props){
     const [editState,setEditState]=useState(false);
     const newTime=useRef(false)
 
-    const hours=useRef(null)
-    const minutes=useRef(null)
-    const seconds=useRef(null)
+    const hours=useRef()
+    const minutes=useRef()
+    const seconds=useRef()
 
     useEffect(()=>{
-        // let intervalId=setInterval(()=>{
-        //     setTime(time=>time-1)
-            
-        //     console.log(time);
-        // },1000);
-        // setRunning(intervalId);
-        // return ()=>{
-        //     clearInterval(isRunning);
-        //     setRunning(false);
-        // }
-        
         if(time<=0){
             clearInterval(isRunning);
             console.log("cleared interval");
-            
             setRunning(false);
         }
-    },[time])
-
-
-
-    useEffect(()=>{
-            setProgress((newTime.current?time/newTime.current:time/60)*100);
+        setProgress((newTime.current?time/newTime.current:time/60)*100);
     },[time])
 
     useEffect(()=>{
-            newTime.current=time;
+        newTime.current=time;
+        if(editState){
+            pauseTimer();
+            //check  if the element passed is hour minute or second
+            //check if the passed value is valid
+            console.log(editState);
+            
+            // setTime(calculateTime(hours,minutes,seconds));
+        }
     },[editState])
     
 
@@ -60,9 +51,9 @@ export function Timer(props){
 
         const offset = circumference * (1 - percent / 100);
         circle.style.strokeDashoffset = offset;
-  }
+    }
 
-  function startTimer(){
+    function startTimer(){
     if(isRunning){
         console.log("timer is running already");
         return;
@@ -73,7 +64,6 @@ export function Timer(props){
             setTime(time=>time-1)
         },1000);
         setRunning(intervalId);
-        
     }
     else{
         let intervalId=setInterval(()=>{
@@ -81,67 +71,95 @@ export function Timer(props){
         },1000);
         setRunning(intervalId);
     }
-  }
-  function pauseTimer(){
+    }
+
+    function pauseTimer(){
     if(isRunning){
         clearInterval(isRunning);
         setRunning(false)
         return;
     }
     console.log("timer is paused already");
-}
+    }
+
     function resetTimer(){
         if(!isRunning&&time<=0){
             console.log("timer is resetted already");
-            
+            return;
         }
         clearInterval(isRunning);
         setRunning(false);
-        setTime(0)
+        setTime(0);
+        newTime.current=false;
         return;
-  }
-  
-  function edit(element){
-    element.current.setAttribute("editable","true");
-    console.log("editing "+element.current);
-    
-  }
-  
+    }
 
+    function toggleEdit(element){
+        editState?setEditState(false):setEditState(element.current);
+    }
+
+    function edit(e){
+        // if(editState){
+        //     pauseTimer();
+        //     // if(element.current)//check  if the element passed is hour minute or second
+        //     setTime(time+element.current.value*3600);
+        // }
+        // e.target.value===hours.current?setTime(e.target.value*3600):(e.target.value===minutes.current)?setTime(e.target.value*60):setTime(e.target.value*1);
+        
+        setTime(calculateTime(hours,minutes,seconds));
+    }
+  
 
     return(
     <div class="timer-container">
         <div class="timer-progress">
 
-            <div class="timer-icon">
-                <i class="fa-solid fa-mug-hot"></i>
-            </div>
+            <TimerIcon/>
+
             <div class="time">
-                <h1 ref={hours} onClick={()=>edit(hours)}>{formatTime(time).hours>=0?formatTime(time).hours:"00"}</h1>
-                <span class="time-seperator">:</span>
-                <h1 ref={minutes} onClick={()=>edit(minutes)}>{formatTime(time).minutes>=0?formatTime(time).minutes:"00"}</h1>
-                <span class="time-seperator">:</span>
-                <h1 ref={seconds} onClick={()=>edit(seconds)}>{formatTime(time).seconds>=0?formatTime(time).seconds:"00"}</h1>
+
+                {/* {editState?
+                <form><input type="number" ref={hours} max="23" min="0" defaultValue={formatTime(time).hours} onBlur={()=>edit(hours)}></input>
+                </form>: */}
+                <form onSubmit={(e)=>{e.target.reportValidity(); e.preventDefault(); toggleEdit(hours);editState.blur()}}>
+                    <input type="number" ref={hours} max="23" min="0" value={formatTime(time).hours} onChange={edit} onFocus={()=>toggleEdit(hours)} onBlur={(e)=>{toggleEdit(hours);e.target.reportValidity()}}></input>
+                    <span class="time-seperator">:</span>
+                    <input type="number" ref={minutes} max="60" min="0" value={formatTime(time).minutes} onChange={edit} onFocus={()=>toggleEdit(minutes)} onBlur={(e)=>{toggleEdit(minutes);e.target.reportValidity()}}></input>
+                    <span class="time-seperator">:</span>
+                    <input type="number" ref={seconds} max="60" min="0" value={formatTime(time).seconds} onChange={edit} onFocus={()=>toggleEdit(seconds)} onBlur={(e)=>{toggleEdit(seconds);e.target.reportValidity()}}></input>
+                    
+                </form>
             </div>
-            <div class="timer-type">
-                <p>Short Break</p>{/*props.timerTitle */}
-                <br/>
-            </div>
-                {time===0&&<p>Time Up!!</p>}
-        <svg class="progress-ring" width="100%" height="100%">
-            <circle class="progress-ring__circle" stroke="var(--accent-color)" stroke-width="10" fill="transparent" r="47%" cx="50%" cy="50%" />
-            
-        </svg>
+
+            <TimerTitle type="Short Break"/>
+            <br/>
+            {time===0&&<p>Time Up!!</p>}
+
+            <svg class="progress-ring" width="100%" height="100%">
+                <circle class="progress-ring__circle" stroke="var(--accent-color)" stroke-width="10" fill="transparent" r="47%" cx="50%" cy="50%" />
+            </svg>
+
         </div>
         
 
         <div class="buttons-section">
             {isRunning?<button onClick={pauseTimer}>Pause</button>:<button onClick={startTimer}>Start</button>}
-            <button onClick={resetTimer}>Reset</button>
-            
-            
+            <button onClick={resetTimer}>Reset</button>    
         </div>
 
-    
+    </div>)
+}
+
+function TimerIcon(){
+    return (
+    <div class="timer-icon">
+        <i class="fa-solid fa-mug-hot"></i>
+    </div>)
+}
+
+function TimerTitle(props){
+    return(
+    <div class="timer-type">
+        <p>{props.type}</p>
     </div>)
 }
