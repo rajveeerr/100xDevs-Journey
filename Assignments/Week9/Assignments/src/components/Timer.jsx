@@ -106,7 +106,7 @@ export function Timer(props){
         // }
         // e.target.value===hours.current?setTime(e.target.value*3600):(e.target.value===minutes.current)?setTime(e.target.value*60):setTime(e.target.value*1);
         
-        setTime(calculateTime(hours,minutes,seconds));
+        //setTime(calculateTime(hours,minutes,seconds));
     }
   
 
@@ -122,11 +122,11 @@ export function Timer(props){
                 <form><input type="number" ref={hours} max="23" min="0" defaultValue={formatTime(time).hours} onBlur={()=>edit(hours)}></input>
                 </form>: */}
                 <form onSubmit={(e)=>{e.target.reportValidity(); e.preventDefault(); toggleEdit(hours);editState.blur()}}>
-                    <input type="number" ref={hours} max="23" min="0" value={formatTime(time).hours} onChange={edit} onFocus={()=>toggleEdit(hours)} onBlur={(e)=>{toggleEdit(hours);e.target.reportValidity()}}></input>
+                    <input type="number" ref={hours} max="23" min="0" defaultValue={formatTime(time).hours} onChange={edit} onFocus={()=>toggleEdit(hours)} onBlur={(e)=>{toggleEdit(hours);e.target.reportValidity()}}></input>
                     <span class="time-seperator">:</span>
-                    <input type="number" ref={minutes} max="60" min="0" value={formatTime(time).minutes} onChange={edit} onFocus={()=>toggleEdit(minutes)} onBlur={(e)=>{toggleEdit(minutes);e.target.reportValidity()}}></input>
+                    <input type="number" ref={minutes} max="60" min="0" defaultValue={formatTime(time).minutes} onChange={edit} onFocus={()=>toggleEdit(minutes)} onBlur={(e)=>{toggleEdit(minutes);e.target.reportValidity()}}></input>
                     <span class="time-seperator">:</span>
-                    <input type="number" ref={seconds} max="60" min="0" value={formatTime(time).seconds} onChange={edit} onFocus={()=>toggleEdit(seconds)} onBlur={(e)=>{toggleEdit(seconds);e.target.reportValidity()}}></input>
+                    <input type="number" ref={seconds} max="60" min="0" defaultValue={formatTime(time).seconds} onChange={edit} onFocus={()=>toggleEdit(seconds)} onBlur={(e)=>{toggleEdit(seconds);e.target.reportValidity()}}></input>
                     
                 </form>
             </div>
