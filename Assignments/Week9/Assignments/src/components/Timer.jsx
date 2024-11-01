@@ -22,7 +22,7 @@ export function Timer(props){
     },[time])
 
     useEffect(()=>{
-        newTime.current=time;
+        
         if(editState){
             pauseTimer();
             //check  if the element passed is hour minute or second
@@ -31,8 +31,10 @@ export function Timer(props){
             
             // setTime(calculateTime(hours,minutes,seconds));
         }
-    },[editState])
-    
+        else{
+            newTime.current=time;
+        }
+    },[editState])//this will run on mounting setting newTime to time(i.e 60) at time of mounting, now everytime user is done editing the time, only then newTime will be set to the edited time
 
 
     function setProgress(percent){
