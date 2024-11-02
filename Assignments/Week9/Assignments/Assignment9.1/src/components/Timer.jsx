@@ -11,105 +11,131 @@ export function Timer(props){
     const hours=useRef()
     const minutes=useRef()
     const seconds=useRef()
+    const form=useRef()
+    const timeUpAudio=useRef(new Audio("../../public/timeup.mp3"));//lesson learned here, to use useRef()
 
     useEffect(()=>{
         if(time<=0){
             clearInterval(isRunning);
-            console.log("cleared interval");
             setRunning(false);
         }
         setProgress((newTime.current?time/newTime.current:time/60)*100);
+        timeUpAudioTrigger();
     },[time])
-
+    
     useEffect(()=>{
-        
         if(editState){
             pauseTimer();
-            //check  if the element passed is hour minute or second
-            //check if the passed value is valid
-            console.log(editState);
-            
-            // setTime(calculateTime(hours,minutes,seconds));
+            //check  if the element passed is hour minute or second -done
+            //check if the passed value is valid -done 
         }
-        else{
+        // else{
             newTime.current=time;
+        // }
+    },[editState])
+    
+    function timeUpAudioTrigger(){
+        timeUpAudio.current.pause()
+        if(isRunning&&time<1){
+            timeUpAudio.current.play()
         }
-    },[editState])//this will run on mounting setting newTime to time(i.e 60) at time of mounting, now everytime user is done editing the time, only then newTime will be set to the edited time
-
-
+    }
+    
+    
     function setProgress(percent){
         const svg = document.querySelector('.progress-ring');
         const circle = document.querySelector('.progress-ring__circle');
-
+        
         const svgWidth = svg.getBoundingClientRect().width;
         const radius = svgWidth * 0.47;
-
+        
         const circumference = 2 * Math.PI * radius;
-
+        
         // Set the stroke-dasharray and initial stroke-dashoffset
         circle.setAttribute('r', radius);
         circle.style.strokeDasharray = circumference;
         circle.style.strokeDashoffset = circumference;
-
+        
         const offset = circumference * (1 - percent / 100);
         circle.style.strokeDashoffset = offset;
     }
-
+    
     function startTimer(){
-    if(isRunning){
-        console.log("timer is running already");
-        return;
+        if(form.current.checkValidity()){
+            
+            if(isRunning){
+                console.log("timer is running already");
+                return;
+            }
+            else if(time<=0){
+                setTime(60)
+                let intervalId=setInterval(()=>{
+                    setTime(time=>time-1)
+                },1000);
+                setRunning(intervalId);
+            }
+            else{
+                let intervalId=setInterval(()=>{
+                    setTime(time=>time-1)
+                },1000);
+                setRunning(intervalId);
+            }
+        }
     }
-    else if(time<=0){
-        setTime(60)
-        let intervalId=setInterval(()=>{
-            setTime(time=>time-1)
-        },1000);
-        setRunning(intervalId);
-    }
-    else{
-        let intervalId=setInterval(()=>{
-            setTime(time=>time-1)
-        },1000);
-        setRunning(intervalId);
-    }
-    }
-
+    
     function pauseTimer(){
-    if(isRunning){
-        clearInterval(isRunning);
-        setRunning(false)
-        return;
+        if(isRunning){
+            clearInterval(isRunning);
+            setRunning(false)
+            return;
+        }
+        console.log("timer is paused already");
     }
-    console.log("timer is paused already");
-    }
-
+    
     function resetTimer(){
         if(!isRunning&&time<=0){
             console.log("timer is resetted already");
+            newTime.current=false
             return;
         }
         clearInterval(isRunning);
         setRunning(false);
         setTime(0);
-        newTime.current=false;
+        newTime.current=false
         return;
     }
 
+   
+    
     function toggleEdit(element){
-        editState?setEditState(false):setEditState(element.current);
-    }
-
-    function edit(e){
-        // if(editState){
-        //     pauseTimer();
-        //     // if(element.current)//check  if the element passed is hour minute or second
-        //     setTime(time+element.current.value*3600);
-        // }
-        // e.target.value===hours.current?setTime(e.target.value*3600):(e.target.value===minutes.current)?setTime(e.target.value*60):setTime(e.target.value*1);
+        // console.log("toggle edit is"+element.current);
+        // toggle edit is being called even if the value of field is wrong
         
-        //setTime(calculateTime(hours,minutes,seconds));
+        editState?setEditState(false):setEditState(element.current);
+        // console.log(editState);
+        
     }
+    
+    const editFieldHandeler=(e)=>{
+        // console.log(editState);
+        
+        
+        if(editState===hours.current){
+            newTime.current=calculateTime(e.target.value,minutes.current.value,seconds.current.value)
+            setTime(newTime.current)
+        }
+        if(editState===minutes.current){
+            newTime.current=calculateTime(hours.current.value,e.target.value,seconds.current.value)
+            setTime(newTime.current)
+        }
+        if(editState===seconds.current){
+            newTime.current=calculateTime(hours.current.value,minutes.current.value,e.target.value)
+            setTime(newTime.current)
+        }
+                
+    }
+    
+
   
 
     return(
@@ -123,12 +149,13 @@ export function Timer(props){
                 {/* {editState?
                 <form><input type="number" ref={hours} max="23" min="0" defaultValue={formatTime(time).hours} onBlur={()=>edit(hours)}></input>
                 </form>: */}
-                <form onSubmit={(e)=>{e.target.reportValidity(); e.preventDefault(); toggleEdit(hours);editState.blur()}}>
-                    <input type="number" ref={hours} max="23" min="0" defaultValue={formatTime(time).hours} onChange={edit} onFocus={()=>toggleEdit(hours)} onBlur={(e)=>{toggleEdit(hours);e.target.reportValidity()}}></input>
+                <form ref={form} onSubmit={(e)=>{e.target.reportValidity(); e.preventDefault();console.log("form submitted");
+                }}>
+                    <input type="number" ref={hours} max="23" min="0" value={formatTime(time).hours} onChange={(e)=>editFieldHandeler(e)} onFocus={()=>!editState?toggleEdit(hours):null} onBlur={(e)=>{e.target.checkValidity()?toggleEdit(hours):e.target.reportValidity();editFieldHandeler(e)}}></input>
                     <span class="time-seperator">:</span>
-                    <input type="number" ref={minutes} max="60" min="0" defaultValue={formatTime(time).minutes} onChange={edit} onFocus={()=>toggleEdit(minutes)} onBlur={(e)=>{toggleEdit(minutes);e.target.reportValidity()}}></input>
+                    <input type="number" ref={minutes} max="60" min="0" value={formatTime(time).minutes} onChange={(e)=>editFieldHandeler(e)} onBlur={(e)=>{e.target.checkValidity()?toggleEdit(minutes):e.target.reportValidity();editFieldHandeler(e)}} onFocus={()=>!editState?toggleEdit(minutes):null}></input>
                     <span class="time-seperator">:</span>
-                    <input type="number" ref={seconds} max="60" min="0" defaultValue={formatTime(time).seconds} onChange={edit} onFocus={()=>toggleEdit(seconds)} onBlur={(e)=>{toggleEdit(seconds);e.target.reportValidity()}}></input>
+                    <input type="number" ref={seconds} max="60" min="0" value={formatTime(time).seconds} onChange={(e)=>editFieldHandeler(e)} onFocus={()=>!editState?toggleEdit(seconds):null} onBlur={(e)=>{e.target.checkValidity()?toggleEdit(seconds):e.target.reportValidity();editFieldHandeler(e)}}></input>
                     
                 </form>
             </div>
