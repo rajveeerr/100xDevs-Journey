@@ -1,24 +1,32 @@
 import { useState , useEffect, useRef } from "react";
 import { formatTime, calculateTime } from "../utils/auxiliaryFunctions";
-
+// document.documentElement.setAttribute("data-theme","light")
 export function Timer(props){
+    
 
-    const [time,setTime]=useState(60);
+
+    
+
+  
+    
+    const [time,setTime]=useState(localStorage.getItem("time")||60);
     const [isRunning, setRunning]=useState(false);//ideally this should be a useRef to reduce renders
     const [editState,setEditState]=useState(false);
     const newTime=useRef(false)
-
+    
     const hours=useRef()
     const minutes=useRef()
     const seconds=useRef()
     const form=useRef()
     const timeUpAudio=useRef(new Audio("../../public/timeup.mp3"));//lesson learned here, to use useRef()
-
+    
     useEffect(()=>{
         if(time<=0){
             clearInterval(isRunning);
             setRunning(false);
+            localStorage.setItem("isRunning",isRunning)
         }
+        localStorage.setItem("time",time)
         setProgress((newTime.current?time/newTime.current:time/60)*100);
         timeUpAudioTrigger();
     },[time])
@@ -31,54 +39,57 @@ export function Timer(props){
         }
         // else{
             newTime.current=time;
-        // }
-    },[editState])
-    
-    function timeUpAudioTrigger(){
-        timeUpAudio.current.pause()
-        if(isRunning&&time<1){
-            timeUpAudio.current.play()
-        }
-    }
-    
-    
-    function setProgress(percent){
-        const svg = document.querySelector('.progress-ring');
-        const circle = document.querySelector('.progress-ring__circle');
+            // }
+            localStorage.setItem("editState",editState)//dont need to really store this eventually
+        },[editState])
         
-        const svgWidth = svg.getBoundingClientRect().width;
-        const radius = svgWidth * 0.47;
-        
-        const circumference = 2 * Math.PI * radius;
-        
-        // Set the stroke-dasharray and initial stroke-dashoffset
-        circle.setAttribute('r', radius);
-        circle.style.strokeDasharray = circumference;
-        circle.style.strokeDashoffset = circumference;
-        
-        const offset = circumference * (1 - percent / 100);
-        circle.style.strokeDashoffset = offset;
-    }
-    
-    function startTimer(){
-        if(form.current.checkValidity()){
-            
-            if(isRunning){
-                console.log("timer is running already");
-                return;
+        function timeUpAudioTrigger(){
+            timeUpAudio.current.pause()
+            if(isRunning&&time<1){
+                timeUpAudio.current.play()
             }
-            else if(time<=0){
-                setTime(60)
-                let intervalId=setInterval(()=>{
-                    setTime(time=>time-1)
-                },1000);
-                setRunning(intervalId);
+        }
+        
+        
+        function setProgress(percent){
+            const svg = document.querySelector('.progress-ring');
+            const circle = document.querySelector('.progress-ring__circle');
+            
+            const svgWidth = svg.getBoundingClientRect().width;
+            const radius = svgWidth * 0.47;
+            
+            const circumference = 2 * Math.PI * radius;
+            
+            // Set the stroke-dasharray and initial stroke-dashoffset
+            circle.setAttribute('r', radius);
+            circle.style.strokeDasharray = circumference;
+            circle.style.strokeDashoffset = circumference;
+            
+            const offset = circumference * (1 - percent / 100);
+            circle.style.strokeDashoffset = offset;
+        }
+        
+        function startTimer(){
+            if(form.current.checkValidity()){
+                
+                if(isRunning){
+                    console.log("timer is running already");
+                    return;
+                }
+                else if(time<=0){
+                    setTime(60)
+                    let intervalId=setInterval(()=>{
+                        setTime(time=>time-1)
+                    },1000);
+                    setRunning(intervalId);
+                    localStorage.setItem("isRunning",isRunning)
             }
             else{
                 let intervalId=setInterval(()=>{
                     setTime(time=>time-1)
                 },1000);
                 setRunning(intervalId);
+                localStorage.setItem("isRunning",isRunning)
             }
         }
     }
@@ -87,6 +98,7 @@ export function Timer(props){
         if(isRunning){
             clearInterval(isRunning);
             setRunning(false)
+            localStorage.setItem("isRunning",isRunning)
             return;
         }
         console.log("timer is paused already");
@@ -100,6 +112,7 @@ export function Timer(props){
         }
         clearInterval(isRunning);
         setRunning(false);
+        localStorage.setItem("isRunning",isRunning)
         setTime(0);
         newTime.current=false
         return;
