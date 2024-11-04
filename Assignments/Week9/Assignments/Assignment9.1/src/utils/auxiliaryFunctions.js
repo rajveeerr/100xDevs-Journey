@@ -10,8 +10,8 @@ export const formatTime = (totalSeconds) => {
 }
 
 export const calculateTime = (hours, minutes, seconds) => {
-    if(minutes>59||seconds>59) return 0;//dunno if need this line or not, figure out later
+    if(minutes>59||seconds>59) return 0;
     const calculatedTime = parseInt(hours)*3600 + parseInt(minutes)*60 + parseInt(seconds);
 
     return isNaN(calculatedTime) ? 0 : calculatedTime; // Return 0 if any value is NaN
-}//this might take wrong inputs, gotta correct this
+}

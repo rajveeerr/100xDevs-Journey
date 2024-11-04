@@ -124,13 +124,23 @@ input::-webkit-inner-spin-button {
   transform: matrix(rotate(-90deg));
 
 }
-
-.progress-ring__circle {
-  transition: stroke-dashoffset 1s;
-  transform: rotate(-90deg);
-  transform-origin: 50% 50%;
-  /* stroke-dasharray: 339.29; */
-  /* stroke-dashoffset: calc(339.29 - (75 / 100) * 339.29); Adjust for different percentages */
+/* .progress-ring-background{
+  color: var(--secondary-color);
+  } */
+  
+  .progress-ring__circle {
+    transition: stroke-dashoffset 1s;
+    transform: rotate(-90deg);
+    transform-origin: 50% 50%;
+    /* stroke-dasharray: 339.29; */
+    /* stroke-dashoffset: calc(339.29 - (75 / 100) * 339.29); */
+  } 
+  
+  .progress-ring-background .progress-ring__circle {
+    stroke: var(--grey-color);
+    transition: stroke-dashoffset 1s;
+    transform: rotate(-90deg);
+    transform-origin: 50% 50%;
 } 
 
 .logo {
