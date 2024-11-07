@@ -10,7 +10,7 @@ This repository contains all the projects and assignments that I will be working
 ## Repository Structure
 
 - `projects/` - Contains individual projects.
-- `assignments/` - Contains cohort assignments.
+- `assignments/` - Contains cohort assignments and classNotes
 - `docs/` - Documentation related to the projects and assignments.
 
 ## Purpose
