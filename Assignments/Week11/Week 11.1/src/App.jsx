@@ -1,8 +1,8 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
 import { useEffect } from 'react'
+import useFetch from '../hooks/useFetch'
+import Card from '../../../Week9/recordedClassNotes9.3+9.4/src/Card'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -19,11 +19,14 @@ function App() {
        <Counter/>
        <Counter/>
        <Post/>
+       <QuoteGenerator/>
     </div>
   )
 }
 
-function useCounter(){//now this can be reused
+// react swr or anstack library contains these custom hooks and can be used
+
+function useCounter(){//now this can be reused, this is named hook b/c it uses hook inside of it to it is also a hook
   const [count,setCount]=useState(0);
 
   function incCount(){
@@ -62,6 +65,24 @@ function Post(){
   
   return <div>
     {JSON.stringify(postData)}
+  </div>
+}
+
+function QuoteGenerator(){
+  let quoteData=useFetch("https://dummyjson.com/recipes").data
+  console.log(quoteData);
+  let recepie;
+  if (Object.keys(quoteData).length!=0){
+    recepie=quoteData.recipes[0]
+  }
+  
+  
+
+  return <div>
+    <h1>Quote of the Day.</h1>
+    {/* {JSON.stringify(quoteData)} */}
+    {Object.keys(quoteData).length!=0?<Card title={recepie.name} subTitle={recepie.ingredients[0]} imgUrl={recepie.image} time={recepie.cookTimeMinutes} postImg={recepie.image} content={recepie.instructions}/>:console.log("empty obj")};
+    
   </div>
 }
 
