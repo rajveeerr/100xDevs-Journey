@@ -1,8 +1,12 @@
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import './App.css'
 import { useEffect } from 'react'
 import useFetch from '../hooks/useFetch'
 import Card from '../../../Week9/recordedClassNotes9.3+9.4/src/Card'
+import useReFetching from '../hooks/useReFetching'
+import usePrev from '../hooks/usePrev'
+import useDebounce from '../hooks/useDebounce'
+import useDebounce2 from '../hooks/useDebounce2'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -16,10 +20,10 @@ function App() {
     <div>
        <Counter/>{/*all these counters have their own state variables, changing one wont affect others*/}
        <Counter/>
-       <Counter/>
-       <Counter/>
        <Post/>
-       <QuoteGenerator/>
+       <RecepieDisplay/>
+       <Input/>
+       <InputDebounce/>
     </div>
   )
 }
@@ -40,6 +44,20 @@ function useCounter(){//now this can be reused, this is named hook b/c it uses h
   
 }
 
+function Counter(){
+  // const [count,setCount]=useState(0)
+  // function incCount(){
+  //   setCount(count=>count+1)
+  // }
+
+  const {count,incCount}=useCounter()//this is same as creating useState hook inside of the the component
+  let previous=usePrev(count);
+
+  return <div>
+    <button onClick={incCount}>Count {count}</button>
+    <p>The previous value of count was: {previous}</p>
+  </div>
+}
 
 function usePost(){
   const [postData,setPostData]=useState({})
@@ -62,42 +80,80 @@ function usePost(){
 
 function Post(){
   let postData =usePost();
+  // let postData =useReFetching("https://dummyjson.com/quotes",10);
   
   return <div>
+    <h2>Random Quote</h2>
     {JSON.stringify(postData)}
   </div>
 }
 
-function QuoteGenerator(){
-  let quoteData=useFetch("https://dummyjson.com/recipes").data
-  console.log(quoteData);
-  let recepie;
-  if (Object.keys(quoteData).length!=0){
-    recepie=quoteData.recipes[0]
+function RecepieDisplay(){
+  let [currentRecepie,setCurrentRecepie]=useState(1);
+  
+  let {data,loading}=useFetch("https://dummyjson.com/recipes/"+currentRecepie)//created this in seperate file
+  let recepieData=data;
+  
+  
+  // let recepieData=useFetch("https://dummyjson.com/recipes/1").data//created this in seperate file
+  
+  if (loading){
+    return <div>
+      <h2>Loading Content...</h2>
+    </div>
   }
   
-  
-
-  return <div>
-    <h1>Quote of the Day.</h1>
+  return (
+    <div>
+    <h1>Recepie of the Day.</h1>
+    <button style={currentRecepie===1?{color: "red"}:{color: "white"}} onClick={()=>setCurrentRecepie(1)}>Recepie#1</button>
+    <button style={currentRecepie===2?{color: "red"}:{color: "white"}} onClick={()=>setCurrentRecepie(2)}>Recepie#2</button>
+    <button style={currentRecepie===3?{color: "red"}:{color: "white"}} onClick={()=>setCurrentRecepie(3)}>Recepie#3</button>
     {/* {JSON.stringify(quoteData)} */}
-    {Object.keys(quoteData).length!=0?<Card title={recepie.name} subTitle={recepie.ingredients[0]} imgUrl={recepie.image} time={recepie.cookTimeMinutes} postImg={recepie.image} content={recepie.instructions}/>:console.log("empty obj")};
-    
-  </div>
+    <div style={{color: "black",display: "flex",justifyContent:"center",alignItems:"center"}}>
+      {<Card title={recepieData.name} subTitle={recepieData.ingredients} imgUrl={recepieData.image} time={recepieData.cookTimeMinutes} postImg={recepieData.image} content={recepieData.instructions}/>}
+    </div>
+  </div>)
 }
 
+async function fetchdata(){
+    let response=await fetch("https://dummyjson.com/quotes");
+    let data=await response.json();
+    console.log(data);
+    
+    return data//there is a bug, this post data is empty until the data is fetched
+}
 
-function Counter(){
-  // const [count,setCount]=useState(0)
-  // function incCount(){
-  //   setCount(count=>count+1)
-  // }
-
-  const {count,incCount}=useCounter()//this is same as creating useState hook inside of the the component
+function Input() {
+  const changeHandeler=useDebounce(fetchdata);//passing the fn which needs to be called if everything is good
 
   return <div>
-    <button onClick={incCount}>Count {count}</button>
+    <h2>Search Fast</h2>
+    <input onChange={changeHandeler}></input>
   </div>
 }
+
+
+//implementation2
+function InputDebounce() {
+  const [value,setValue]=useState("")
+  const debouncedValue=useDebounce2(value,400)//debouncedValue will be changed after delay time if user stops typing
+  
+  const changeHandeler=(e)=>{
+    setValue(e.target.value)
+  }
+
+  useEffect(()=>{
+    console.log("called expensive fn");
+    
+  },[debouncedValue])//dependency array should always be a state var. if  no debounce is to be used we can simply write value to the 
+  // dependencies array meaning whenever value changes call the expensive operation
+
+  return <div>
+    <h2>Search Fast</h2>
+    <input onChange={changeHandeler}></input>
+  </div>
+}
+
 
 export default App
