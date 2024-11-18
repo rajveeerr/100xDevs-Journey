@@ -53,8 +53,12 @@ function Counter(){
   const {count,incCount}=useCounter()//this is same as creating useState hook inside of the the component
   let previous=usePrev(count);
 
+  const [glitch,setGlitch]=useState(false)
+
+
   return <div>
     <button onClick={incCount}>Count {count}</button>
+    <button onClick={()=>setGlitch(!glitch)}>Glitch</button>
     <p>The previous value of count was: {previous}</p>
   </div>
 }

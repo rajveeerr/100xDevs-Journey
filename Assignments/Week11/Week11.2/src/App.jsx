@@ -1,10 +1,13 @@
 import { createContext, useContext, useEffect, useState, memo } from 'react'
 import './App.css'
 import { counterAtom } from './store/atoms/counter';
+import { evenSelector } from './store/selectors/isEvenSelector';
 import {useSetRecoilState,useRecoilValue,RecoilRoot} from 'recoil'
 
 // Recoil is a state management library(does same job as useState) which allows us to manage global state(objects of all the states)
 // and minimize the number of re-renders by only re-rendering the components that depends on changed atoms
+
+// maybe recoil uses memos/useRefs for the optimization, whatch the recoil vid
 
 // in react global state is an object of all the states, which are created using useState hook, 
 // example of global state of linkedin(in react):
@@ -19,7 +22,7 @@ Atoms: These are units of state(like useState), which can be used and modified f
 changing stste of these atoms will only re-render the components subscribing to these, unlike useState vars which were re-rendering every 
 component
 
-TlDr: Recoil is a performant library, it minimizes the no of re-renders as the global state changes, use the concept of atoms and 
+TlDr: Recoil is a performant library, it minimizes the no of re-renders as the global state changes, uses the concept of atoms and 
 selectors 
 
 How REcoil is Defferent from ContextApi?
@@ -48,7 +51,7 @@ function App() {
       <RecoilRoot>
       {/* <CountProvider> */}
         <Count/>
-      {/* </CountProvider> */}
+      {/* </CountProvider>*/}{/* the more part of application ill wrap inside context provider will be re-rendered when the state chnages, even if they are no using it */}
       </RecoilRoot>
       <MemoisedCounter/>
     </>
@@ -59,7 +62,7 @@ function Increase(){
   // let {setCount}=useContext(Counter)
   let setCount=useSetRecoilState(counterAtom);//this component only needs acces to the setter, not the value
   
-  return <button onClick={()=>{setCount(c=>c+1)}}>Increase</button>
+  return <button onClick={()=>{setCount(c=>c+2)}}>Increase</button>
 }
 function Decrease(){
   // let {setCount}=useContext(Counter)
@@ -70,21 +73,32 @@ function Decrease(){
 function CurrentCount(){
   // let {count}=useContext(Counter)
   let count=useRecoilValue(counterAtom)//now only this component is subscribed to the atom, hence on this will re-render upon atom change
-  
+  // let [count,setCount]=useRecoilState(counterAtom)//using this we can get bot getters and setters in one go
+
   return<h1>{count}</h1>
 }
+function IsEven(){
+  let even=useRecoilValue(evenSelector)//instead of subscribing to atom, here we are subscribing to selector
+  return <h2>{even}</h2>//cant directly render true or false in react, can use ternary operator instead
+  // now this components is only rendering when the selector is changing not when the atom is changing, the counter component is
+  // subscribed to the atom and is rendering everytime there is change in atom/counter, using selector was required here as if the
+  // value of counter is increased by 2 the component was re-rendering without change of value, now the selector is only changing
+  // when the value of counterAtom is increased by 1 and hence the component subscribed to selector atom rerenders
+}
+
 function Count(){
 
   return <div>
     <Increase/>
     <Decrease/>
     <CurrentCount/>
+    <IsEven/>
   </div>
 }
-// top level overvier, counter component renders 3 components, 1. increase, 2. decrease and 3. current count, the current count 
+// top level overview, counter component renders 3 components, 1. increase, 2. decrease and 3. currentCount, the current count 
 // component is subscribed to the value and only it needs to be rerendered when the value of atom changes, increase and decrease are 
 // subscribed to the setters they can only push the changes and dont care about the actual value so they dont need to re-render
-// earlier we were using useState in the context api provider which was trigerring re-renders when the state var was cahnging
+// earlier we were using useState in the context api provider which was trigerring re-renders of all components when the state var was changing
 
 // In react when a parent component re-renders, its children components re-renders too, even if no-state or prop is changing in the 
 // children components. To fix this issue Memo api are used, memo basically tells react to only re-render the Memoised component when
@@ -142,6 +156,17 @@ function MemoisedCounter(){
 } */
 
 // Selectors basically reperesents the piece of derived state(from complete state), these are like pure fn(which doesnt change anything 
-// from the input it just derives the new state from the input)
+// from the input it just derives the new state from the input). These selectors are derived from atom, they don have their own existance
+//  tL;dR: Atoms basically lets us derive other state from the original big state
+// Cant we do the same job as selector just by using atoms?? technically its possible by creating different atoms, one for the count
+// another for the even count, syncing them will become a big challange
+
+// SOMEONE'S QUESTION??
+// Recoil or any other libraries use other pm packages.How much of code goes to the client?If you say all, then is whole whole node_modules
+// sent but it has 100s of MBs of size. how is the bundle size calculated?
+// No, not all code is sent to the client, only the parts of library(like atoms,selectors) being used are sent if the library is 
+// optimized, this is called tree-shading, thats why we dont import all the functions from library i.e.
+// import * as React from 'react'
+
 
 export default App
