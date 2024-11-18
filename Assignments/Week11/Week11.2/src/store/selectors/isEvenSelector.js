@@ -12,3 +12,8 @@ export const evenSelector=selector({
 // component directly to the global atom we are creating a selector which is derived from global state, this minimises the number of 
 // re-renders as this selector will not change if the counter is increased in pairs, as compared to subscribing to the global atom, 
 // where the atom was frequently changing.
+
+
+// along with get key there is also a set key in the selector, which allows us to update the atom from which the value is derived from
+// in the selector, this comes in handy when setter is called on a selector, as the setter itself is derived from atom it cant be setted
+// directly insted it updates the atom and then derive the updated value from it

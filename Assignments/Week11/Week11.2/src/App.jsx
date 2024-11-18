@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useState, memo } from 'react'
+import { createContext, useContext, useEffect, useState, memo, useCallback } from 'react'
 import './App.css'
 import { counterAtom } from './store/atoms/counter';
 import { evenSelector } from './store/selectors/isEvenSelector';
@@ -105,38 +105,67 @@ function Count(){
 // either the state variable inside the component changes or the props passed to it changes
 
 const MemoisedCount=memo(({count})=>{
+  console.log("count re-rendered");
   return<div>{count}</div>
-})//basically memo takes a function/component as input and returns the memoised component
+})
+// basically memo takes a function/component as input and returns the memoised component, now MomisedCount will only re-render when
+// either its props change or its state chnages
 
-const MemoisedIncrease=memo(({setCount})=>{
-  return<div>
-      <button onClick={()=>{setCount(c=>c+1)}}>Increase</button>
+// this approach was not working whyyyy?? Well wrapping a component inside memo will stop re-rendering when the props are same, but the
+// problem is ki in react function(){} or ()=>{} alwasy create a new fn, so everytime a new fn as prop is being passed to these 
+// components and hence they are being re-rendered, to fix this useCallback can be used, which caches a fn until a dependency array
+// changes
+
+// Also there was no error in the code, it was developer tools glitching out- f#ck
+
+const MemoisedIncrease=memo(({increase})=>{
+    console.log("increase re-rendered");
+
+    return<div>
+      <button onClick={increase}>Increase</button>
     </div>
 })
 
-const MemoisedDecrease=memo(({setCount})=>{
+const MemoisedDecrease=memo(({decrease})=>{
+  console.log("decrease re-rendered");
   return<div>
-      <button onClick={()=>{setCount(c=>c-1)}}>Decrease</button>
+      <button onClick={decrease}>Decrease</button>
   </div>
 })
 
 function MemoisedCounter(){
   const [count,setCount]=useState(0)
+  
+  useEffect(()=>{
+    let intervalId=setInterval(()=>{
+      setCount(c=>c+1)
+    },2000)
+    
+    return (()=>{
+      clearInterval(intervalId)
+    })
+  },[])
 
-  // useEffect(()=>{
-  //   let intervalId=setInterval(()=>{
-  //     setCount(c=>c+1)
-  //   },2000)
+  const increase=useCallback(()=>{
+    setCount(c=>c+1)
+  },[])
+  const decrease=useCallback(()=>{
+    setCount(c=>c+1)
+  },[])
 
-  //   return (()=>{
-  //     clearInterval(intervalId)
-  //   })
-  // },[])
+  // useCallback, takes two args 1st a fn to cache and second arr of dependencies, which checks that the dependencies changed or not if 
+  // not the fn is not called and the cached fn is used, but if the dependencies has changed the functiion will be called again,
+  // here, in react every function(){} or ()=>{} creates a new function and when these new fn are passed as props to the increase and 
+  // decrease childrens, they will re-render again and again as props changes and memo will not work, thats why we use useTransition
+  // to cache these function
 
+
+
+  console.log("whole counter re-rendered: "+count);
   return <>
     {/* <button onClick={()=>{setCount(count=>count+1)}}>Re-render</button> */}
-    <MemoisedIncrease setCount={setCount}/>
-    <MemoisedDecrease setCount={setCount}/>
+    <MemoisedIncrease increase={increase} />
+    <MemoisedDecrease decrease={decrease}/>
     <MemoisedCount count={count}/>
   </>
   //without Memo api when this component re-renders all f its childrens are alo re-rendering
@@ -169,4 +198,7 @@ function MemoisedCounter(){
 // import * as React from 'react'
 
 
+
 export default App
+//fixed the bug learned about useCallback and memo 
+
