@@ -1,0 +1,31 @@
+
+Bash(the Bourne Again SHell) is a shell in unix which provides command line interaction with the kernel(hardware), basically one can perform every task using cli as they would using gui
+
+Commands to know:
+
+pwd - print working directory(results the address of current directory)
+ls - displays all contents(files) of the directory, tip: use tab for auto complete, ls -1 lists hidden files
+cd - changes the working directory,  .. can be used to go above the current directory ../../.. gets us 3 directory above the current directory and so on
+open . - will open the current directory in finder
+mkdir nameofDirectory- creates a new directory with the name provided
+touch filename - creates a new file of filename
+cat filename - used to read the contents of the file, cat >> filename 'content to be appended at end of file'
+mv file tofile - moves the file from one to another directory works for folders as well, can be used to rename as well if new name is provided, can move and rename simultaneously just give the new name of the file in the path 
+cp filename todir - copies file from one to another directory, can be used to copy folder with -r (resursive) syntax: cp filename -r /todir
+rm - deletes the file, to delete folder -r is used for recursive deletion, syntax: rem -r directory name
+
+
+echo "message to display"
+head and tail cmd can be used to display certain part of the file 
+
+wc filename - this will return the no. of lines, words and characters present in the file
+grep "to search" filename - allows to search for all the instances in file
+-history - to see all commands ran 
+
+lsof -i :3000 : to check what processes are using a specific port
+networkquality : to speedtest in terminal
+htop: to display all processes running on mac and cpu utilisation
+ping sitename : to find the ip of a site
+sudo vi /etc/hosts : to acess and modify dns
+
+control(^)+c : to terminate any process

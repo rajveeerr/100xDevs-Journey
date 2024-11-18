@@ -1,0 +1,88 @@
+GIT vs GITHUB: both of them are different things  
+
+GIT: is a version control software let's us track changes in code undo changess in the code, go to git-sem.com - for documentation
+
+GITHUB: 
+- collaboration website
+- hosts git reposetories
+
+GITHUB WORKFLOW:
+
+- Branching: create exact replica of master reposetory, to not directly affect main brach(production code), and provide safe sandbox for experimentation
+
+- Commit: Sort of making changes, commit means taking taking ssnapshot od the changes to the reposetory
+
+- Pull-Request: Comparing branch created with the another(let's say main branch)
+
+- Collaborate: get critiques, or let the changes be approved
+
+- Merge: Taking created branches with commits and adding it to th:e main branch
+
+- Fork: Creating exact replica of a repository in your own account, to make commits in it, is used when original repo isn't availaible for contribution
+
+- Pull Request: making changes in the forked repository to be availaible in the main repository
+
+
+Git Commands:
+
+git clone: link
+git pull: to get the changes made and pushed to local repository
+git branch: to create branch on local machinre
+git checkout: lets us make commits on a specific branch
+git status: lets us know status
+git add filename.ext
+git commit
+git push
+git merge: let's us merge the feature branch with master branch (works locally)
+
+Understanding Commit Ids:
+
+- thses ids contain 40 character SHA1 Hash
+- contain file blobs(very lingtweight changes to file) redused version of that file
+- includes metadata(who made commit, time of commit, commit made before thi etc etc)
+
+2-Step Commit:
+
+Working Directory(2 files) -> git add 1 filename-> adds one file to staging area -> git commit(to history) -> this will only commit the file that is in staging area
+
+
+Merge Conflicts:
+
+when changes are made in same line of same file in two different branches, merge conflict arises, torasolve the use git status
+
+git rebase vs git merge:
+
+when two branches are merged the commits appear as when the changes were made
+
+but when two branches are rebased the commits in feature branch are appended(not the technically right word) after the master branch commits
+
+Undoing Commits:
+
+git revert: technically not undoing, cretes a new commit with exactly the opposite changes i want to undo, commit id remains unchaged(BEST WAY TO UNDO)
+
+git reset
+
+git commit-amend
+
+
+Funfact: md in readme.md stands for mark down
+
+Using git cmds(for working on a remote rep0):
+
+git clone url(https)(clones repo to cd locally)
+--do the changes you want here, adding file, remove file, modify--
+git status(tells if file is tracked untracked modified etc etc)
+git add . (this adds all files to staging area)
+git commit -m "meaningful message" 
+--this commit is made to the new branch, not main branch--
+git push origin main (this will push the local commits to main branch), origin the the original repo, main is the name of branch
+git push -u origin main : to stop write origin main again and again
+
+Using Git commands(to initiate local repo on github)
+
+ls -a(if .git is not in directory then the git has not been initiated)
+git init
+git remote add origin <- link-> add origin repo link to connect this to github
+git remote -v -> to verify remote
+git branch -> returns the name of the branch currently working on
+git branch -M main -> to rename branch
