@@ -2,7 +2,9 @@ import { createContext, useContext, useEffect, useState, memo, useCallback } fro
 import './App.css'
 import { counterAtom } from './store/atoms/counter';
 import { evenSelector } from './store/selectors/isEvenSelector';
-import {useSetRecoilState,useRecoilValue,RecoilRoot} from 'recoil'
+import {useSetRecoilState,useRecoilValue,RecoilRoot, useRecoilState} from 'recoil'
+import { temperatureAtom } from './store/atoms/temperature';
+import { temperatureSelector } from './store/selectors/temperatureSelector';
 
 // Recoil is a state management library(does same job as useState) which allows us to manage global state(objects of all the states)
 // and minimize the number of re-renders by only re-rendering the components that depends on changed atoms
@@ -52,6 +54,7 @@ function App() {
       {/* <CountProvider> */}
         <Count/>
       {/* </CountProvider>*/}{/* the more part of application ill wrap inside context provider will be re-rendered when the state chnages, even if they are no using it */}
+        <Temperature/>
       </RecoilRoot>
       <MemoisedCounter/>
     </>
@@ -186,7 +189,7 @@ function MemoisedCounter(){
 
 // Selectors basically reperesents the piece of derived state(from complete state), these are like pure fn(which doesnt change anything 
 // from the input it just derives the new state from the input). These selectors are derived from atom, they don have their own existance
-//  tL;dR: Atoms basically lets us derive other state from the original big state
+// tL;dR: Atoms basically lets us derive other state from the original big state
 // Cant we do the same job as selector just by using atoms?? technically its possible by creating different atoms, one for the count
 // another for the even count, syncing them will become a big challange
 
@@ -197,6 +200,19 @@ function MemoisedCounter(){
 // optimized, this is called tree-shading, thats why we dont import all the functions from library i.e.
 // import * as React from 'react'
 
+
+function Temperature(){
+  let [temperatureinC,setTemperatureinC]=useRecoilState(temperatureAtom)
+  let [temperatureinF,setTemperatureinF]=useRecoilState(temperatureSelector)
+
+  return <div>
+    <h2>Temperature using Set</h2>
+    <h3>Celsius: {temperatureinC}</h3>
+    <h3>Fahrehnheit: {temperatureinF}</h3>
+    <button onClick={()=>{setTemperatureinC(t=>t+10)}}>Increase 10deg Celsius</button>
+    <button onClick={()=>{setTemperatureinF(t=>t+10)}}>Increase 10deg Fahrenheit</button>
+  </div>
+}
 
 
 export default App
