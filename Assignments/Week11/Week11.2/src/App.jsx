@@ -204,6 +204,8 @@ function MemoisedCounter(){
 function Temperature(){
   let [temperatureinC,setTemperatureinC]=useRecoilState(temperatureAtom)
   let [temperatureinF,setTemperatureinF]=useRecoilState(temperatureSelector)
+  //to here upon click of Increase 10deg Fahrenheit btn, the setter is called on selector which updates the value of atom and then 
+  // derived is value for getters
 
   return <div>
     <h2>Temperature using Set</h2>
