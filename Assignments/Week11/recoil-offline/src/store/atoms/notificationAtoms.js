@@ -15,7 +15,7 @@ export const notificationCount=atom({
     default: selector({//we can have asyncronous default values directly
         key: "fetchData",
         get: async()=>{
-            await new Promise(fn=>setTimeout(fn,2000))//the component doesnt render until this data is fetched
+            await new Promise(fn=>setTimeout(fn,1000))//the component doesnt render until this data is fetched
             let response=await fetch("https://mocki.io/v1/5a1d9385-c7af-41bc-80f2-10c2a590afcb")
             let data=await response.json()
             return data

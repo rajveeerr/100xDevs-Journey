@@ -3,6 +3,8 @@
   line-height: 1.5;
   font-weight: 400;
 
+  box-sizing: border-box;
+
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
   background-color: #242424;
@@ -27,6 +29,7 @@ body {
   display: flex;
   place-items: center;
   min-width: 320px;
+  box-sizing: border-box;
   min-height: 100vh;
 }
 
