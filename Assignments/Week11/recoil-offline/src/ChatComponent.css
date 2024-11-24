@@ -59,7 +59,7 @@
 }
 
 .chat-section {
-    /* border-radius: 1.8rem; */
+    border-radius: 1.8rem;
     padding: .6rem;
     width: 98%;
     height: 612px;

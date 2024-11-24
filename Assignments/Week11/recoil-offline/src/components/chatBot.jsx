@@ -12,13 +12,13 @@ let geminiApi=import.meta.env.VITE_GEMINI_API;
 let botIcon='./logoImg.jpg'
 
 export default function ChatSection(){
-{/*<Rnd>*/}
-  return <Rnd style={{zIndex:2}}><div className='chat-section'>
+{/*<Rnd style={{zIndex:2}}>*/}
+  return <div className='chat-section'>
     <Heading/>
     <ChatArea/>
     <Input/>
   </div>
-  </Rnd>
+  // </Rnd>
 }
 
 function Heading(){
@@ -31,9 +31,6 @@ function scrollToBottom(element){
   element.scrollTop=element.scrollHeight
 }
 
-function handleCopy(){
-  navigator.clipboard.writeText(currentAnswer.contents.answer);   
-}
 
 function ChatArea(){
   let [chatHistory,setChatHistory]=useRecoilState(allChats)//[{question: id,answer: id},]
@@ -63,7 +60,7 @@ function Question(props){
   let [editing,setEditing]=useState(false)
   let questionArea=useRef()
   let originalQuestion=useRef()
-
+  
   function handleEdit(){
     questionArea.current.contentEditable="true"
     questionArea.current.classList.add("editing")
@@ -81,10 +78,10 @@ function Question(props){
     questionArea.current.contentEditable="false"
     questionArea.current.classList.remove("editing")
     setEditing(editing=>!editing)
-
+    
     questionArea.current.innerText=originalQuestion.current
   }
-
+  
   return <div className='question-container'>
     <div className='question'>
       <span className='bot-icon'><img src={botIcon}></img></span>
@@ -103,7 +100,7 @@ function Chat(props){
   let answerId=useRef(uuidv4())//this id will be generated for every new chat when it will mount
   let [currentAnswer,setAnswer]=useRecoilStateLoadable(answerFamily({id:answerId.current,question:askedQuestion.question}))
   let [chatHistory,setChatHistory]=useRecoilState(allChats)
-
+  
   useEffect(()=>{
     let updatedAnswerId=chatHistory.map(chat=> 
       chat.question===props.questionId?{ ...chat, answer: answerId}:chat
@@ -118,7 +115,11 @@ function Chat(props){
   // the respective question id, this change of chathistory array triggers the re-render of all the answer and chat components onscreen. 
   
   // edit-workflow=>
-
+    
+    function handleCopy(){
+      navigator.clipboard.writeText(currentAnswer.contents.answer);   
+    }
+    
   if(currentAnswer.state==='loading'){
 
     return <div className='chat'>
