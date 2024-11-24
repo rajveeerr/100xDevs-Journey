@@ -60,7 +60,7 @@
 
 .chat-section {
     /* border-radius: 1.8rem; */
-    padding: 1.2rem;
+    padding: .6rem;
     width: 98%;
     height: 612px;
     background-color: #fff;
@@ -73,6 +73,7 @@
     justify-content: flex-end;
     position: relative;
     max-width: 600px;
+    min-width: 270px;
 }
 
 .prompt-input {
@@ -210,6 +211,7 @@
     border-top-right-radius: 1.8rem;
     padding: .8rem 2rem;
     display: flex;
+    z-index: 3;
     /* background-color: ; */
 }
 
@@ -230,6 +232,7 @@
     background: rgb(240, 250, 249);
     background: linear-gradient(294deg, rgba(240, 250, 249, 0.8477984943977591) 0%, rgba(231, 255, 253, 1) 100%);
     background: var(--chat-gradient);
+    flex-grow: 1;
 }
 
 .user-icon img {
@@ -349,28 +352,111 @@
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    gap: 8px;
+    gap: 10px;
     cursor: crosshair;
 }
 
+.floating-icons{
+    position: relative;
+}
+
+.icon{
+    padding: 0.1rem .6rem;
+    background: var(--chat-gradient);
+    border-radius: .6rem;
+    filter: drop-shadow(0 10px 60px #45df09);
+    box-shadow: 0 60px 50px #45df09;
+    box-shadow: 0 10px 60px #68de44;
+    box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5), inset 0 0 0 1px rgba(255, 255, 255, 0.2);
+    background: linear-gradient(to bottom right, #84e14e, transparent);
+    /* background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.8) 0%, transparent 60%); */
+    position: absolute;
+    z-index: 0;
+}
+.forward{
+    font-size: 2.25rem;
+}
+.backward{
+    font-size: 1.5rem;
+    padding: 0.3rem .6rem;
+    box-shadow: 0 10px 60px #68de44;
+}
+.forward-first{
+    left: -225px;
+    top: 130px;
+    transform: rotate(-13deg);
+    /* background: #0078fc; */
+    background: linear-gradient(to bottom right, #0078fc, #193fb4)
+}
+
+.forward-second {
+    left: -210px;
+    top: 0px;
+    transform: rotate(347deg);
+    /* display: none; */
+    filter: blur(1.1px);
+    font-size: 1rem;
+    padding: .4rem .6rem;
+    background: linear-gradient(to bottom right, mediumpurple, #1b00bccf);
+    box-shadow: 0 10px 60px #3e219f;
+}
+.backward-first{
+    left: 25px;
+    top: 130px;
+    transform: rotate(13deg);
+    transform: rotate(349deg);
+    filter: blur(.8px);
+    font-size: 1.5rem;
+    left: 180px;
+    top: 110px;
+    background: #e78400;
+    background: linear-gradient(to bottom right, #e78400, #e99c49b0);
+    padding: 0.2rem .6rem;
+    box-shadow: 0 10px 60px #937d02ed
+}
+.backward-second{
+    left: 80px;
+    top: -30px;
+    transform: rotate(12deg);
+    filter: blur(1px);
+    font-size: 1rem;
+    /* background: orange; */
+    padding: .4rem .6rem;
+}
 .hero-title, .hero-sub-title, .hero-description, .hero-sup-title {
-    color: #bb938f;
-    background-image: linear-gradient(45deg, #bb938f 62%, #933608 94%, #97d504 88%);
-    background-clip: text;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    /* background-image: linear-gradient(45deg, #bb938f 62%, #933608 94%, #97d504 88%); */
+    /* background-clip: text; */
+    /* -webkit-background-clip: text; */
+    /* -webkit-text-fill-color: transparent; */
     line-height: normal;
     margin: 0;
-    color: #008947;
-    background-image: conic-gradient(from 262deg, #00c868 44%, #009654 8%, #009b5c 84%, #00B06E 33%, #21b27f 42%);
+    /* color: #008947; */
+    /* background-image: conic-gradient(from 262deg, #00c868 44%, #009654 8%, #009b5c 84%, #00B06E 33%, #21b27f 42%); */
 }
 
 .hero-title {
-    font-size: 2.4em;
+    font-size: 2.4rem;
+}
+
+.stylize{
+    background: linear-gradient(180deg, rgb(228 234 242 / 4%) 0%, rgb(0 127 15 / 6%) 100%);
+    border-radius: .6rem;
+    padding: 0.1rem 0.4rem;
+    font-weight: 800;
+    /* margin: 0.5rem; */
+    /* filter: blur(1px); */
+    /* background-image: conic-gradient(from 262deg, #00c868 44%, #009654 8%, #009b5c 84%, #00B06E 33%, #21b27f 42%); */
+    /* background-clip: text; */
+    /* -webkit-background-clip: text; */
+    /* -webkit-text-fill-color: transparent; */
+    margin: 0.1rem;
+    box-shadow: 0px 3px 0px 0px #78c94a;
 }
 
 .hero-sub-title {
     font-size: 1.2rem;
+    max-width: 400px;
+    font-weight: 400;
     width: 80%;
 }
 
