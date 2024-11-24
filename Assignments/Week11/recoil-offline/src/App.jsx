@@ -4,7 +4,7 @@ import { atom, RecoilRoot, useRecoilState, useRecoilValue, useRecoilStateLoadabl
 import {notificationCount} from './store/atoms/notificationAtoms'
 import { totalCount } from './store/selectors/notificationCountSelector'
 import { todoFamily } from './store/atoms/todoFamily'
-import ChatSection from './components/ChatBot'
+import ChatSection from './components/chatBot'
 
 
 class ErrorBoundry extends Component{
