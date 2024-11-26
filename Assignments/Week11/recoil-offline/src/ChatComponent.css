@@ -130,8 +130,6 @@
     border-radius: 1.6rem;
     border: 2px solid var(--textarea-border);
     background-color: var(--chat-input-option-background);
-    position: static;
-    align-self: flex-end;
     /* height: 4rem; */
     position: relative;
     margin: .8rem 0 0 0;
@@ -195,6 +193,8 @@
     width: 100%;
     /* background-color: #3a3a3a; */
     scroll-behavior: smooth;
+    /* align-items: center; */
+    overflow-x: hidden;
 }
 
 .chat-component-heading {

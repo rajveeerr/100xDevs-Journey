@@ -6,6 +6,7 @@ import { totalCount } from './store/selectors/notificationCountSelector'
 import { todoFamily } from './store/atoms/todoFamily'
 import ChatSection from './components/chatBot'
 
+document.documentElement.setAttribute("data-theme","light")
 
 class ErrorBoundry extends Component{
   constructor(props){
