@@ -5,6 +5,8 @@ import AgeVerification from './pages/AgeVerification'
 import Layout from './pages/layout'
 import OTP from './pages/OtpVerification'
 import Home from './pages/Home'
+import { Suspense } from 'react'
+import { StepCountProvider } from './context/stepCountContext'
 
 function App() {
   // why do we use tailwing if its ugly and gets long? well bcz it allows us to do our own styling
@@ -34,6 +36,11 @@ function App() {
     //hex representation of colours basically represents the amount of red green and blue in a coulor using hex codes ranging from 0-255
     // coded in hexadecimal form where FF=255, for red hex representation is #FF0000
 
+    // controlled components are those components which are forced to have some values, for eg: in the timer component i did
+    // created input boxes, those were controlled component, i was setting the value of input from state var, if user was changing
+    // the input value, we did updated the state var as a result new input with the updated value was rendered, only for a brief period
+    // the typed value was in the input
+
   let allRoutes=[{
     path: '/verification',
     element: <AgeVerification/>
@@ -49,13 +56,17 @@ function App() {
   }]
 
   return (<div>
-    <BrowserRouter>
-    <Routes>
-      <Route path='/' element={<Layout/>}>
-        {allRoutes.map((route,index)=> <Route key={index} path={route.path} element={route.element}/>)}
-      </Route>
-    </Routes>
-    </BrowserRouter>
+    <Suspense fallback={"Loading..."}>
+      <StepCountProvider>
+        <BrowserRouter>
+        <Routes>
+          <Route path='/' element={<Layout/>}>
+            {allRoutes.map((route,index)=> <Route key={index} path={route.path} element={route.element}/>)}
+          </Route>
+        </Routes>
+        </BrowserRouter>
+      </StepCountProvider>
+    </Suspense>
   </div>)
 } 
 
