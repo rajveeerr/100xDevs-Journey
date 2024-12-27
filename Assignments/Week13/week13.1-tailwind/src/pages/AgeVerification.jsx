@@ -16,7 +16,7 @@ export default function AgeVerification(){
     let submitHandeler= ()=>{
       if(valid){
         saveData(setData,{age: input.current.value})
-        nav("/email")
+        nav("/register/email")
       }
     }
   

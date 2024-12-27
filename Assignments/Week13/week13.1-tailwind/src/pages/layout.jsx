@@ -8,12 +8,12 @@ import { StepCountContext } from "../context/stepCountContext";
 export default function Layout(){
     let {step}=useContext(StepCountContext)
     let routeIndexMap={
-        "1":"/verification",
-        "2":"/email",
-        "3":"/otp-verification",
+        "1":"/register/age",
+        "2":"/register/email",
+        "3":"/register/otp-verification",
     }
     
-    return <div className='bg-gradient-to-b from-black to-[#001831] w-full min-h-screen text-mariner-50 flex flex-col p-8 md:p-16 font-inter'>
+    return <div className='bg-gradient-to-b from-black to-[#001831] w-full min-h-screen text-mariner-50 flex flex-col p-8 md:p-16 font-inter md:items-center'>
         <Logo/>
         <DataProvider>
             <div className='pt-2 flex flex-col md:items-center md:text-center'>

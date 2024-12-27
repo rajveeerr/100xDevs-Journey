@@ -4,9 +4,9 @@ import Email from './pages/Email'
 import AgeVerification from './pages/AgeVerification'
 import Layout from './pages/layout'
 import OTP from './pages/OtpVerification'
-import Home from './pages/Home'
 import { Suspense } from 'react'
 import { StepCountProvider } from './context/stepCountContext'
+import Dashboard from './pages/Dashboard'
 
 function App() {
   // why do we use tailwing if its ugly and gets long? well bcz it allows us to do our own styling
@@ -27,13 +27,13 @@ function App() {
   */
 
     // in tailwind the responsiveness is quite tricky, md is equal to min-width: 768px,(so if md is applied the style will only trigger)
-    // for width above or equal to 768px)
+    // for width above or equal to 768px
     // tailwind in mobile first, unprefixed utilities will be applied to any screen size and presized utilities will only apply to 
     // certain screen sizes
 
     // default colors and the scren-breakpoints can be changed by overwriting them in the themes array 
 
-    //hex representation of colours basically represents the amount of red green and blue in a coulor using hex codes ranging from 0-255
+    // hex representation of colours basically represents the amount of red green and blue in a coulor using hex codes ranging from 0-255
     // coded in hexadecimal form where FF=255, for red hex representation is #FF0000
 
     // controlled components are those components which are forced to have some values, for eg: in the timer component i did
@@ -41,33 +41,34 @@ function App() {
     // the input value, we did updated the state var as a result new input with the updated value was rendered, only for a brief period
     // the typed value was in the input
 
-  let allRoutes=[{
-    path: '/verification',
+  let allRegistrationRoutes=[{
+    path: '/register/age',
     element: <AgeVerification/>
   },{
-    path: '/email',
+    path: '/register/email',
     element: <Email/>
   },{
-    path: '/otp-verification',
+    path: '/register/otp-verification',
     element: <OTP/>
   },{
-    path: '/home',
-    element: <Home/>
+    path: '/',
+    element: <AgeVerification/>
   }]
 
-  return (<div>
+  return (<>
     <Suspense fallback={"Loading..."}>
       <StepCountProvider>
         <BrowserRouter>
         <Routes>
           <Route path='/' element={<Layout/>}>
-            {allRoutes.map((route,index)=> <Route key={index} path={route.path} element={route.element}/>)}
+            {allRegistrationRoutes.map((route,index)=> <Route key={index} path={route.path} element={route.element}/>)}
           </Route>
+          <Route path='/dashboard' element={<Dashboard/>}/>
         </Routes>
         </BrowserRouter>
       </StepCountProvider>
     </Suspense>
-  </div>)
+  </>)
 } 
 
 export default App 

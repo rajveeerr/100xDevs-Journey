@@ -12,7 +12,7 @@ export default function OTP(){
     let submitHandeler=(otpValue)=>{
         if(otpValue=="221002"){
             console.log("otp matched");
-            nav("/home")
+            nav("/dashboard")
         }
         else{
             console.log("Invalid Otp");
@@ -21,10 +21,10 @@ export default function OTP(){
 
     let redirect=()=>{
         if(!data.age){
-            nav("/verification")
+            nav("/register/age")
         }
         else if(!data.email){
-            nav("/email")
+            nav("/register/email")
         }
     }
 
@@ -35,7 +35,7 @@ export default function OTP(){
 
     return <div className='pt-8 flex flex-col md:items-center md:text-center'>
     <h1 className='text-4xl font-bold leading-tight w-full max-w-96'>Check Your Email For A Code</h1>
-    <p className='text-base leading-normal mt-2 max-w-80 text-mariner-300'>Please enter the verification code sent to your email id <Link className="text-mariner-50 opacity-100" to="/email">{data.email} <i class="fa-solid fa-pen"></i></Link></p>
+    <p className='text-base leading-normal mt-2 max-w-80 text-mariner-300'>Please enter the verification code sent to your email id <Link className="text-mariner-50 opacity-100" to="/register/email">{data.email} <i class="fa-solid fa-pen"></i></Link></p>
     <div className='mt-6 w-full max-w-80'>
         <OTPBoxes length={6} onSubmit={submitHandeler} />
     </div>

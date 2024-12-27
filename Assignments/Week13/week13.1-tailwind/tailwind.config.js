@@ -6,23 +6,26 @@ export default {
   ],
   theme: {
     extend: {
-      colors:{
+      colors: {
         'mariner': {//changing/adding more colours to the tailwind
-        '50': '#eef9ff',
-        '100': '#d9f0ff',
-        '200': '#bce6ff',
-        '300': '#8ed8ff',
-        '400': '#59c0ff',
-        '500': '#32a3ff',
-        '600': '#1c84f4',
-        '700': '#156fe6',
-        '800': '#1757b6',
-        '900': '#194c8f',
-        '950': '#142e57',
-    },
-    
+          '50': '#eef9ff',
+          '100': '#d9f0ff',
+          '200': '#bce6ff',
+          '300': '#8ed8ff',
+          '400': '#59c0ff',
+          '500': '#32a3ff',
+          '600': '#1c84f4',
+          '700': '#156fe6',
+          '800': '#1757b6',
+          '900': '#194c8f',
+          '950': '#142e57'
+        },
+        'nav': {
+          "from": "#60a5fa",
+          "to": "#1d4ed8"
+        }
       },
-      screens:{
+      screens: {
         md: '700px',//this adjusts the desired breakpoint
         lg: '1024px'
       },
@@ -38,8 +41,12 @@ export default {
         '3xl': '2.074rem',
         '4xl': '2.488rem',
         '5xl': '2.986rem',
+      },
+      backgroundImage: {
+        'hero-banner': "url('/accelerate.JPG')",
       }
     },
   },
   plugins: [],
+  darkMode: 'selector'
 }

@@ -53,14 +53,14 @@ export default function OTPBoxes({length,onSubmit}){
                     e.target.value=e.key
                     e.target.blur()
                     inputBoxes[index+1].current.focus()
-                    }
-                    else if(e.target.value.length===1){
-                        e.target.blur()
-                        inputBoxes[index+1].current.focus()
-                    }
-                    else{
-                        inputBoxes[index-1].current.focus()
-                    }
+                }
+                else if(e.target.value.length===1){
+                    e.target.blur()
+                    inputBoxes[index+1].current.focus()
+                }
+                else{
+                    inputBoxes[index-1].current.focus()
+                }
             }
             else{
                 e.target.value=""
