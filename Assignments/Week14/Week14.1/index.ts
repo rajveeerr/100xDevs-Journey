@@ -83,9 +83,8 @@ function multipleArgs(fn1:(()=>void)|((a:string)=>void)|((a:string,b:string)=>vo
 
 // 2. rootDir: bacically tells where compiler those ts files are
 // 3. outDir: bacically tells where to put the compiled js files, currently it spitting the js files in same dir as input files
-// 4. outDir: bacically tells where to put the compiled js files, currently it spitting the js files in same dir as input files
-// 5. removeComments: removes all the comments
-// 6. noImplicitAny: compiler will start complaining if explicit types arent given, see the first example where i was creating
+// 4. removeComments: removes all the comments
+// 5. noImplicitAny: compiler will start complaining if explicit types arent given, see the first example where i was creating
 //    a greet function
 
 // how can i convert my js code to ts? well i can set noImplicitAny=false and start adding types
@@ -101,13 +100,12 @@ function data(source:{
     age: number
 }){
   console.log(source.id,source.title);
-  // console.log(source.id,source.name);//this will return in an error as the parameter type doesn't contain name
 }
 
 let post={id:"1221",title:"Title",match:{key1:"ASasd",key2:34},age:12}//post inferred data-type from the object assigned to it
 data(post)
 
-// now the type of post and data parameter is same, it's type is being repeated, to fix this we can define a custom 
+// now the type of post and data's parameter is same, it's type is being repeated, to fix this we can define a custom 
 // type or interface which can be used everywhere we want to have that type
 
 interface customInterface{
@@ -178,6 +176,7 @@ xyz="something"
 
 function func1(a:numberOrString,b:numberOrString):void{
   // return a+b //ts cant directly sum (string|number)+(string|number )
+  return (a as any)+(b as any)//basically 'as' keyword of ts tells compiler to take a var to different type as opposed to what it was inferred, as is used for type assertion
 }
 
 interface Manager{
@@ -187,10 +186,11 @@ interface Manager{
 
 interface Employee{
   name:string,
-  department: string
+  department: string,
+  date: string|Date //we dont need to necesarily create types for unions or intersections they can be dedined here 
 }
 
-type teamLead=Manager&Employee // intersection of both types
+type teamLead=Manager&Employee // union of both types
 // the teamLead will look like this now
 /*{
   name: string,
@@ -200,7 +200,8 @@ type teamLead=Manager&Employee // intersection of both types
 let leader:teamLead={
   name: "xyz",
   age: 24,
-  department: "smth"
+  department: "smth",
+  date: "23-23-23"
 }
 
 // bun does this thing of first compiling ts -> js and then running js in one go, wiz different from what node does, but 
