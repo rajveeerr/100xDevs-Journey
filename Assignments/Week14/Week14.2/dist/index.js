@@ -18,14 +18,14 @@ let user2 = {
 let manager = {
     name: "xyz",
     age: 20,
-    greet2: (phrase) => phrase + manager.name
+    greet2(phrase) { return phrase + manager.name; }
 };
 let manager2 = {
     name: "abc",
     age: 20,
     greet2: (phrase) => phrase + manager2.name
 };
-console.log(manager.greet2("Hi "));
+console.log(manager.greet2("Hi from Manager"));
 let keyValuePairs = {
     name: "dc",
     salary: 121

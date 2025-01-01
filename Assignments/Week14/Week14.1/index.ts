@@ -175,8 +175,9 @@ let xyz:numberOrString=3
 xyz="something"
 
 function func1(a:numberOrString,b:numberOrString):void{
-  // return a+b //ts cant directly sum (string|number)+(string|number )
-  return (a as any)+(b as any)//basically 'as' keyword of ts tells compiler to take a var to different type as opposed to what it was inferred, as is used for type assertion
+  // return a+b //ts cant directly sum (string|number)+(string|number)
+  return (a as any)+(b as any) //basically 'as' keyword of ts tells compiler to take a var as different type as opposed to 
+  // what it was inferred, as is used for type assertion
 }
 
 interface Manager{
@@ -187,15 +188,16 @@ interface Manager{
 interface Employee{
   name:string,
   department: string,
-  date: string|Date //we dont need to necesarily create types for unions or intersections they can be dedined here 
+  date: string|Date //we dont need to necesarily create types for unions or intersections they can be defined here 
 }
 
-type teamLead=Manager&Employee // union of both types
+type teamLead=Manager&Employee // intersection of both types
 // the teamLead will look like this now
 /*{
   name: string,
   age: number,
-  department: string
+  department: string,
+  date: string|Date
 }*/
 let leader:teamLead={
   name: "xyz",
@@ -204,10 +206,10 @@ let leader:teamLead={
   date: "23-23-23"
 }
 
-// bun does this thing of first compiling ts -> js and then running js in one go, wiz different from what node does, but 
-// thers tsnode that does the same thing
+// bun does this thing of compiling ts -> js and then running js in one go, wiz different from what node does, but 
+// there's tsnode that does the same thing
 
-// is ts partial polymorphism exists like diff implementation of function for different input params
+// in ts partial polymorphism exists like diff implementation of function for different input params
 
 function delayedFn(func:()=>void|string):void{
   setTimeout(()=>{
@@ -221,6 +223,6 @@ function delayedFn(func:()=>void|string):void{
 delayedFn(()=>"asdsa")
 delayedFn(()=>console.log("void"))
 
-// why ts doesn't have true true method overloading, because ts do runs directly its first compiled to js, we can to have
+// why ts doesn't have true true method overloading, because ts do runs directly it is first compiled to js, we can to have
 // many type limits-restrictions in ts code but these will be of no value when the code will be compiled to js, as ts type 
 // system will be erased after after being converted to js

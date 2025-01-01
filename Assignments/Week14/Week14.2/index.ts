@@ -5,31 +5,30 @@ function canVote(age:number):boolean{
     return age>18
 }
 
-//  usually interfaces are wirtten with capital innitials
+//  usually interfaces are written with capital initials
 
 interface User{// here in interfaces i can put real values too instead of types, but that will mean ki whatever var is using this type has to have that value inside
     name: string,
-    // name: "rajveer"|"whatever",//this means user can have only these twwo names
+    // name: "rajveer"|"whatever",//this means user can have only these two names
     age: number,
-    address?: {//? measns this field is optional, a var of this type can or cannot have address, but if adding address toh every field is required that doesn;t have ?
+    address?: {// ?-means this field is optional, a var of this type can or cannot have address, but if adding address toh every field is required that doesn;t have ?
         street: number,
         city: string,
         country: string
     }
-    // address?: Address //interfaces can user other interfaces
+    // address?: Address //interfaces can user other interfaces too
     // address: undefined|{// now adderess can be either undefined or the object, but it will not make it optional
     //     street: number,
     //     city: string,
     //     country: string
     // }
-    // addresses: {// now adderess can be either undefined or the object, but it will not make it optional
+    // addresses: {
     //     street: number,
     //     city: string,
     //     country: string
     // }[] //an array of addresses can be even given as user interface
 }
-// interfaces can user anouther interfaces
-// need to follow DRY, whenever using any fiece of code at multiple places i need to put it somewhere in a central place
+// need to follow DRY, whenever using any piece of code at multiple places i need to put it somewhere in a central place
 
 interface Address{
     street: number,
@@ -54,25 +53,28 @@ let user2:User={
 interface Employee{
     name: string,
     age: number,
-    // greet?: (phrase:string)=>string
-    greet2(phrase:string): string//another way of writing functions
+    // greet: (phrase:string)=>string //this says greet key has to have a fn that takes and returns string, the property holds a fn
+    greet2(phrase:string): string,//another way of writing functions, this says that the greet is a method tied to object, toh in the implementation there will be two keys and a method(withouut any key) in the type, treated as method tied to an object
+    // hi():void{console.log("hello")} //implementation cant have declerations
 }
 
 let manager:Employee={
     name: "xyz",
     age: 20,
-    greet2: (phrase)=>phrase+manager.name
+    greet2(phrase:string):string {return phrase+manager.name}
+    // greet2(phrase:string):string {return phrase+this.name}// this keyword works here because this method is tied to the object and now has acess to all the member variables as the function itself became member of the object also normal objects can have this keyword, for arror fn they dont have 'this' they inherit this from parent scope, thats why we dont use them in the eventlisteners
 }
 let manager2:Employee={
     name: "abc",
     age: 20,
     greet2: (phrase)=>phrase+manager2.name//this is the problem, with inerfaces we can use this as these are just normal
-    // variables, to make it work without using this keyword w'll have to use the variable just created and use its props
+    // variables, to make it work without using this keyword w'll have to use the variable just created and use its props - solved this
 }
 
-console.log(manager.greet2("Hi "));
+console.log(manager.greet2("Hi from Manager "));
 
-// objects are instances of a class they have acess to 'this'(and cre created by constructors) from the classes, have same properties as classes and completely different from normal-object(key-value pairs)
+// objects(oops) are instances of a class they have acess to 'this'(and are created by constructors) of the classes, 
+// they have same properties as classes and completely different from normal-object(key-value pairs)
 
 let keyValuePairs={
     name: "dc",
@@ -89,10 +91,10 @@ let keyValuePairs={
 // interface
 
 class Manager implements Employee{
-    // defining public member variables here, these can be acessed by using object.name or object.age on an object
+    // defining public member variables here, these can be acessed using object.name or object.age
     name: string;
     age: number;
-    phoneNO:number;//this implementation of interface can have more member variables than Interface
+    phoneNO:number;//this implementation of interface can have more member variables than those were present in Interfaces
     
     constructor(employeeName:string,employeeAge:number){//constructor constructs the object
         this.name=employeeName
@@ -103,8 +105,8 @@ class Manager implements Employee{
         return phrase + this.name
     }
 }
-// the benifit of implementing an interface using class is that we can create object of that class and use that class to 
-// call methods for a particular object using 'this' keyword, also we can inherit the class for particular usecase
+// the benifit of implementing an interface using class is that we can create object of that class and use that object to 
+// call methods for that particular object, also we can inherit the class for particular usecase
 
 let Hr=new Manager("Bla Bla",20)
 console.log(Hr.greet2("Hi "));
@@ -113,13 +115,15 @@ class Shape{
     width:number;
     height:number;
     constructor(){
-        this.width=0 //in js only doing this was enough to declare and initialize a member variable, the extra step of first declaring and then initializing the member variable in constructor is just a typescript thing
+        this.width=0 
         this.height=0
+        // in js only doing this was enough to declare and initialize a member variable, the extra step of first 
+        // declaring and then initializing the member variable in constructor is just a typescript thing
     }
-    // first defining and then initializing the state variable is quote redundant, to reduce this we can simply define the
-    // member variables in constructor parameter, with public keyword, and can initialize it once no repeating codes,
-    // this is called public parameters. eg:
-    // constructor(public width:number,public height:number){}//no need to initialize here too
+    // first defining and then initializing the state variable is quite redundant, to reduce this we can simply define the
+    // member variables in constructor parameter, with public keyword, and can initialize it once, this is 
+    // called public parameters. eg:
+    // constructor(public width:number,public height:number){}
     area(width:number,height:number){
         return this.width*this.height
     }
@@ -127,15 +131,17 @@ class Shape{
 
 class Rectangle extends Shape{
     constructor(){
-        super()//super is called inside constructor whenever a class extends another, to initialize the constructor of parent function, before initializing the constructors of extended fn
+        super()//super() is called inside constructor whenever a class extends another, to initialize the constructor of parent class, before initializing the constructors extended class
     }
     wtohRatio(){
-        return this.width/this.height //since this extends(inherits) the Shape class, this class has acess to all the member vars and methods, from parent function
+        return this.width/this.height //since this class extends(inherits) the Shape class, it has acess to all the member vars and methods, from parent class
     }
 }
 
 let square=new Rectangle()
 console.log(square.area(12,12))//see this member function is coming from Shape class
+
+// Q: if abstract class does the same thing why to implement interfaces using classes
 
 abstract class People{
     name:string;
@@ -152,7 +158,7 @@ abstract class People{
 // abstract class abstract everything and just tell how to implement it, doesnt have the actual implementations
 // abstract class is very similar to interfaces, we can implement abstract classes same as interfaces, by extending it
 // the only difference being that we can also add defult implementation in abstract class, we cant have default implemention
-// in interfaces, as interfaces arent even present in the js file they are ts concept 
+// in interfaces, as interfaces arent even present in the js file they are ts concept so as asbtract classes(/but they get converted to normal classes)
 
 class Student extends People{
     name:string;
@@ -166,7 +172,7 @@ class Student extends People{
         return "Hi "+this.name
     }
 }
-// see the implementation of abstract class is same as that of an interface only difference is ki we actually add ]
+// see the implementation of abstract class is same as that of an interface only difference is ki we actually added
 // implementations in abstract class too, unlike interfaces
 
 
@@ -209,7 +215,7 @@ type UserorAdmin= Users|Admin //this can either have types of a or b or a+ some 
 
 function sayHi(person:UserorAdmin):void{
     console.log("Hi "+person.name)
-    // UserorAdmin will type will havw only acess to fields that are common, we cant acces country here
+    // UserorAdmin will type will have only acess to fields that are common, we cant acces country here - gotta figure out why
 }
 
 sayHi(Nick)
@@ -260,5 +266,7 @@ Intersection (&): Requires all types combined. */
 // said for the second set of types, now there will be one such value in both the set that will have the exact fields from 
 // a and b and that is what taken as intersection, but my question: is tharah to there can be multiple values, that will
 // intersect like a set that contains value from both the types and some random values that are intersecting then why arent they in intersection
+
+// whereas union is, that theset of values that is present have to be atleast one of the 1st/2nd type and can have more values
 
 //in js name var is depretiated b/c it is a legacy name for browsers, window.name, and there were a lot of clashes b/w other methods and members name
