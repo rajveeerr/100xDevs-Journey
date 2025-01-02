@@ -25,7 +25,7 @@ let manager2 = {
     age: 20,
     greet2: (phrase) => phrase + manager2.name
 };
-console.log(manager.greet2("Hi from Manager"));
+console.log(manager.greet2("Hi from Manager "));
 let keyValuePairs = {
     name: "dc",
     salary: 121
@@ -80,6 +80,8 @@ class Student extends People {
         return "Hi " + this.name;
     }
 }
+let Student1 = new Student("Aneesh", 20);
+Student1.hello();
 let Usain = {
     name: "Usain Bolt",
     age: 34
@@ -87,15 +89,30 @@ let Usain = {
 let Nick = {
     name: "Nick Symmonds",
     age: 40,
-    country: "USA"
+    country: "USA",
+    company: "xyz"
 };
 let Neeraj = {
     name: "Neeraj",
     age: 28,
-    country: "India"
+    country: "India",
+    company: "xyz"
+};
+let Rvr = {
+    name: "asd",
+    country: "ads",
+    age: 34
 };
 function sayHi(person) {
-    console.log("Hi " + person.name);
+    if ("country" in person) {
+        return { name: person.name, age: person.age, country: person.country, company: person.company };
+    }
+    else {
+        return { name: person.name, age: person.age };
+    }
+}
+function isAdmin(person) {
+    return person.country !== undefined;
 }
 sayHi(Nick);
 let a = [1, 2, 3, 4];

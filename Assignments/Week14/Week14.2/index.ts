@@ -54,21 +54,21 @@ interface Employee{
     name: string,
     age: number,
     // greet: (phrase:string)=>string //this says greet key has to have a fn that takes and returns string, the property holds a fn
-    greet2(phrase:string): string,//another way of writing functions, this says that the greet is a method tied to object, toh in the implementation there will be two keys and a method(withouut any key) in the type, treated as method tied to an object
-    // hi():void{console.log("hello")} //implementation cant have declerations
+    greet2(phrase:string): string,//another way of writing functions, this says that the greet is a method tied to object, toh in the implementation there will be two keys and a method(without any key) in the type, treated as method tied to an object
 }
 
 let manager:Employee={
     name: "xyz",
     age: 20,
     greet2(phrase:string):string {return phrase+manager.name}
-    // greet2(phrase:string):string {return phrase+this.name}// this keyword works here because this method is tied to the object and now has acess to all the member variables as the function itself became member of the object also normal objects can have this keyword, for arror fn they dont have 'this' they inherit this from parent scope, thats why we dont use them in the eventlisteners
+    // greet2(phrase:string):string {return phrase+this.name}// this keyword works here because this method is tied to the object and now has acess to all the member variables as the function itself became member of the object also normal objects can have this keyword, for arrow fn they dont have 'this' they inherit 'this' from parent scope, thats why we dont use them in the eventlisteners
 }
 let manager2:Employee={
     name: "abc",
     age: 20,
-    greet2: (phrase)=>phrase+manager2.name//this is the problem, with inerfaces we can use this as these are just normal
-    // variables, to make it work without using this keyword w'll have to use the variable just created and use its props - solved this
+    greet2: (phrase)=>phrase+manager2.name//this is the problem, with interfaces we can use 'this' as these are just normal
+    // variables, to make it work without using 'this' keyword we'll have to use the variable just created and use its props - solved this
+    // greet2: function(phrase){return phrase+this.name}
 }
 
 console.log(manager.greet2("Hi from Manager "));
@@ -131,10 +131,12 @@ class Shape{
 
 class Rectangle extends Shape{
     constructor(){
-        super()//super() is called inside constructor whenever a class extends another, to initialize the constructor of parent class, before initializing the constructors extended class
+        super()//super() is called inside constructor whenever a class extends another, to initialize the constructor of 
+        // parent class, before initializing the constructors extended class
     }
     wtohRatio(){
-        return this.width/this.height //since this class extends(inherits) the Shape class, it has acess to all the member vars and methods, from parent class
+        return this.width/this.height // since this class extends(inherits) the Shape class, it has acess to all the member 
+        // vars and methods, from parent class
     }
 }
 
@@ -172,11 +174,13 @@ class Student extends People{
         return "Hi "+this.name
     }
 }
+let Student1=new Student("Aneesh",20)
+Student1.hello()//this is coming from default implementation from abstract class
+
 // see the implementation of abstract class is same as that of an interface only difference is ki we actually added
 // implementations in abstract class too, unlike interfaces
 
-
-// types are very similar to interfaces but the syntex is diff and they lets us aggeregate data 
+// types are very similar to interfaces but the syntax is diff and they lets us aggeregate data 
 
 // intersection
 
@@ -188,38 +192,78 @@ type Admin ={
     name:string;
     age: number;
     country: string;
+    company: string;
 }
 
-type UsersAdmin= Users&Admin //now this type will have to have all the field of the above two types
+let proof={
+    name: "dsa",
+    age: 34,
+    weight: 54
+}
+let Athlete:User=proof//some way to get around of the typechecks, i added one more field that what wwas permitted in User
 
 let Usain:User={
     name:"Usain Bolt",
-    age: 34
+    age: 34,
 }
 
 let Nick:Admin={
     name: "Nick Symmonds",
     age: 40,
-    country: "USA"
+    country: "USA",
+    company: "xyz"
 }
+
+type UsersAdmin= Users&Admin //now this type will have to have all the field of the above two types, for non-primitive datatypes
 
 let Neeraj:UsersAdmin={
     name: "Neeraj",
     age: 28,
-    country: "India"
+    country: "India",
+    company: "xyz"
+}// since UsersAdmin is an intersection we cant have more types in it than from the types its taken from
+
+type UserorAdmin= Users|Admin // this can either have types of User or Admin or Aser + some of Admin , basically 
+// mininimum it will have is atleast one of the types - only applies to non-primitive datatypes b/c in those some fields 
+// can overlap 
+
+let Rvr:UserorAdmin={
+    name: "asd",
+    country: "ads",
+    age:34
 }
+//atleast have to have one type, can have more than one type too
 
-// now union of two types
-type UserorAdmin= Users|Admin //this can either have types of a or b or a+ some of b be or a and b both, basically mininimum it will have is atleast all the types of a or b
+function sayHi(person:UserorAdmin): UserorAdmin{
+    // here since the ts compiler doesnt knows ki what type of value is being passed
+    // is it of User or Admin type it only takes common values from both types, for this case name and age
 
+    // console.log(0.5===0.5?`${person.name+person.age+person.country}`:`${person.name+person.age}`)//this will result 
+    // in an error as country isnt common and tsc doesnt knows what type of value is being passed in here
 
-function sayHi(person:UserorAdmin):void{
-    console.log("Hi "+person.name)
-    // UserorAdmin will type will have only acess to fields that are common, we cant acces country here - gotta figure out why
+    if ("country" in person){//this clearly tells compiler if type Admin is passed at runtime, called type guard
+        // in operator checks if the specified property exist in the object(and prototype chain), another way of doing
+        // this would be typeof="string"
+        return {name: person.name, age: person.age,country: person.country,company: person.company}
+    }
+    else{
+        return {name: person.name, age: person.age}
+    }
 }
+//we can also define custom type guard fn
+function isAdmin(person: UserorAdmin): person is Admin{
+    // 'is' keyword is part of type predicate - A type predicate is a return type of a function in the form: paramName is Type
+    // It tells TypeScript that the function checks and confirms whether
+    // the parameter (paramName) is of the specified type (Type). If the function returns true, TypeScript narrows the type
+    // of the parameter to Type within the code block where the function is used.
+
+    return (person as Admin).country!==undefined// as is type assertion, tells compiler to take type as passed
+} 
+// usage
+// isAdmin(person){//do smth}
 
 sayHi(Nick)
-
+// type Impossible=number&string //no type can have both number and string together
 
 // arrays in ts are quite simple, we just have to add [] after the type of array we want
 let a:number[]=[1,2,3,4]
@@ -239,7 +283,6 @@ function maxNum(arr:number[]):number{
 console.log(maxNum([12,32,14,43,23,12,44,0]));
 
 
-
 // two imp ques:
 // 1. what are the differences b/w types and interfaces
 // 2. if interfaces can be implemented as classes what is the need of abstract classes?
@@ -257,16 +300,32 @@ function inLegal(citizens:Citizen[]):Citizen[]{
 let citizens:Citizen[]=[{firstName: "sd",lastName: "asd", age: 23},{firstName: "asd",lastName: "asd", age: 2},{firstName: "sasdd",lastName: "asadsd", age: 18}]
 console.log(inLegal(citizens));
 
-/* Union (I): Accepts any one of the types listed.
+/* Union (|): Accepts any one of the types listed.
 Intersection (&): Requires all types combined. */
 
+// Intersection creates a type that satifies of all two types simultaneously, as in real life too intersection is known as
+// the set of values that satisfies bot sets, in ts union and intersection apply to the types rather than individual
+// properties
+
 // the name intersection(&) feels quite opposite to what it does like intersection of two types gives a type with all the 
-// values of two types(wiz union), but actually it does what it says, ts has open types that means a type can have infinite
-// set of all the values, passed that must contan the types spencified and any random thing on top of it, same can be
-// said for the second set of types, now there will be one such value in both the set that will have the exact fields from 
+// values of two types(wiz union), but actually it does what it says, ts types can be thought of as set of values ts has
+// open types that means a type can have infinite set of all the values that must contan the types
+// specified and any random thing on top of it, same can be said for the second set of types, now there 
+// will be one such value in both the set that will have the exact fields from 
 // a and b and that is what taken as intersection, but my question: is tharah to there can be multiple values, that will
-// intersect like a set that contains value from both the types and some random values that are intersecting then why arent they in intersection
+// intersect like a set that contains value from both the types and some random values that are intersecting then why arent 
+// they in intersection, because we are taking atleast minimum intersecting points, 
 
-// whereas union is, that theset of values that is present have to be atleast one of the 1st/2nd type and can have more values
+// whereas union is, that the set of values that is present have to be atleast one of the 1st/2nd type and can have more 
+// values
 
-//in js name var is depretiated b/c it is a legacy name for browsers, window.name, and there were a lot of clashes b/w other methods and members name
+// in js name var is depretiated b/c it is a legacy name for browsers, window.name, and there were a lot of clashes b/w 
+// other methods and members name
+
+
+// one interface can extend another interface
+
+interface City extends People, Employee{
+    // all existing properties of people, this is also eq to taking intersection(&)
+    lat: number
+}
