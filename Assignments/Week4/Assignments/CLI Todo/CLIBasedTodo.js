@@ -163,7 +163,7 @@ program.command('complete')
     });
 
 program.command('incomplete')
-    .description(chalk.yellow('If you have marked a task complete by mistake use this command to mark it incompleted by using ID of the task. Example: incomplete 2'))
+    .description(chalk.yellow('If you have marked a task complete by mistake use this command to unmark it incompleted by using ID of the task. Example: incomplete 2'))
     .argument('<task_id>', 'Enter your Task ID to mark it as incompleted')
     .action((str, options) => {
         let todoData = fileContents(dataFilename);
