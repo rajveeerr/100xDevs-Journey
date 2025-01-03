@@ -18,7 +18,9 @@ let user2 = {
 let manager = {
     name: "xyz",
     age: 20,
-    greet2(phrase) { return phrase + manager.name; }
+    greet2(phrase) {
+        return phrase + manager.name;
+    }
 };
 let manager2 = {
     name: "abc",
@@ -44,6 +46,7 @@ let Hr = new Manager("Bla Bla", 20);
 console.log(Hr.greet2("Hi "));
 class Shape {
     constructor() {
+        this.name = "";
         this.width = 0;
         this.height = 0;
     }
@@ -54,25 +57,25 @@ class Shape {
 class Rectangle extends Shape {
     constructor() {
         super();
+        this.name = "Reactangle";
     }
     wtohRatio() {
         return this.width / this.height;
+    }
+    area(width, height) {
+        return width * height * 2;
     }
 }
 let square = new Rectangle();
 console.log(square.area(12, 12));
 class People {
-    constructor(name, age) {
-        this.name = name;
-        this.age = age;
-    }
     hello() {
         console.log("Hello there!!");
     }
 }
 class Student extends People {
     constructor(name, age) {
-        super(name, age);
+        super();
         this.name = name;
         this.age = age;
     }
@@ -82,9 +85,15 @@ class Student extends People {
 }
 let Student1 = new Student("Aneesh", 20);
 Student1.hello();
+let proof = {
+    name: "dsa",
+    age: 34,
+    weight: 54
+};
+let Athlete = proof;
 let Usain = {
     name: "Usain Bolt",
-    age: 34
+    age: 34,
 };
 let Nick = {
     name: "Nick Symmonds",
@@ -131,3 +140,24 @@ function inLegal(citizens) {
 }
 let citizens = [{ firstName: "sd", lastName: "asd", age: 23 }, { firstName: "asd", lastName: "asd", age: 2 }, { firstName: "sasdd", lastName: "asadsd", age: 18 }];
 console.log(inLegal(citizens));
+var Move;
+(function (Move) {
+    Move[Move["UP"] = 0] = "UP";
+    Move[Move["LEFT"] = 1] = "LEFT";
+    Move[Move["DOWN"] = 2] = "DOWN";
+    Move[Move["RIGHT"] = 3] = "RIGHT";
+})(Move || (Move = {}));
+console.log(Move.UP);
+function onArrowPress(pressedKey) {
+    return pressedKey;
+}
+onArrowPress(Move.UP);
+var StatusCodes;
+(function (StatusCodes) {
+    StatusCodes[StatusCodes["NotFound"] = 1] = "NotFound";
+    StatusCodes[StatusCodes["ServerError"] = 500] = "ServerError";
+    StatusCodes[StatusCodes["Created"] = 501] = "Created";
+    StatusCodes["Success"] = "succes";
+    StatusCodes["Redirect"] = "redirect";
+})(StatusCodes || (StatusCodes = {}));
+console.log(StatusCodes.Created);

@@ -39,8 +39,38 @@ import { BookOpenText, Component, House, Radar, Users } from "lucide-react";
 //   responsive while collapsing sidebar on mobile devises automatically and gave absolute positioning to sidebars on mobile
 
 let toggleTheme=()=>{
-    document.querySelector("html").classList.toggle("dark")
+
+    // document.querySelector("html").classList.toggle("dark")
+
+    /* this is good but we should be toggling dark class in head, to avoid FOUC(flash of unstyled content) 
+    A flash of unstyled content is an instance where a web page appears briefly with the browser's default 
+    styles prior to loading an external CSS stylesheet, due to the web browser engine 
+    rendering the page before all information is retrieved. The page corrects itself as soon as the style rules are 
+    loaded and applied */
+
+    document.documentElement.classList.toggle("dark")
+    // we can also add condition to toggle like this
+    
+    // document.documentElement.classList.toggle("dark",
+    //     localStorage.getItem("theme")==="dark"||!localStorage.getItem("theme")&&window.matchMedia("(prefers-color-scheme: dark)").matches
+    // )
+
+    // can update them when its toggled, when system preference is selected, can remove themee from localstorage
+    // i can directly check user prefers dark-mode, directly from here i dont need to check and change this upon page mount, see useEffect
+    
+    // tip: best thing to do is create generic components and use maps whenever possible to reduce to no of styling required
+
+    // workflow of adding darkmode, on page render or theme toggling we will have to toggle "dark" class on html, based 
+    // upon cretain conditions:
+    // 1. does theme exists in localstorage? is it set to dark?
+    // 2. if theme doesnt exists and user prefers dark
+    // if any of those is correct then appply dark, this should be checked everytime user toggles theme, to 
+    // light/dark/system, to maintain this a context var can be created which will update from navbar containing these buttons
+    // upon click of a button localstorage will update and state will change causing top level app componenet to rerender 
+    // with new theme set in localstorage
 }
+
+
 
 export default function Dashboard(){
     let isMobile=useMediaQuery("(max-width:786px)")//should have been in context api
