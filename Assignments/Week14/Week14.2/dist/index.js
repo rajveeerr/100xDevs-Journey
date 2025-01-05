@@ -161,3 +161,16 @@ var StatusCodes;
     StatusCodes["Redirect"] = "redirect";
 })(StatusCodes || (StatusCodes = {}));
 console.log(StatusCodes.Created);
+function firstEle(arr) {
+    return [arr[0], arr[arr.length - 1]];
+}
+console.log(firstEle([1, 5, 4, 2]));
+console.log(firstEle(["1", "5", "4", "2"]));
+console.log(firstEle([1, "5", 4, "2"]));
+function edgeElement(arr) {
+    return [arr[0], arr[arr.length - 1]];
+}
+console.log(edgeElement([1, 2, 3, 6]));
+console.log(edgeElement(["1", "2", "3"]));
+console.log(edgeElement(["1", "3", "3"])[0].toLowerCase());
+console.log(edgeElement(["1", "3", "3"])[0].toLowerCase());

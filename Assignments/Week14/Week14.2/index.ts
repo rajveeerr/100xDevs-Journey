@@ -107,7 +107,7 @@ let keyValuePairs={
 class Manager implements Employee{
     // defining public member variables here, these can be acessed using object.name or object.age
     name: string;
-    age: number;
+    age: number=90//can either initialise here or inside constructor
     phoneNO:number;//this implementation of interface can have more member variables than those were present in Interfaces
     
     constructor(employeeName:string,employeeAge:number){//constructor constructs the object
@@ -157,7 +157,10 @@ class Rectangle extends Shape{
     }
     area(width:number,height:number){
         return width*height*2
-    }//we can even override methods, leads to run-time polymorphism
+    }
+    // we can even override methods, leads to run-time polymorphism, an example of compile time polymorphism would be to 
+    // create different methods with same name and different number of parameters, when these methods are called at the
+    // compile time compiler knows exactly which method to call
 }
 
 let square=new Rectangle()
@@ -250,7 +253,7 @@ let Neeraj:UsersAdmin={
     company: "xyz"
 }// since UsersAdmin is an intersection we cant have more type properties in it than from the types its taken from
 
-type UserorAdmin= Users|Admin // this can either have types of User or Admin or User + some of Admin , basically 
+type UserorAdmin= Users|Admin // this can either have properties of User or Admin or User + some of Admin , basically 
 // mininimum it will have is atleast one of the types(as its union) - only applies to non-primitive datatypes b/c in 
 // those some fields can overlap 
 
@@ -263,7 +266,7 @@ let Rvr:UserorAdmin={
 
 function sayHi(person:UserorAdmin): UserorAdmin{
     // here since the ts compiler doesnt knows ki what type of value is being passed
-    // is it of User or Admin type it only takes common values from both types, for this case name and age
+    // is it of User or Admin type it only takes common properties from both types, for this case name and age
 
     // console.log(0.5===0.5?`${person.name+person.age+person.country}`:`${person.name+person.age}`)
     // this will result in an error as country isnt common and tsc doesnt knows what type of value is being passed in here
@@ -354,9 +357,9 @@ Intersection (&): Requires all types combined. */
 // other methods and members name
 
 // to do after this:-
-// complete enums, generics
-// advanced typescript - recorded lect
-// read more about union and types
+// complete enums, generics - done
+// advanced typescript - recorded lect 
+// read more about union and intersection in types 
 // read more on 'this' keyword and depretiations
 // how to use ts with express - done in week15 
 
@@ -371,21 +374,68 @@ enum Move{
     RIGHT
 }//CANT GIVE DUPLICATE KEYS
 
-// now 0 will be addigned to UP, 2 to DOWN and so on
+// now 0 will be assigned to UP, 1 to LEFT and so on
 console.log(Move.UP);
 
-function onArrowPress(pressedKey:Move):number{//pressedkey has type of move, it can be UP,DOWN...
+function onArrowPress(pressedKey:Move):number{// pressedkey has type of move, it can be UP,DOWN...
     return pressedKey
 }
 onArrowPress(Move.UP)
 
-// to change this order we can, simply give new order of number
+// to change this default order we can, simply give new order of number
 
 enum StatusCodes{
-    NotFound=1, // since one is given here, the bottom keys will get a larger succeding value i.e 2,3...
-    ServerError=500, // earlier it was 0,1,2, //we can give random order too, given 34 next key will take value 35 by default
+    NotFound=1, // since one is given here, the bottom keys will get a larger succeding value i.e 2,3... earlier they were 0,1,2,
+    ServerError=500, // we can give random order too, given 500 next key will take value 5001 by default
     Created,//this will have value of 501 by default
-    Success = "succes",
+    Success = "succes", //can also be string
     Redirect = "redirect" //after a non numeric key we will not be having default values, well have to explicitely define them
 }
 console.log(StatusCodes.Created);
+
+// MORE ON ENUMS:-
+// basically enums are ts concept they dont exist in js, this enum syntax is compiled down to this
+// let move;
+// function (move:any){//since we are talking about js, they take any type as input
+//     move[move["UP"]=0]="UP"//this will reverse map,, means the object move will contain both {"UP":0,0:"UP"}
+//     move[move["Down"]=1]="Down" //...
+//     // the resultant move object will look like this {"UP":0,"DOWN":1,0:"UP",1:"DOWN"} and values can be accessed as move[0] or move.UP
+// }(move||{})//this is an anonymous fn that invokes immediately(aka IIFE: immediately invoked function expression)
+
+
+// GENERICS, basically sometimes we want a function that supports multiple different types, eg: an array of string or numbers
+// for that we can use concept of generics, same from cpp
+
+// but first let's solve this by first principles
+
+// cretae a fn that returns first and last element, of whatevr type of array is passed
+
+function firstEle(arr: (number|string)[]):(number|string)[]{
+    return [arr[0],arr[arr.length-1]]
+}
+console.log(firstEle([1,5,4,2]))
+console.log(firstEle(["1","5","4","2"]))
+// problem with this approach:-
+// 1. array can have mixed string and number
+console.log(firstEle([1,"5",4,"2"]))
+// 2. tsc wont be able to figure out specific type of elements, we will have to narrow the types for those cases 
+// console.log(firstEle(["1",4,"2"])[0].toLowerCase())// causing errors as ts dont now what type of array is being 
+// returned is it string  or number
+
+// solution- generics in ts
+
+function edgeElement<T>(arr: T[]):T[]{
+    return [arr[0],arr[arr.length-1]]
+}
+//now we can pass any type while calling fn
+console.log(edgeElement<number>([1,2,3,6]))
+console.log(edgeElement<string>(["1","2","3"]))
+// console.log(edgeElement<string>(["1",2,"3"]))// compiler will start to complain if more datatype are mixed
+console.log(edgeElement<string>(["1","3","3"])[0].toLowerCase())// compiler knwos exactly the return type of the fn
+// generics can have multiple types too <T, S>
+// generics can have default types <T=number>
+// restricting datatypes in generics <T extends { length: number }> this can have tpes that have length eg: arr, string
+
+// but the same problem still exists when types are not specified explicitely see this
+console.log(edgeElement(["1","3","3"])[0].toLowerCase())// compiler knwos exactly the return type of the fn, b/c input array is arr of string
+// console.log(edgeElement(["1",3,"3"])[0].toLowerCase())// compiler will complain now b/c the array is now number|string type

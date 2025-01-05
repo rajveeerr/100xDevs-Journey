@@ -68,6 +68,10 @@ let toggleTheme=()=>{
     // light/dark/system, to maintain this a context var can be created which will update from navbar containing these buttons
     // upon click of a button localstorage will update and state will change causing top level app componenet to rerender 
     // with new theme set in localstorage
+
+    // App.100x dark mode: created a localstorage with theme=dark if it doesnt exists, toggling works as expected while 
+    // applying theme they must be checking for localstorage if its value is dark or light and applies them(same for every app)
+    // if localstorage theme doesnt matches "dark or ligght" they are applying light mode by def
 }
 
 
